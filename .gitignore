@@ -1,0 +1,24 @@
+# Ignore virtual environments
+/.venv
+venv/
+.venv
+
+# Migrations
+/.migrations
+migrations/
+.migrations
+
+# Ignore any pycaches
+/__pycache__
+__pycache__/
+
+# Ignore replit files
+.replit
+.breakpoints
+replit.nix
+
+poetry.lock
+pyproject.toml
+
+# Ignore site specific files
+db.sqlite3

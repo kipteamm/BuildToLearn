@@ -1,0 +1,17 @@
+{% extends "bases/auth_base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Login</h1>
+
+        <input type="text" placeholder="Email address" name="email_address" id="ea" onchange="checkEmail(this, false)">
+        <input type="password" placeholder="Password" name="password" onchange="checkPassword(this, 1)">
+
+        <input type="submit" value="Login" id="su">
+
+        <span>Don't have an account yet? <a href="/register">Register</a>
+    </form>
+{% endblock %}
