@@ -1,0 +1,44 @@
+<link rel="stylesheet" type="text/css" href="/static/css/basics.css">
+<link rel="stylesheet" type="text/css" href="/static/css/create_class.css">
+
+<script src="/static/js/createClass.js" defer></script>
+
+<body>
+    <div class="section" id="section-1">
+        <input type="text" maxlength="50" placeholder="Name">
+
+        <button onclick="nextSection(2)">Next</button>
+    </div>
+    
+    <div class="section" id="section-2">
+        <div class="content">
+            <div class="primary-btn">
+                Theme
+            </div>
+            <div class="primary-btn">
+                Theme
+            </div>
+            <div class="primary-btn">
+                Theme
+            </div>
+        </div>
+
+        <button class="primary-btn" onclick="nextSection(3)">Next</button>
+    </div>
+    
+    <div class="section" id="section-3">
+        <div class="content">
+            <div class="primary-btn">
+                Resource
+            </div>
+            <div class="primary-btn">
+                Resource
+            </div>
+            <div class="primary-btn">
+                Resource
+            </div>
+        </div>
+
+        <button class="primary-btn" onclick="finish()">Finish</button>
+    </div>
+</body>

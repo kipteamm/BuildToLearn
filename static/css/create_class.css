@@ -1,0 +1,42 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative
+}
+
+div.section {
+    transition: .3s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div.section:not(:first-child) {
+    display: none;
+}
+
+div.section.move-next {
+    top: 0;
+    opacity: 0;
+}
+
+div.section button {
+    margin-top: 12.5px;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    gap: 12.5px;
+}
+
+.content div.primary-btn {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+}
