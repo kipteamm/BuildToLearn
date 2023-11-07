@@ -1,4 +1,13 @@
+from django.db import models
+
 import time
+
+
+class SnowflakeIDField(models.CharField):
+    def __init__(self, *args, **kwargs):
+        kwargs['editable'] = False
+        kwargs['max_length'] = 255
+        super().__init__(*args, **kwargs)
 
 class SnowflakeGenerator:
     def __init__(self):

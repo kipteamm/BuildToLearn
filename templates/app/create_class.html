@@ -4,41 +4,53 @@
 <script src="/static/js/createClass.js" defer></script>
 
 <body>
-    <div class="section" id="section-1">
-        <input type="text" maxlength="50" placeholder="Name">
+    <form method="post">
+        {% csrf_token %}
 
-        <button onclick="nextSection(2)">Next</button>
-    </div>
-    
-    <div class="section" id="section-2">
-        <div class="content">
-            <div class="primary-btn">
-                Theme
-            </div>
-            <div class="primary-btn">
-                Theme
-            </div>
-            <div class="primary-btn">
-                Theme
-            </div>
+        <div style="display: none;">
+            <input type="text" name="theme" value="Medieval">
+            <input type="text" name="resource_1" value="Wood">
+            <input type="text" name="resource_2" value="Stone">
+            <input type="text" name="resource_3" value="Iron">
         </div>
-
-        <button class="primary-btn" onclick="nextSection(3)">Next</button>
-    </div>
     
-    <div class="section" id="section-3">
-        <div class="content">
-            <div class="primary-btn">
-                Resource
-            </div>
-            <div class="primary-btn">
-                Resource
-            </div>
-            <div class="primary-btn">
-                Resource
-            </div>
+        <div class="section" id="section-1" style="display: block;">
+            <input type="text" name="name" maxlength="50" placeholder="Name">
+    
+            <button type="button" onclick="nextSection(2)">Next</button>
         </div>
-
-        <button class="primary-btn" onclick="finish()">Finish</button>
-    </div>
+        
+        <div class="section" id="section-2">
+            <div class="content">
+                <div class="primary-btn">
+                    Medieval
+                </div>
+                <div class="primary-btn">
+                    Coming soon
+                </div>
+                <div class="primary-btn">
+                    Coming soon
+                </div>
+            </div>
+    
+            <button type="button" class="primary-btn" onclick="nextSection(3)">Next</button>
+        </div>
+        
+        <div class="section" id="section-3">
+            <div class="content">
+                <div class="primary-btn">
+                    Wood
+                </div>
+                <div class="primary-btn">
+                    Stone
+                </div>
+                <div class="primary-btn">
+                    Iron
+                </div>
+            </div>
+    
+            <button class="primary-btn">Finish</button>
+        </div>
+    </form>
+    
 </body>

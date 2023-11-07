@@ -3,16 +3,13 @@ from django.db import models
 from utils import snowflakes
 
 
-class SnowflakeIDField(models.BigIntegerField):
-    def __init__(self, *args, **kwargs):
-        kwargs['default'] = snowflakes.SnowflakeGenerator().generate_id
-        kwargs['editable'] = False
-        super().__init__(*args, **kwargs)
+
 
 
 class User(models.Model):
     # Identifiers
-    id = SnowflakeIDField(primary_key=True, unique=True)
+    id = snowflakes.SnowflakeIDField(primary_key=True, unique=True)
+    
     email_address = models.CharField(max_length=255)
     password = models.CharField(max_length=255)
     salt = models.CharField(max_length=255)
