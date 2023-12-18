@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from utils import decorators
 
@@ -8,7 +8,7 @@ import time
 
 
 @decorators.logged_in
-def classes(request):
+def games(request):
     games = models.Game.objects.filter(user=request.user).order_by('-last_activity_timestamp')
 
     print(games)
@@ -17,7 +17,7 @@ def classes(request):
 
 
 @decorators.logged_in
-def create_class(request):
+def create_game(request):
     if request.method == 'POST':
         name = request.POST.get('name')
 
@@ -29,6 +29,16 @@ def create_class(request):
         )
     
     return render(request, 'app/create_class.html')
+
+
+@decorators.logged_in
+def game(request, id):
+    game = models.Game.objects.filter(id=id)
+
+    if not game.exists():
+        return redirect('/classes')
+    
+    return render(request, 'app/class.html', {'game' : game.first()})
 
 
 def dev(request):

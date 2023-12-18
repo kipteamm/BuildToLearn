@@ -1,0 +1,14 @@
+/* NAV */
+nav {
+    position: fixed;
+}
+
+
+/* TABS */
+.tab {
+    display: none;
+}
+
+.tab.active {
+    display: block;
+}

@@ -4,8 +4,10 @@ from .views import *
 
 
 urlpatterns = [
-    path('classes', classes, name='classes'),
-    path('classes/create', create_class, name='create_class'),
+    path('classes', games, name='games'),
+    path('classes/create', create_game, name='create_game'),
+
+    path('class/<str:id>', game, name='game'),
 
     path('dev', dev, name='app_test')
 ]
