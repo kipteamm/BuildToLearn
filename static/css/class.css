@@ -1,6 +1,7 @@
 /* NAV */
 nav {
     position: fixed;
+    z-index: 11;
 }
 
 

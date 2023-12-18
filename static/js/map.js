@@ -32,9 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const newTranslateX = startTranslateX + deltaX;
         const newTranslateY = startTranslateY + deltaY;
 
-        // Update the accumulated translation values
-        accumulatedTranslateX = newTranslateX;
-        accumulatedTranslateY = newTranslateY;
+        if (Math.abs(newTranslateX) > mapContent.offsetWidth / 2) {
+            accumulatedTranslateX = startTranslateX;
+        } else if (Math.abs(newTranslateY) > mapContent.offsetHeight / 2) {
+            accumulatedTranslateY = startTranslateY;
+        } else {
+            // Update the accumulated translation values
+            accumulatedTranslateX = newTranslateX;
+            accumulatedTranslateY = newTranslateY;
+        }
 
         // Apply the updated translation
         mapContent.style.transform = `translate(${accumulatedTranslateX}px, ${accumulatedTranslateY}px) scale(${accumulatedScale})`;
