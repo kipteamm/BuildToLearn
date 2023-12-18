@@ -4,18 +4,58 @@
     <link rel="stylesheet" type="text/css" href="/static/css/map.css">
     
     <script src="/static/js/class.js" defer></script>
+    <script src="/static/js/menu.js" defer></script>
     <script src="/static/js/map.js" defer></script>
 </head>
 <body>
-    <nav>
-        some stuff
-    </nav>
+    <div class="menu" id="menu">
+        <div class="menu-contents active" id="loading-menu">
+            loading...
+        </div>
+        
+        <div class="menu-contents" id="skills-menu">
+            skills
+        </div>
+        <div class="menu-contents" id="map-menu">
+            map
+        </div>
+        <div class="menu-contents" id="tasks-menu">
+            tasks
+        </div>
+    </div>
 
-    <div class="tab active" id="tab-loading">
+    <div class="tab active" id="loading-tab">
         loading...
     </div>
 
-    <div class="tab" id="tab-city">
+    <div class="tab" id="city-tab">
+        <div class="nav top">
+            <div class="section">
+                Skill points : 0
+            </div>
+            <div class="section">
+                Humans : 10
+                Employed : 0
+            </div>
+            <div class="section">
+                Food : 0
+                Wood : 0
+                Stone : 0
+                Iron : 0
+                Weapons : 0
+                Tools : 0
+                Parchment : 0
+            </div>
+        </div>
+
+        <div class="nav bottom">
+            <div class="section">
+                <span onclick="toggleMenu('skills')">Skills</span>
+                <span onclick="toggleMenu('map')">Map</span>
+                <span onclick="toggleMenu('tasks')">Tasks</span>
+            </div>
+        </div>
+
         <div class="map-container" id="map-container">
             <div class="map-content" id="map-content">
                 <div class="tile grass-tile"></div>
@@ -26,15 +66,5 @@
         </div>
     </div>
 
-    <div class="tab" id="tab-dev">
-        
-
-        Skill points
-        Skill development
-
-        - City
-        - Skills
-        - Map
-        - Tasks
-    </div>
+    <div class="tab" id="dev-tab"></div>
 <body>

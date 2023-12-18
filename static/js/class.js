@@ -19,7 +19,7 @@ function loadTab(tabId) {
 
     document.querySelector(".tab.active").classList.remove("active");
 
-    const tab = document.getElementById(`tab-${tabId}`);
+    const tab = document.getElementById(`${tabId}-tab`);
 
     tab.classList.add("active")
     
