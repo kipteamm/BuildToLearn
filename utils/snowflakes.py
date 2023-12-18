@@ -5,9 +5,11 @@ import time
 
 class SnowflakeIDField(models.CharField):
     def __init__(self, *args, **kwargs):
+        kwargs['default'] = SnowflakeGenerator().generate_id
         kwargs['editable'] = False
         kwargs['max_length'] = 255
         super().__init__(*args, **kwargs)
+
 
 class SnowflakeGenerator:
     def __init__(self):

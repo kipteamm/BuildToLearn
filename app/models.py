@@ -9,11 +9,5 @@ class Game(models.Model):
 
     name = models.CharField(max_length=200)
 
-    theme = models.CharField(max_length=200)
-
-    resource_1 = models.CharField(max_length=200)
-    resource_2 = models.CharField(max_length=200)
-    resource_3 = models.CharField(max_length=200)
-
     last_activity_timestamp = models.BigIntegerField()
     creation_timestamp = models.BigIntegerField()

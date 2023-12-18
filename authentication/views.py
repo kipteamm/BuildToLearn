@@ -81,4 +81,7 @@ def login(request):
 
 
 def test(request):
+    for object in models.User.objects.all():
+        object.delete()
+
     return HttpResponse('success')

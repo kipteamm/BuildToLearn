@@ -1,5 +1,5 @@
 <a href="/classes/create">create</a>
 
 {% for game in games %}
-    {{ game }}
+    <a href="/class/{{ game.id }}">Game: {{ game.name }}</a>
 {% endfor %}

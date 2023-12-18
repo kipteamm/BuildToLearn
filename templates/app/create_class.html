@@ -6,51 +6,10 @@
 <body>
     <form method="post">
         {% csrf_token %}
-
-        <div style="display: none;">
-            <input type="text" name="theme" value="Medieval">
-            <input type="text" name="resource_1" value="Wood">
-            <input type="text" name="resource_2" value="Stone">
-            <input type="text" name="resource_3" value="Iron">
-        </div>
-    
-        <div class="section" id="section-1" style="display: block;">
+        <div class="section">
             <input type="text" name="name" maxlength="50" placeholder="Name">
     
-            <button type="button" onclick="nextSection(2)">Next</button>
-        </div>
-        
-        <div class="section" id="section-2">
-            <div class="content">
-                <div class="primary-btn">
-                    Medieval
-                </div>
-                <div class="primary-btn">
-                    Coming soon
-                </div>
-                <div class="primary-btn">
-                    Coming soon
-                </div>
-            </div>
-    
-            <button type="button" class="primary-btn" onclick="nextSection(3)">Next</button>
-        </div>
-        
-        <div class="section" id="section-3">
-            <div class="content">
-                <div class="primary-btn">
-                    Wood
-                </div>
-                <div class="primary-btn">
-                    Stone
-                </div>
-                <div class="primary-btn">
-                    Iron
-                </div>
-            </div>
-    
-            <button class="primary-btn">Finish</button>
+            <button type="submit" class="primary-btn">Create</button>
         </div>
     </form>
-    
 </body>
