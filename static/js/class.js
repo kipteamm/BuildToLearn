@@ -27,7 +27,7 @@ function loadTab(tabId) {
 }
 
 function loadTabContents(tabId) {
-    generateMap(41)
+    generateMap(1)
 
     return
 }

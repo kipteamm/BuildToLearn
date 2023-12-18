@@ -93,71 +93,40 @@ function getTransformValues(element) {
     return { translateX, translateY };
 }
 
-function generateMap(seed) {
-    const random = new MersenneTwister(seed);
+function customRandom(seed) {
+    let state = seed;
 
-    for (rowIndex = 0; rowIndex < 30; rowIndex++) {
+    return function() {
+        const x = Math.sin(state++) * 10000;
+        return x - Math.floor(x);
+    };
+}
+
+function generateMap(seed) {
+    const random = customRandom(seed);
+    const selections = ['grass', 'stone', 'wood', 'bush', 'iron'];
+    const probabilities = [0.3, 0.25, 0.25, 0.1, 0.2];
+
+    for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
 
-        for (columnIndex = 0; columnIndex < 50; columnIndex++) {
-            const tileType = random.generate() % 100; // Use a percentage scale (0-99)
+        for (let columnIndex = 0; columnIndex < 50; columnIndex ++) {
+            const randomValue = random();
+            let cumulativeProbability = 0;
 
-            if (tileType < 30) {
-                // 30% chance for grass
-                row.appendChild(createTile('grass'));
-            } else if (tileType < 60) {
-                // 30% chance for tree
-                row.appendChild(createTile('tree'));
-            } else if (tileType < 80) {
-                // 20% chance for stone
-                row.appendChild(createTile('stone'));
-            } else if (tileType < 95) {
-                // 15% chance for bush
-                row.appendChild(createTile('bush'));
-            } else {
-                // 5% chance for iron
-                row.appendChild(createTile('iron'));
+            for (let j = 0; j < selections.length; j++) {
+                cumulativeProbability += probabilities[j];
+
+                if (randomValue <= cumulativeProbability) {
+                    console.log(selections[j])
+
+                    row.appendChild(createTile(selections[j]));
+                    break;
+                }
             }
         }
 
         mapContent.appendChild(row);
-    }
-}
-
-class MersenneTwister {
-    constructor(seed) {
-        this.mt = new Array(624);
-        this.mt[0] = seed;
-        
-        for (let i = 1; i < 624; i++) {
-            let x = (this.mt[i - 1] & 0x80000000) | (this.mt[i - 397] & 0x7fffffff);
-            this.mt[i] = x >> 1;
-             if (x % 2 != 0) this.mt[i] ^= 0x9908b0df;
-        }
-        this.index = 624;
-    }
-       
-    generate() {
-        if (this.index >= 624) {
-            this.twist();
-            this.index = 0;
-        }
-            
-        let y = this.mt[this.index];
-        y = y ^ (y >> 11);
-        y = y ^ ((y << 7) & 0x9d2c5680);
-        y = y ^ ((y << 15) & 0xefc60000);
-        y = y ^ (y >> 18);
-        this.index++;
-        return y >>> 0;
-    }
-       
-    twist() {
-        for (let i = 0; i < 624; i++) {
-            let x = (this.mt[i] & 0x80000000) | (this.mt[i + 1] & 0x7fffffff);
-            this.mt[i] = this.mt[(i + 397) % 624] ^ (x >>> 1);
-            if (x % 2 != 0) this.mt[i] ^= 0x9908b0df;
-        }
     }
 }
 
@@ -171,6 +140,8 @@ function createTileRow() {
 
 function createTile(type) {
     const tile = document.createElement('div')
+
+    console.log(type)
 
     tile.classList.add('tile')
     tile.classList.add(`${type}-tile`)
