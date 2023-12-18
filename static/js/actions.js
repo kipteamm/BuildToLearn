@@ -11,6 +11,16 @@ function performAction(tile) {
         return
     }
 
+    if (!tile.classList.contains('tile')) {
+        return
+    }
+
+    if (activeMenu !== "loading") {
+        toggleMenu(activeMenu)
+
+        return
+    }
+
     activeTile = tile
 
     itemMenu.querySelector('span.title').innerText = tile.getAttribute("type")

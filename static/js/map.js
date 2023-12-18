@@ -121,7 +121,7 @@ function customRandom(seed) {
 function generateMap(seed) {
     const random = customRandom(seed);
     const selections = ['grass', 'stone', 'wood', 'bush', 'iron', 'flower'];
-    const probabilities = [0.35, 0.1, 0.3, 0.1, 0.05, 0.1];
+    const probabilities = [0.4, 0.1, 0.3, 0.1, 0.05, 0.05];
 
     console.log(probabilities.reduce((a, b) => a + b, 0))
 
