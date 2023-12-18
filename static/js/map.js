@@ -2,6 +2,7 @@ const mapContainer = document.getElementById('map-container');
 const mapContent = document.getElementById('map-content');
 
 let isDragging = false;
+let isMoving = true;
 let startX, startY, startTranslateX, startTranslateY;
 let accumulatedTranslateX = 0;
 let accumulatedTranslateY = 0;
@@ -9,6 +10,7 @@ let accumulatedScale = 1; // Initial scale
 
 mapContent.addEventListener('mousedown', function(e) {
     isDragging = true;
+    isMoving = false;
 
     startX = e.clientX;
     startY = e.clientY;
@@ -23,6 +25,8 @@ mapContent.addEventListener('mousedown', function(e) {
 
 document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
+
+    isMoving = true
 
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
@@ -45,8 +49,14 @@ document.addEventListener('mousemove', function(e) {
     mapContent.style.transform = `translate(${accumulatedTranslateX}px, ${accumulatedTranslateY}px) scale(${accumulatedScale})`;
 });
 
-document.addEventListener('mouseup', function() {
+document.addEventListener('mouseup', function(e) {
     isDragging = false;
+
+    if (!isMoving) {
+        performAction(e.target)
+    }
+
+    isMoving = false
 });
 
 mapContainer.addEventListener('wheel', function(e) {
@@ -104,8 +114,10 @@ function customRandom(seed) {
 
 function generateMap(seed) {
     const random = customRandom(seed);
-    const selections = ['grass', 'stone', 'wood', 'bush', 'iron'];
-    const probabilities = [0.3, 0.25, 0.25, 0.1, 0.2];
+    const selections = ['grass', 'stone', 'wood', 'bush', 'iron', 'flower'];
+    const probabilities = [0.35, 0.1, 0.3, 0.1, 0.05, 0.1];
+
+    console.log(probabilities.reduce((a, b) => a + b, 0))
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -118,9 +130,7 @@ function generateMap(seed) {
                 cumulativeProbability += probabilities[j];
 
                 if (randomValue <= cumulativeProbability) {
-                    console.log(selections[j])
-
-                    row.appendChild(createTile(selections[j]));
+                    row.appendChild(createTile(selections[j], columnIndex, rowIndex));
                     break;
                 }
             }
@@ -138,13 +148,14 @@ function createTileRow() {
     return row
 }
 
-function createTile(type) {
+function createTile(type, posX, posY) {
     const tile = document.createElement('div')
-
-    console.log(type)
 
     tile.classList.add('tile')
     tile.classList.add(`${type}-tile`)
+
+    tile.setAttribute("pos-x", posX)
+    tile.setAttribute("pos-y", posY)
 
     return tile
 }
