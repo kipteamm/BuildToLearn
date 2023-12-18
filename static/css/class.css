@@ -13,3 +13,26 @@ nav {
 .tab.active {
     display: block;
 }
+
+/* CITY */
+.tile {
+    width: 64px;
+    height: 64px;
+    background-image: url('/static/images/tiles/sprite_sheet.png')
+}
+
+.grass-tile {
+    background-position: 0% 0%;
+}
+
+.tree-tile {
+    background-position: 100% 0%;
+}
+
+.stone-tile {
+    background-position: 0% 100%;
+}
+
+.bush-tile {
+    background-position: 100% 100%;
+}

@@ -10,6 +10,7 @@ body, html {
     overflow: hidden;
     position: relative;
     user-select: none;
+    image-rendering: pixelated;
 }
 
 .map-content {
