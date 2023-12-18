@@ -27,6 +27,8 @@ document.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
 
     isMoving = true
+    
+    closeAction()
 
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
@@ -76,6 +78,8 @@ mapContainer.addEventListener('wheel', function(e) {
 
     // Apply the updated translation and zoom
     mapContent.style.transform = `translate(${accumulatedTranslateX}px, ${accumulatedTranslateY}px) scale(${accumulatedScale})`;
+
+    closeAction()
 });
 
 function getTransformValues(element) {
@@ -102,6 +106,8 @@ function getTransformValues(element) {
 
     return { translateX, translateY };
 }
+
+window.addEventListener(`contextmenu`, (e) => e.preventDefault());
 
 function customRandom(seed) {
     let state = seed;
@@ -156,6 +162,7 @@ function createTile(type, posX, posY) {
 
     tile.setAttribute("pos-x", posX)
     tile.setAttribute("pos-y", posY)
+    tile.setAttribute("type", type)
 
     return tile
 }
