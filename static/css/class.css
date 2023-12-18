@@ -4,7 +4,6 @@ span.title {
     font-size: 18px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 6.25px;
 }
 
 /* NAV */
@@ -69,6 +68,17 @@ span.title {
     display: none;
     right: 25px;
     bottom: 25px;
+}
+
+.item-menu button.action {
+    margin-top: 6.25px;
+}
+
+button.action {
+    padding: 6.25px 25px;
+    background-color: #ddb479;
+    color: var(--primary-font-clr);
+    border-radius: 12.5px;
 }
 
 /* TABS */

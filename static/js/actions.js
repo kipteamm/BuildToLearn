@@ -2,7 +2,7 @@ const itemMenu = document.getElementById('item-menu')
 
 let activeTile = null
 
-function performAction(tile) {
+function openActionMenu(tile) {
     if (activeTile === tile) {
         itemMenu.style.display = 'none';
 
@@ -21,13 +21,40 @@ function performAction(tile) {
         return
     }
 
+    itemMenu.querySelector('.actions').innerHTML = '';
+
     activeTile = tile
 
-    itemMenu.querySelector('span.title').innerText = tile.getAttribute("type")
+    const type = tile.getAttribute("type")
+
+    itemMenu.querySelector('span.title').innerText = type
 
     itemMenu.style.display = 'block'
+
+    if (['wood', 'stone', 'iron', 'bush'].includes(type)) {
+        addAction('collect')
+    }
 }
 
-function closeAction() {
+function closeActionMenu() {
     itemMenu.style.display = 'none'
+}
+
+function addAction(actionId) {
+    const actionWrapper = document.createElement('button')
+
+    actionWrapper.setAttribute('onclick', `action('${actionId}')`)
+    actionWrapper.classList.add('action')
+    actionWrapper.innerText = 'Collect'
+
+    itemMenu.querySelector('.actions').appendChild(actionWrapper)
+}
+
+function action(actionId) {
+    switch (actionId) {
+        case "collect":
+            
+
+            break;
+    }
 }

@@ -1,6 +1,8 @@
 const mapContainer = document.getElementById('map-container');
 const mapContent = document.getElementById('map-content');
 
+const selections = ['grass', 'stone', 'wood', 'bush', 'iron', 'flower'];
+
 let isDragging = false;
 let isMoving = true;
 let startX, startY, startTranslateX, startTranslateY;
@@ -28,7 +30,8 @@ document.addEventListener('mousemove', function(e) {
 
     isMoving = true
     
-    closeAction()
+    closeActionMenu()
+    toggleMenu(activeMenu)
 
     const deltaX = e.clientX - startX;
     const deltaY = e.clientY - startY;
@@ -55,8 +58,10 @@ document.addEventListener('mouseup', function(e) {
     isDragging = false;
 
     if (!isMoving) {
-        performAction(e.target)
+        openActionMenu(e.target)
     }
+
+    toggleMenu(activeMenu)
 
     isMoving = false
 });
@@ -79,7 +84,8 @@ mapContainer.addEventListener('wheel', function(e) {
     // Apply the updated translation and zoom
     mapContent.style.transform = `translate(${accumulatedTranslateX}px, ${accumulatedTranslateY}px) scale(${accumulatedScale})`;
 
-    closeAction()
+    closeActionMenu()
+    toggleMenu(activeMenu)
 });
 
 function getTransformValues(element) {
@@ -120,7 +126,6 @@ function customRandom(seed) {
 
 function generateMap(seed) {
     const random = customRandom(seed);
-    const selections = ['grass', 'stone', 'wood', 'bush', 'iron', 'flower'];
     const probabilities = [0.4, 0.1, 0.3, 0.1, 0.05, 0.05];
 
     console.log(probabilities.reduce((a, b) => a + b, 0))
