@@ -126,7 +126,7 @@ function customRandom(seed) {
 
 function generateMap(seed) {
     const random = customRandom(seed);
-    const selections = ['grass', 'tree', 'stone', 'bush', 'iron', 'papyrus'];
+    const selections = ['grass', 'wood', 'stone', 'berry', 'iron', 'papyrus'];
     const probabilities = [0.375, 0.375, 0.1, 0.1, 0.025, 0.025];
 
     console.log(probabilities.reduce((a, b) => a + b, 0))
@@ -170,5 +170,16 @@ function createTile(type, posX, posY) {
     tile.setAttribute("pos-y", posY)
     tile.setAttribute("type", type)
 
+    let status = 'idle'
+
+    if (collectables.includes(type)) {
+        status = 'collectable'
+    }
+
+    tile.setAttribute("status", status)
+
     return tile
 }
+
+/* ITEMS */
+const collectables = ['wood', 'berry', 'papyrus', 'stone', 'iron']

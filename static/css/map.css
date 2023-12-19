@@ -51,24 +51,24 @@ body, html {
 }
 
 /* TREES */
-.tree-tile-1 {
+.wood-tile-1 {
     background-position: -256px 0px;
 }
-.tree-tile-2 {
+.wood-tile-2 {
     background-position: -256px -64px;
 }
-.tree-tile-3 {
+.wood-tile-3 {
     background-position: -256px -128px;
 }
 
-/* BUSH */
-.bush-tile-1 {
+/* BERRY */
+.berry-tile-1 {
     background-position: -192px 0px;
 }
-.bush-tile-2 {
+.berry-tile-2 {
     background-position: -192px -64px;
 }
-.bush-tile-3 {
+.berry-tile-3 {
     background-position: -192px -128px;
 }
 

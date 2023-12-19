@@ -6,8 +6,8 @@
     
     <script src="/static/js/actions.js" defer></script>
     <script src="/static/js/class.js" defer></script>
-    <script src="/static/js/menu.js" defer></script>
     <script src="/static/js/map.js" defer></script>
+    <script src="/static/js/ui.js" defer></script>
 </head>
 <body>
     <div class="menu" id="menu">
@@ -42,7 +42,7 @@
 
     <div class="item-menu" id="item-menu">
         <span class="title">Title</span>
-        <div class="actions"></div>
+        <div class="status"></div>
     </div>
 
     <div class="tab active" id="loading-tab">
@@ -69,32 +69,32 @@
                 <div class="section-content">
                     <div class="resource">
                         <div class="icon wood-icon"></div>
-                        <span>0</span>
+                        <span id="wood">0</span>
                     </div>
     
                     <div class="resource">
                         <div class="icon planks-icon"></div>
-                        <span>0</span>
+                        <span id="planks">0</span>
                     </div>
 
                     <div class="resource">
                         <div class="icon berry-icon"></div>
-                        <span>0</span>
+                        <span id="berry">0</span>
                     </div>
     
                     <div class="resource">
                         <div class="icon papyrus-icon"></div>
-                        <span>0</span>
+                        <span id="papyrus">0</span>
                     </div>
 
                     <div class="resource">
                         <div class="icon stone-icon"></div>
-                        <span>0</span>
+                        <span id="stone">0</span>
                     </div>
     
                     <div class="resource">
                         <div class="icon iron-icon"></div>
-                        <span>0</span>
+                        <span id="iron">0</span>
                     </div>
                 </div>
             </div>

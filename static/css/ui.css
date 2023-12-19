@@ -4,6 +4,7 @@ span.title {
     font-size: 18px;
     text-transform: uppercase;
     display: block;
+    text-align: center;
 }
 
 .icon {
@@ -134,20 +135,17 @@ span.title {
     display: none;
     right: 25px;
     bottom: 25px;
+    width: 20vw;
 }
 
 .item-menu button.action {
     margin-top: 6.25px;
 }
 
-button.action,
-.status {
+button.action {
     padding: 6.25px 25px;
     background-color: #ddb479;
     color: var(--primary-font-clr);
     border-radius: 12.5px;
-}
-
-.status {
-    width: 0px;
+    width: 100%;
 }
