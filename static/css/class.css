@@ -52,9 +52,20 @@ span.title {
 
 .menu-contents {
     display: none;
+    align-items: center;
+    gap: 12.5px;
+    height: 100%;
 }
 .menu-contents.active {
     display: flex;
+}
+
+.menu-contents .left {
+    flex: 50px;
+}
+
+.menu-contents .right {
+    flex: 100%;
 }
 
 /* ITEM-MENU */

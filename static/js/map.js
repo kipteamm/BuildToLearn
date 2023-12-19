@@ -1,8 +1,6 @@
 const mapContainer = document.getElementById('map-container');
 const mapContent = document.getElementById('map-content');
 
-const selections = ['grass', 'stone', 'wood', 'bush', 'iron', 'flower'];
-
 let isDragging = false;
 let isMoving = true;
 let startX, startY, startTranslateX, startTranslateY;
@@ -59,9 +57,11 @@ document.addEventListener('mouseup', function(e) {
 
     if (!isMoving) {
         openActionMenu(e.target)
-    }
 
-    toggleMenu(activeMenu)
+        if (e.target.closest('.menu') === null) {
+            toggleMenu(activeMenu)
+        }
+    }
 
     isMoving = false
 });
@@ -126,7 +126,8 @@ function customRandom(seed) {
 
 function generateMap(seed) {
     const random = customRandom(seed);
-    const probabilities = [0.4, 0.1, 0.3, 0.1, 0.05, 0.05];
+    const selections = ['grass', 'tree', 'stone', 'bush', 'iron', 'papyrus'];
+    const probabilities = [0.375, 0.375, 0.1, 0.1, 0.025, 0.025];
 
     console.log(probabilities.reduce((a, b) => a + b, 0))
 
@@ -163,7 +164,7 @@ function createTile(type, posX, posY) {
     const tile = document.createElement('div')
 
     tile.classList.add('tile')
-    tile.classList.add(`${type}-tile`)
+    tile.classList.add(`${type}-tile-${Math.floor(Math.random() * 3) + 1}`)
 
     tile.setAttribute("pos-x", posX)
     tile.setAttribute("pos-y", posY)
