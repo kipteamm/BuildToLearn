@@ -31,7 +31,7 @@ body, html {
 .tile {
     width: 64px;
     height: 64px;
-    background-image: url('/static/images/tiles/sprite_sheet.png');
+    background-image: url('/static/images/tiles/tile_map.png');
 }
 
 .tile.active,

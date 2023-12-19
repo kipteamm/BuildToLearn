@@ -7,7 +7,7 @@ let userSkillPoints = 1000000;
 let userResources = {
     wood : 0,
     planks : 0,
-    food : 0,
+    berry : 0,
     parchment : 0,
     stone : 0,
     iron : 0,
