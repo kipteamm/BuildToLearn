@@ -31,7 +31,7 @@ function openActionMenu(tile) {
 
     itemMenu.style.display = 'block'
 
-    if (['wood', 'stone', 'iron', 'bush'].includes(type)) {
+    if (['tree', 'stone', 'bush', 'iron', 'papyrus'].includes(type)) {
         addAction('collect')
     }
 }
@@ -51,10 +51,37 @@ function addAction(actionId) {
 }
 
 function action(actionId) {
-    switch (actionId) {
-        case "collect":
-            
+    const skill = getSkill(null)
 
-            break;
+    if (!skill.includes(actionId)) {
+        alert('error inc')
+        
+        return
+    }
+}
+
+function getSkill(skill=null) {
+    if (skill !== null) {
+        switch (skill) {
+            case "foraging":
+                return userForaging
+            
+            case "farming":
+                return userFarming
+
+            case "mining":
+                return userMining
+        }
+    }
+
+    switch (activeTile.getAttribute('type')) {
+        case "tree":
+            return userForaging
+
+        case "bush" || "papyrus":
+            return userFarming
+
+        case "stone" || "iron":
+            return userMining
     }
 }

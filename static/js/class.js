@@ -1,3 +1,8 @@
+let userForaging = [];
+let userFarming = [];
+let userMining = [];
+let userSkillPoints = 1000000;
+
 let activeTab = "loading"
 
 window.onload = function() {
@@ -27,7 +32,9 @@ function loadTab(tabId) {
 }
 
 function loadTabContents(tabId) {
-    generateMap(1)
-
+    if (tabId === 'city') {
+        generateMap(1)
+    }
+    
     return
 }

@@ -66,6 +66,22 @@ span.title {
 
 .menu-contents .right {
     flex: 100%;
+    display: flex;
+}
+
+/* SKILLS */
+.skill {
+    padding: 12.5px;
+    background-color: rgb(0, 0, 0, 0.5);
+}
+
+.skill.unlocked:hover {
+    cursor: pointer;
+}
+
+.skill.locked {
+    opacity: .5;
+    pointer-events: none;
 }
 
 /* ITEM-MENU */

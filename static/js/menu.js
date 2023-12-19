@@ -19,3 +19,15 @@ function toggleMenu(menuId) {
 
     activeMenu = menuId
 }
+
+let activeSkill = "foraging";
+
+function buySkill(skill, price) {
+    if (price > userSkillPoints) {
+        alert('error inc')
+        
+        return
+    }
+
+    getSkill(activeSkill).push(skill.id)
+}
