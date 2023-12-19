@@ -137,14 +137,18 @@ function addAction(actionId) {
 function addStatus(statusId) {
     const statusWrapper = document.createElement('div');
 
-    statusWrapper.classList.add('status');
+    statusWrapper.classList.add('status-bar');
     statusWrapper.innerText = statusId;
-    statusWrapper.style.transition = `width 15s`;
-    statusWrapper.style.width = '0%';
+
+    const start = parseFloat(activeTile.getAttribute('status-start'))
+    const duration = parseInt(activeTile.getAttribute('status-duration'))
+
+    statusWrapper.style.transition = `width ${duration}s linear`;
+    statusWrapper.style.width = `${((new Date().getTime() - start) / (duration * 1000)) * 100}%`;
 
     itemMenu.querySelector('.status').appendChild(statusWrapper);
 
     void statusWrapper.offsetWidth;
 
-    statusWrapper.style.width = 'calc(100% - 25px)';
+    statusWrapper.style.width = '100%';
 }

@@ -13,6 +13,7 @@ span.title {
     background-image: url('/static/images/tiles/icons.png');
 }
 
+/* RESOURCES */
 .iron-icon {
     background-position: 0px -96px;
 }
@@ -30,6 +31,11 @@ span.title {
 }
 .planks-icon {
     background-position: -160px -96px;
+}
+
+/* TOOLS */
+.pickaxe-icon {
+    background-position: -32px -128px;
 }
 
 /* NAV */
@@ -58,10 +64,13 @@ span.title {
     border-radius: 12.5px;
 }
 
+.nav .section span.title {
+    margin-bottom: 12.5px;
+}
+
 .nav .section .section-content {
     display: flex;
     gap: 12.5px;
-    margin-top: 12.5px;
 }
 
 .resource {
@@ -148,4 +157,8 @@ button.action {
     color: var(--primary-font-clr);
     border-radius: 12.5px;
     width: 100%;
+}
+
+.status-bar {
+    background-color: #ddb479;
 }

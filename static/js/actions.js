@@ -52,6 +52,8 @@ function collect() {
 
     activeTile.setAttribute('status', 'collecting')
     activeTile.setAttribute('type', 'grass')
+    activeTile.setAttribute('status-start', new Date().getTime())
+    activeTile.setAttribute('status-duration', 15)
 
     updateActionsMenu()
 
@@ -62,5 +64,5 @@ function collect() {
         updateActionsMenu()
 
         updateResource(type, 1)
-    }, 1000)
+    }, 15000)
 }

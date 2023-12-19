@@ -1,4 +1,5 @@
-let userForaging = [];
+// let userForaging = []; // default
+let userForaging = ['collect']
 let userFarming = [];
 let userMining = [];
 
