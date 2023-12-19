@@ -101,11 +101,16 @@ span.title {
     margin-top: 6.25px;
 }
 
-button.action {
+button.action,
+.status {
     padding: 6.25px 25px;
     background-color: #ddb479;
     color: var(--primary-font-clr);
     border-radius: 12.5px;
+}
+
+.status {
+    width: 0px;
 }
 
 /* TABS */

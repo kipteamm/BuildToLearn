@@ -21,23 +21,41 @@ function openActionMenu(tile) {
         return
     }
 
-    itemMenu.querySelector('.actions').innerHTML = '';
+    if (activeTile !== null) {
+        activeTile.classList.remove('active')
+    }
 
     activeTile = tile
 
-    const type = tile.getAttribute("type")
+    updateActionsMenu()
+
+    tile.classList.add('active')
+}
+
+function closeActionMenu() {
+    itemMenu.style.display = 'none'
+
+    if (activeTile !== null) {
+        activeTile.classList.remove('active')
+    }
+}
+
+function updateActionsMenu() {
+    itemMenu.querySelector('.actions').innerHTML = '';
+
+    const type = activeTile.getAttribute("type")
 
     itemMenu.querySelector('span.title').innerText = type
 
     itemMenu.style.display = 'block'
 
-    if (['tree', 'stone', 'bush', 'iron', 'papyrus'].includes(type)) {
-        addAction('collect')
+    if (activeTile.getAttribute('status') === "collecting") {
+        addStatus('collecting')
+    } else {
+        if (['tree', 'stone', 'bush', 'iron', 'papyrus'].includes(type)) {
+            addAction('collect')
+        }
     }
-}
-
-function closeActionMenu() {
-    itemMenu.style.display = 'none'
 }
 
 function addAction(actionId) {
@@ -45,18 +63,38 @@ function addAction(actionId) {
 
     actionWrapper.setAttribute('onclick', `action('${actionId}')`)
     actionWrapper.classList.add('action')
-    actionWrapper.innerText = 'Collect'
+    actionWrapper.innerText = actionId
 
     itemMenu.querySelector('.actions').appendChild(actionWrapper)
+}
+
+function addStatus(statusId) {
+    const statusWrapper = document.createElement('div');
+
+    statusWrapper.classList.add('status');
+    statusWrapper.innerText = statusId;
+    statusWrapper.style.transition = `width 15s`;
+    statusWrapper.style.width = '0%';
+
+    itemMenu.querySelector('.actions').appendChild(statusWrapper);
+
+    void statusWrapper.offsetWidth;
+
+    statusWrapper.style.width = 'calc(100% - 25px)';
 }
 
 function action(actionId) {
     const skill = getSkill(null)
 
     if (!skill.includes(actionId)) {
-        alert('error inc')
+        alert(`You cannot collect this item.`)
         
         return
+    }
+
+    switch (actionId) {
+        case "collect":
+            collect()
     }
 }
 
@@ -78,10 +116,36 @@ function getSkill(skill=null) {
         case "tree":
             return userForaging
 
-        case "bush" || "papyrus":
+        case "bush":
+        case "papyrus":
             return userFarming
 
-        case "stone" || "iron":
+        case "stone":
+        case "iron":
             return userMining
     }
+
+    return []
+}
+
+function collect() {
+    const tile = activeTile
+
+    if (tile.getAttribute('type') === 'grass') {
+        return
+    }
+
+    tile.setAttribute('status', 'collecting')
+    tile.setAttribute('type', 'grass')
+
+    updateActionsMenu()
+
+    setTimeout(() => {
+        tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
+        tile.setAttribute('status', '')
+
+        updateActionsMenu()
+
+        updateResource(tile.getAttribute('type'))
+    }, 15000)
 }

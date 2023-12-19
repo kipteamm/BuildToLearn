@@ -32,9 +32,9 @@ body, html {
     width: 64px;
     height: 64px;
     background-image: url('/static/images/tiles/sprite_sheet.png');
-    transition: .2s;
 }
 
+.tile.active,
 .tile:hover {
     filter: brightness(75%);
 }
