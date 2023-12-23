@@ -58,7 +58,7 @@ document.addEventListener('mouseup', function(e) {
     if (!isMoving) {
         openActionMenu(e.target)
 
-        if (e.target.closest('.menu') === null) {
+        if (e.target.closest('.menu-item') === null) {
             toggleMenu(activeMenu)
         }
     }

@@ -51,7 +51,6 @@ function collect() {
     }
 
     activeTile.setAttribute('status', 'collecting')
-    activeTile.setAttribute('type', 'grass')
     activeTile.setAttribute('status-start', new Date().getTime())
     activeTile.setAttribute('status-duration', 15)
 
@@ -59,6 +58,7 @@ function collect() {
 
     setTimeout(() => {
         activeTile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
+        activeTile.setAttribute('type', 'grass')
         activeTile.setAttribute('status', '')
 
         updateActionsMenu()

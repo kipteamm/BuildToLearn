@@ -11,11 +11,14 @@
     <script src="/static/js/ui.js" defer></script>
 </head>
 <body>
-    <div class="menu" id="menu">
+    <div class="menu menu-item" id="menu">
         <div class="menu-contents active" id="loading-menu">
             loading...
         </div>
 
+        <div class="menu-contents" id="build-menu">
+            map
+        </div>
         <div class="menu-contents" id="skills-menu">
             <div class="left">
                 Foraging
@@ -101,9 +104,10 @@
             </div>
         </div>
 
-        <div class="nav bottom">
+        <div class="nav bottom menu-item">
             <div class="section">
                 <div class="section-content">
+                    <div class="icon pickaxe-icon" onclick="toggleMenu('build')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('skills')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('map')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('tasks')"></div>
