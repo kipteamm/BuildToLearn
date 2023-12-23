@@ -7,8 +7,11 @@ let startX, startY, startTranslateX, startTranslateY;
 let accumulatedTranslateX = 0;
 let accumulatedTranslateY = 0;
 let accumulatedScale = 1; // Initial scale
+let disableMovement = false;
 
 mapContent.addEventListener('mousedown', function(e) {
+    if (disableMovement) return;
+
     isDragging = true;
     isMoving = false;
 
@@ -24,6 +27,7 @@ mapContent.addEventListener('mousedown', function(e) {
 });
 
 document.addEventListener('mousemove', function(e) {
+    if (disableMovement) return;
     if (!isDragging) return;
 
     isMoving = true
@@ -53,6 +57,8 @@ document.addEventListener('mousemove', function(e) {
 });
 
 document.addEventListener('mouseup', function(e) {
+    if (disableMovement) return;
+
     isDragging = false;
 
     if (!isMoving) {
@@ -67,6 +73,8 @@ document.addEventListener('mouseup', function(e) {
 });
 
 mapContainer.addEventListener('wheel', function(e) {
+    if (disableMovement) return;
+
     e.preventDefault();
 
     const zoomFactor = 0.1;
@@ -129,7 +137,7 @@ function generateMap(seed) {
     const selections = ['grass', 'wood', 'stone', 'berry', 'iron', 'papyrus'];
     const probabilities = [0.375, 0.375, 0.1, 0.1, 0.025, 0.025];
 
-    console.log(probabilities.reduce((a, b) => a + b, 0))
+    //console.log(probabilities.reduce((a, b) => a + b, 0))
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -174,6 +182,8 @@ function createTile(type, posX, posY) {
 
     if (collectables.includes(type)) {
         status = 'collectable'
+    } else if (type === "grass") {
+        status = 'buildable'
     }
 
     tile.setAttribute("status", status)

@@ -1,3 +1,20 @@
+/* ALERTS */
+const alertElement = document.getElementById('alert')
+
+function sendAlert(type, text) {
+    alertElement.innerHTML = `
+        <div class="alert-${type}">
+            ${text}
+        </div>
+    `
+
+    alertElement.classList.add('show')
+
+    setTimeout(() => {
+        alertElement.classList.remove('show');
+    }, 5000)
+}
+
 /* RESOURCES */
 const resourceIndicators = {
     skillPoints: document.getElementById('skill-points'),
@@ -14,8 +31,6 @@ const resourceIndicators = {
 
 function updateResource(type, amount) {
     const indicator = resourceIndicators[type];
-
-    console.log(type, amount)
 
     if (indicator) {
         userResources[type] += amount;
@@ -50,7 +65,7 @@ let activeSkill = "foraging";
 
 function buySkill(skill, price) {
     if (price > userResources.skillPoints) {
-        alert('error inc')
+        sendAlert('error', 'error inc')
         
         return
     }
@@ -114,6 +129,11 @@ function updateActionsMenu() {
             addAction("collect")
 
             break;
+        case "buildable":
+            addDescription("You can build on this plot.")
+            addAction("build")
+
+            break;
         case "collecting":
             addDescription("This item is currently getting collected.")
             addStatus("collecting")
@@ -157,4 +177,9 @@ function addStatus(statusId) {
     void statusWrapper.offsetWidth;
 
     statusWrapper.style.width = '100%';
+}
+
+/* BUILD MENU */
+function toggleBuildMenu() {
+    disableMovement = !disableMovement
 }

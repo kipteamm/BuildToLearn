@@ -11,14 +11,13 @@
     <script src="/static/js/ui.js" defer></script>
 </head>
 <body>
+    <div class="alert" id="alert"></div>
+
     <div class="menu menu-item" id="menu">
         <div class="menu-contents active" id="loading-menu">
             loading...
         </div>
 
-        <div class="menu-contents" id="build-menu">
-            build
-        </div>
         <div class="menu-contents" id="skills-menu">
             <div class="left">
                 Foraging
@@ -28,10 +27,13 @@
                 Military
             </div>
             <div class="right">
-                <div class="skill unlocked" onclick="buySkill(this, 1)" id="collect">
+                <div class="item unlocked" onclick="buySkill(this, 1)" id="collect">
                     Chopping
                 </div>
-                <div class="skill locked" onclick="buySkill(this, 1)" id="cutting">
+                <div class="item locked" onclick="buySkill(this, 1)" id="cutting">
+                    Lumber camp
+                </div>
+                <div class="item locked" onclick="buySkill(this, 1)" id="cutting">
                     Cutting
                 </div>
             </div>
@@ -135,7 +137,6 @@
         <div class="nav bottom menu-item">
             <div class="section">
                 <div class="section-content">
-                    <div class="icon pickaxe-icon" onclick="toggleMenu('build')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('skills')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('map')"></div>
                     <div class="icon pickaxe-icon" onclick="toggleMenu('tasks')"></div>

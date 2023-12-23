@@ -2,13 +2,13 @@ function action(actionId) {
     const skill = getSkill(null)
 
     if (!skill.includes(actionId)) {
-        alert(`You cannot collect this item.`)
+        sendAlert('error', `You cannot perform this action.`)
         
         return
     }
 
     if (userResources.idle - 1 < 0) {
-        alert(`You don't have an available villager.`)
+        sendAlert('error', `You don't have an available villager.`)
         
         return
     }
@@ -18,6 +18,13 @@ function action(actionId) {
     switch (actionId) {
         case "collect":
             collect()
+
+            break;
+
+        case "build":
+            toggleBuildMenu()
+
+            break;
     }
 }
 
@@ -46,6 +53,9 @@ function getSkill(skill=null) {
         case "stone":
         case "iron":
             return userMining
+
+        case "grass":
+            return ['build']
     }
 
     return []
