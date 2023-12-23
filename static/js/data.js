@@ -18,11 +18,20 @@ let userResources = {
     lumberCamp: 0,
 };
 
-let userCitizens = [{name: "George", surname: "Dorchester", gender: "male", employment: null}, {name: "Patricia", surname: "Hamilton", gender: "female", employment: null}];
+let userCitizens = {
+    'citizen-1' : {name: "George", surname: "Dorchester", gender: "male", employment: null}, 
+    'citizen-2' : {name: "Patricia", surname: "Hamilton", gender: "female", employment: null}
+}
+
+let userUnemployedCitizens = ['citizen-1', 'citizen-2']
 
 let userBuildings = [];
 
 const buildingDescriptions = {
     lumberCamp: "Assure the best possible wood gathering.",
     house: "A place where your citizens can live."
+}
+
+function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
 }

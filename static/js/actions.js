@@ -156,3 +156,25 @@ function getBuildingData(type) {
             }
     }
 }
+
+function addCitizen(buildingId) {
+    const buildingData = userBuildings[buildingId]
+    
+    if (buildingData.citizens.length > buildingData.max_citizens || !buildingData.add_citizen) {
+        sendAlert('error', "You cannot add any citizens to this building.")
+    }
+
+    if (userUnemployedCitizens.length === 0) {
+        sendAlert('error', "You have no more unemployed citizens.")
+    }
+
+    const citizen = getRandomElement(userUnemployedCitizens);
+
+    userUnemployedCitizens.splice(userUnemployedCitizens.indexOf(citizen), 1);
+
+    buildingData.citizens.push(citizen);
+
+    userCitizens[citizen].employment = buildingId;
+
+    updateActionsMenu();
+}
