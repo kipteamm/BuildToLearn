@@ -139,6 +139,11 @@ function updateActionsMenu() {
             addStatus("collecting")
 
             break;
+        case "building":
+            addDescription("A new building is being built here.")
+            addStatus("building")
+
+            break;
     }
 }
 
@@ -180,6 +185,11 @@ function addStatus(statusId) {
 }
 
 /* BUILD MENU */
+const buildMenu = document.getElementById('build-menu')
+
 function toggleBuildMenu() {
     disableMovement = !disableMovement
+
+    buildMenu.style.bottom = `${itemMenu.offsetHeight + 50}px`
+    buildMenu.classList.toggle('active')
 }

@@ -13,8 +13,6 @@ function action(actionId) {
         return
     }
 
-    updateResource('idle', -1)
-
     switch (actionId) {
         case "collect":
             collect()
@@ -69,6 +67,8 @@ function collect() {
         return
     }
 
+    updateResource('idle', -1)
+
     tile.setAttribute('status', 'collecting')
     tile.setAttribute('status-start', new Date().getTime())
     tile.setAttribute('status-duration', 15)
@@ -83,6 +83,53 @@ function collect() {
         updateActionsMenu()
 
         updateResource(type, 1)
+        updateResource('idle', 1)
+    }, 15000)
+}
+
+function build(type) {
+    const tile = activeTile;
+
+    let requirements = {};
+
+    switch (type) {
+        case "house":
+            requirements.wood = 20
+
+            break;
+        
+        case "lumber-camp":
+            requirements.wood = 5
+
+            break;
+    }
+
+    for (const [key, val] of Object.entries(requirements)) {
+        if (userResources[key] < val) {
+            sendAlert('error', `You don't have enough ${key}.`)
+
+            return
+        }
+
+        updateResource(key, val * -1)
+    }
+
+    toggleBuildMenu()
+    updateResource('idle', -1)
+
+    tile.setAttribute('status', 'building')
+    tile.setAttribute('status-start', new Date().getTime())
+    tile.setAttribute('status-duration', 15)
+
+    updateActionsMenu()
+
+    setTimeout(() => {
+        tile.setAttribute('class', `tile ${type}-tile`)
+        tile.setAttribute('type', type)
+        tile.setAttribute('status', '')
+
+        updateActionsMenu()
+
         updateResource('idle', 1)
     }, 15000)
 }

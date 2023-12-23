@@ -104,3 +104,12 @@ body, html {
 .iron-tile-3 {
     background-position: 0 -128px;
 }
+
+
+/* BUILDINGS */
+.lumber-camp-tile {
+    background-position: -386px 0px;
+}
+.house-tile {
+    background-position: -386px -64px;
+}
