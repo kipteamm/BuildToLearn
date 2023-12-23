@@ -6,6 +6,10 @@ let userMining = [];
 let userSkillPoints = 1000000;
 
 let userResources = {
+    skillPoints : 0,
+    gold : 0,
+    citizens : 2,
+    unemployed : 2,
     wood : 0,
     planks : 0,
     berry : 0,
@@ -45,6 +49,10 @@ function loadTab(tabId) {
 function loadTabContents(tabId) {
     if (tabId === 'city') {
         generateMap(1)
+
+        for ([key, val] of Object.entries(userResources)) {
+            updateResource(key, 0)
+        }
     }
     
     return

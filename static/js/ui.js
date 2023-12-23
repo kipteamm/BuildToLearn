@@ -1,5 +1,9 @@
 /* RESOURCES */
 const resourceIndicators = {
+    skillPoints: document.getElementById('skill-poits'),
+    gold: document.getElementById('gold'),
+    citizens: document.getElementById('citizens'),
+    unemployed: document.getElementById('unemployed'),
     wood: document.getElementById('wood'),
     planks: document.getElementById('planks'),
     berry: document.getElementById('berry'),
