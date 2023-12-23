@@ -78,7 +78,7 @@ function collect() {
     setTimeout(() => {
         tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
         tile.setAttribute('type', 'grass')
-        tile.setAttribute('status', '')
+        tile.setAttribute('status', 'buildable')
 
         updateActionsMenu()
 
@@ -98,7 +98,7 @@ function build(type) {
 
             break;
         
-        case "lumber-camp":
+        case "lumberCamp":
             requirements.wood = 5
 
             break;
@@ -124,12 +124,35 @@ function build(type) {
     updateActionsMenu()
 
     setTimeout(() => {
+        const id = `${type}-${new Date().getTime().toString().replace('.', '')}`.replace('-', '_')
+
         tile.setAttribute('class', `tile ${type}-tile`)
         tile.setAttribute('type', type)
-        tile.setAttribute('status', '')
+        tile.setAttribute('status', 'built')
+        tile.id = id
+
+        userBuildings[id] = getBuildingData(type)
 
         updateActionsMenu()
 
         updateResource('idle', 1)
     }, 15000)
+}
+
+function getBuildingData(type) {
+    switch(type) {
+        case "lumberCamp":
+            return {
+                citizens: [],
+                max_citizens: 3,
+                add_citizen: true
+            }
+
+        case "house":
+            return {
+                citizens: [],
+                max_citizens: 8,
+                add_citizen: false
+            }
+    }
 }

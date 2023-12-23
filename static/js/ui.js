@@ -144,6 +144,11 @@ function updateActionsMenu() {
             addStatus("building")
 
             break;
+        case "built":
+            addDescription(buildingDescriptions[activeTile.getAttribute('type')])
+            addBuildingData(activeTile.id)
+
+            break;
     }
 }
 
@@ -182,6 +187,31 @@ function addStatus(statusId) {
     void statusWrapper.offsetWidth;
 
     statusWrapper.style.width = '100%';
+}
+
+function addBuildingData(buildingId) {
+    const buildingData = userBuildings[buildingId]
+
+    let citizenHTML = ''
+
+    buildingData.citizens.forEach(citizenId => {
+        citizen = userCitizens[citizenId]
+
+        citizenHTML += `<li>${citizen.name} ${citizen.surname}`
+    })
+
+    let addCitizen = ''
+
+    if (buildingData.citizens.length < buildingData.max_citizens && buildingData.add_citizen) {
+        addCitizen = `<button onclick="addCitizen('${buildingId}')">Add citizen</button>`
+    }
+
+    itemMenu.querySelector('.status').innerHTML += `
+        <ul>
+            ${citizenHTML}
+        </ul>
+        ${addCitizen}
+    `
 }
 
 /* BUILD MENU */
