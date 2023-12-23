@@ -7,6 +7,14 @@ function action(actionId) {
         return
     }
 
+    if (userResources.idle - 1 < 0) {
+        alert(`You don't have an available villager.`)
+        
+        return
+    }
+
+    updateResource('idle', -1)
+
     switch (actionId) {
         case "collect":
             collect()
@@ -44,25 +52,27 @@ function getSkill(skill=null) {
 }
 
 function collect() {
-    const type = activeTile.getAttribute('type')
+    const tile = activeTile
+    const type = tile.getAttribute('type')
     
     if (type === 'grass') {
         return
     }
 
-    activeTile.setAttribute('status', 'collecting')
-    activeTile.setAttribute('status-start', new Date().getTime())
-    activeTile.setAttribute('status-duration', 15)
+    tile.setAttribute('status', 'collecting')
+    tile.setAttribute('status-start', new Date().getTime())
+    tile.setAttribute('status-duration', 15)
 
     updateActionsMenu()
 
     setTimeout(() => {
-        activeTile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
-        activeTile.setAttribute('type', 'grass')
-        activeTile.setAttribute('status', '')
+        tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
+        tile.setAttribute('type', 'grass')
+        tile.setAttribute('status', '')
 
         updateActionsMenu()
 
         updateResource(type, 1)
+        updateResource('idle', 1)
     }, 15000)
 }

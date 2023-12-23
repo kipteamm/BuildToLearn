@@ -3,19 +3,18 @@ let userForaging = ['collect']
 let userFarming = [];
 let userMining = [];
 
-let userSkillPoints = 1000000;
-
 let userResources = {
-    skillPoints : 0,
-    gold : 0,
-    citizens : 2,
-    unemployed : 2,
-    wood : 0,
-    planks : 0,
-    berry : 0,
-    parchment : 0,
-    stone : 0,
-    iron : 0,
+    skillPoints: 99,
+    gold: 0,
+    citizens: 2,
+    idle: 2,
+    wood: 0,
+    planks: 0,
+    berry: 0,
+    parchment: 0,
+    stone: 0,
+    iron: 0,
+    availableVillagers: 2,
 }
 
 let activeTab = "loading"

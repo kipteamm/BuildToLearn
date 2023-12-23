@@ -1,9 +1,9 @@
 /* RESOURCES */
 const resourceIndicators = {
-    skillPoints: document.getElementById('skill-poits'),
+    skillPoints: document.getElementById('skill-points'),
     gold: document.getElementById('gold'),
     citizens: document.getElementById('citizens'),
-    unemployed: document.getElementById('unemployed'),
+    idle: document.getElementById('idle'),
     wood: document.getElementById('wood'),
     planks: document.getElementById('planks'),
     berry: document.getElementById('berry'),
@@ -14,6 +14,8 @@ const resourceIndicators = {
 
 function updateResource(type, amount) {
     const indicator = resourceIndicators[type];
+
+    console.log(type, amount)
 
     if (indicator) {
         userResources[type] += amount;
@@ -47,7 +49,7 @@ function toggleMenu(menuId) {
 let activeSkill = "foraging";
 
 function buySkill(skill, price) {
-    if (price > userSkillPoints) {
+    if (price > userResources.skillPoints) {
         alert('error inc')
         
         return
