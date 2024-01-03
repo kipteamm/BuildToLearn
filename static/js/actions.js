@@ -167,7 +167,7 @@ function addCitizen(buildingId) {
     if (userUnemployedCitizens.length === 0) {
         sendAlert('error', "You have no more unemployed citizens.")
     }
-
+ 
     const citizen = getRandomElement(userUnemployedCitizens);
 
     userUnemployedCitizens.splice(userUnemployedCitizens.indexOf(citizen), 1);
@@ -177,4 +177,4 @@ function addCitizen(buildingId) {
     userCitizens[citizen].employment = buildingId;
 
     updateActionsMenu();
-}
+} 
