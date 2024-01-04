@@ -131,7 +131,7 @@ function build(type) {
         tile.setAttribute('status', 'built')
         tile.id = id
 
-        userBuildings[id] = getBuildingData(type)
+        userBuildings[id] = getBuildingData(type, id)
 
         updateActionsMenu()
 
@@ -139,13 +139,19 @@ function build(type) {
     }, 15000)
 }
 
-function getBuildingData(type) {
+function getBuildingData(type, id) {
     switch(type) {
         case "lumberCamp":
             return {
+                id : id,
                 citizens: [],
                 max_citizens: 3,
-                add_citizen: true
+                add_citizen: true,
+                function: {
+                    onDayStart: (id) => {
+                        startLumberCamp(id)
+                    },
+                }
             }
 
         case "house":
