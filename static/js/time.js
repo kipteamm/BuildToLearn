@@ -13,12 +13,12 @@ function updateGame() {
     if (lastDay > dayDuration) {
         console.log('new day')
 
-        console.log(userBuildings)
-
         lastDay = 0
+        
+        Object.keys(userBuildings).forEach(buildingId => {
+            const building = userBuildings[buildingId]
 
-        userBuildings.forEach((building) => {
-            building.functionality.onDayStart(building.id);
+            building.function.onDayStart(building);
         });
     }
 }

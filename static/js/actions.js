@@ -148,8 +148,8 @@ function getBuildingData(type, id) {
                 max_citizens: 3,
                 add_citizen: true,
                 function: {
-                    onDayStart: (id) => {
-                        startLumberCamp(id)
+                    onDayStart: (building) => {
+                        startLumberCamp(building)
                     },
                 }
             }
