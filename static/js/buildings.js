@@ -3,6 +3,8 @@ function hasIdleBuilder() {
     return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
 }
 
+// fix 2 build projects at once
+
 function buildBuilding(tile, type, time) {
     const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
 
@@ -46,8 +48,8 @@ function startLumberCamp(building) {
         return
     }
 
-    if (building.status !== "working") {
-        sendAlert('error', building.status)
+    if (building.function.status === "out_of_range") {
+        sendAlert('error', "Trees are too far away.")
 
         return
     }
@@ -55,10 +57,10 @@ function startLumberCamp(building) {
     const availableCitizens = Array.from(building.citizens)
     const tiles = getTilesInRadius(building.x, building.y, building.function.radius).sort(() => Math.random() - 0.5)
 
-    const duration = (dayDuration / 4) + (Math.floor(radius / 2))
+    const duration = (dayDuration / 4) + (Math.floor(building.function.radius / 2))
 
     if (duration >= (dayDuration / 2)) {
-        building.function.status = "Trees are too far away."
+        building.function.status = "out_of_range"
     }
 
     for (var i = 0; i < tiles.length; i ++) {
