@@ -131,7 +131,7 @@ function build(type) {
         tile.setAttribute('status', 'built')
         tile.id = id
 
-        userBuildings[id] = getBuildingData(type, id)
+        userBuildings[id] = getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')))
 
         updateActionsMenu()
 
@@ -139,15 +139,18 @@ function build(type) {
     }, 15000)
 }
 
-function getBuildingData(type, id) {
+function getBuildingData(type, id, x, y) {
     switch(type) {
         case "lumberCamp":
             return {
                 id : id,
+                x : x,
+                y : y,
                 citizens: [],
                 max_citizens: 3,
                 add_citizen: true,
                 function: {
+                    radius: 1,
                     onDayStart: (building) => {
                         startLumberCamp(building)
                     },
@@ -168,10 +171,14 @@ function addCitizen(buildingId) {
     
     if (buildingData.citizens.length > buildingData.max_citizens || !buildingData.add_citizen) {
         sendAlert('error', "You cannot add any citizens to this building.")
+
+        return
     }
 
     if (userUnemployedCitizens.length === 0) {
         sendAlert('error', "You have no more unemployed citizens.")
+
+        return
     }
  
     const citizen = getRandomElement(userUnemployedCitizens);
@@ -182,5 +189,6 @@ function addCitizen(buildingId) {
 
     userCitizens[citizen].employment = buildingId;
 
+    updateResource('idle', -1)
     updateActionsMenu();
 } 

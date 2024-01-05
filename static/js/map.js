@@ -193,3 +193,19 @@ function createTile(type, posX, posY) {
 
 /* ITEMS */
 const collectables = ['wood', 'berry', 'papyrus', 'stone', 'iron']
+
+function getTilesInRadius(x, y, radius) {
+    let tiles = [];
+
+    for (let i = -radius; i <= radius; i++) {
+        for (let j = -radius; j <= radius; j++) {
+            if (i === 0 && j === 0) continue;
+
+            if (Math.abs(i) === radius || Math.abs(j) === radius) {
+                tiles.push(document.querySelector(`[pos-x='${x + i}'][pos-y='${y + j}']`));
+            }
+        }
+    }
+
+    return tiles;
+}
