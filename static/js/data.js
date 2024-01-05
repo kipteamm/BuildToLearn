@@ -1,3 +1,21 @@
+// functions 
+
+function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
+function hasResources(resources) {
+    for (const [resource, amount] of Object.entries(resources)) {
+        if (userResources[resource] < amount) {
+            sendAlert('error', `You don't have enough ${resource}.`)
+
+            return
+        }
+
+        updateResource(resource, -amount)
+    }
+}
+
 // let userForaging = []; // default
 let userForaging = ['collect', 'lumberCamp']
 let userFarming = [];
@@ -26,10 +44,7 @@ let userCitizens = [
 let userBuildings = [];
 
 const buildingDescriptions = {
-    lumberCamp: "Assure the best possible wood gathering.",
+    buildersHut : "Employ citizens to build complex buildings for you.",
+    lumberCamp: "Employ citizens to harvest trees for you.",
     house: "A place where your citizens can live."
-}
-
-function getRandomElement(array) {
-    return array[Math.floor(Math.random() * array.length)];
 }

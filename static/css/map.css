@@ -107,9 +107,12 @@ body, html {
 
 
 /* BUILDINGS */
-.lumberCamp-tile {
+.buildersHut-tile {
     background-position: -384px 0px;
 }
-.house-tile {
+.lumberCamp-tile {
     background-position: -384px -64px;
+}
+.house-tile {
+    background-position: -384px -128px;
 }

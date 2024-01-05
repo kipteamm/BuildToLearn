@@ -91,14 +91,8 @@ function build(type) {
     const tile = activeTile;
 
     let requirements = {};
-    let builder = true
 
     switch (type) {
-        case "buildersHut":
-            builder = false
-
-            break;
-
         case "lumberCamp":
             requirements.wood = 5
 
@@ -110,49 +104,32 @@ function build(type) {
             break;
     }
 
-    for (const [key, val] of Object.entries(requirements)) {
-        if (userResources[key] < val) {
-            sendAlert('error', `You don't have enough ${key}.`)
+    if (type !== "buildersHut") {
+        if (!hasIdleBuilder()) {
+            sendAlert('error', "You have no builders available.")
 
             return
         }
 
-        updateResource(key, val * -1)
-    }
+        if (!hasResources(requirements)) {
+            return
+        }
 
-    if (builder) {
         startBuilding(tile)
-
-        return
     }
 
     toggleBuildMenu()
-    updateResource('idle', -1)
 
-    tile.setAttribute('status', 'building')
-    tile.setAttribute('status-start', new Date().getTime())
-    tile.setAttribute('status-duration', 15)
+    const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`
+
+    tile.setAttribute('class', `tile buildersHut-tile`)
+    tile.setAttribute('type', 'buildersHut')
+    tile.setAttribute('status', 'built')
+    tile.id = id
+
+    userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
 
     updateActionsMenu()
-
-    setTimeout(() => {
-        const id = `${type}-${new Date().getTime().toString().replace('.', '')}`.replace('-', '_')
-
-        tile.setAttribute('class', `tile ${type}-tile`)
-        tile.setAttribute('type', type)
-        tile.setAttribute('status', 'built')
-        tile.id = id
-
-        userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
-        
-        if (type === 'buildersHut') {
-            buildersHuts.push(id)
-        }
-
-        updateActionsMenu()
-
-        updateResource('idle', 1)
-    }, 15000)
 }
 
 function getBuildingData(type, id, x, y) {
@@ -166,7 +143,8 @@ function getBuildingData(type, id, x, y) {
                 max_citizens: 3,
                 add_citizen: true,
                 function: {
-                    status: "idle"
+                    status: "unstaffed",
+                    onDayStart: (building) => {},
                 }
             }
 
@@ -180,7 +158,7 @@ function getBuildingData(type, id, x, y) {
                 add_citizen: true,
                 function: {
                     radius: 1,
-                    status: "idle",
+                    status: "unstaffed",
                     onDayStart: (building) => {
                         startLumberCamp(building)
                     },
@@ -194,7 +172,10 @@ function getBuildingData(type, id, x, y) {
                 y: y,
                 citizens: [],
                 max_citizens: 8,
-                add_citizen: false
+                add_citizen: false,
+                function: {
+                    onDayStart: (building) => {},
+                }
             }
     }
 }
@@ -217,6 +198,7 @@ function addCitizen(buildingId) {
     const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null));
 
     buildingData.citizens.push(citizen);
+    buildingData.function.status = 'idle'
 
     citizen.employment = buildingId;
 

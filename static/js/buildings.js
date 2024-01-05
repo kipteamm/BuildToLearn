@@ -1,6 +1,16 @@
 // building
+function hasIdleBuilder() {
+    return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
+}
+
 function startBuilding() {
-    const buildersHut = buildingsArray.find(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
+    const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
+
+    if (buildersHut === undefined) {
+        sendAlert('error', "You have no builders available.")
+
+        return
+    }
 }
 
 // lumber 
