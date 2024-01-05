@@ -1,3 +1,18 @@
+// building
+function startBuilding() {
+    let buildersHut
+
+    for (var i = 0; i < buildersHuts.length; i++) {
+        const availableBuildersHut = userBuildings[buildersHuts[i]]
+
+        if (availableBuildersHut.function.status === "busy") continue;
+
+        buildersHut = availableBuildersHut
+
+        break;
+    }
+}
+
 // lumber 
 function startLumberCamp(building) {
     if (building.citizens.length < 1) {

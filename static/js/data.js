@@ -26,6 +26,7 @@ let userCitizens = {
 let userUnemployedCitizens = ['citizen-1', 'citizen-2']
 
 let userBuildings = [];
+let buildersHuts = [];
 
 const buildingDescriptions = {
     lumberCamp: "Assure the best possible wood gathering.",

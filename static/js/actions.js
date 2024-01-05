@@ -91,15 +91,21 @@ function build(type) {
     const tile = activeTile;
 
     let requirements = {};
+    let builder = true
 
     switch (type) {
-        case "house":
-            requirements.wood = 20
+        case "buildersHut":
+            builder = false
 
             break;
-        
+
         case "lumberCamp":
             requirements.wood = 5
+
+            break;
+
+        case "house":
+            requirements.wood = 20
 
             break;
     }
@@ -112,6 +118,12 @@ function build(type) {
         }
 
         updateResource(key, val * -1)
+    }
+
+    if (builder) {
+        startBuilding(tile)
+
+        return
     }
 
     toggleBuildMenu()
@@ -132,6 +144,10 @@ function build(type) {
         tile.id = id
 
         userBuildings[id] = getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')))
+        
+        if (type === 'buildersHut') {
+            buildersHuts.push(id)
+        }
 
         updateActionsMenu()
 
@@ -141,17 +157,30 @@ function build(type) {
 
 function getBuildingData(type, id, x, y) {
     switch(type) {
+        case "buildersHut":
+            return {
+                id: id,
+                x: x,
+                y: y,
+                citizens: [],
+                max_citizens: 3,
+                add_citizen: true,
+                function: {
+                    status: "idle"
+                }
+            }
+
         case "lumberCamp":
             return {
-                id : id,
-                x : x,
-                y : y,
+                id: id,
+                x: x,
+                y: y,
                 citizens: [],
                 max_citizens: 3,
                 add_citizen: true,
                 function: {
                     radius: 1,
-                    status: "working",
+                    status: "idle",
                     onDayStart: (building) => {
                         startLumberCamp(building)
                     },
@@ -160,6 +189,9 @@ function getBuildingData(type, id, x, y) {
 
         case "house":
             return {
+                id: id,
+                x: x,
+                y: y,
                 citizens: [],
                 max_citizens: 8,
                 add_citizen: false
