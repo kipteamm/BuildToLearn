@@ -202,7 +202,11 @@ function getTilesInRadius(x, y, radius) {
             if (i === 0 && j === 0) continue;
 
             if (Math.abs(i) === radius || Math.abs(j) === radius) {
-                tiles.push(document.querySelector(`[pos-x='${x + i}'][pos-y='${y + j}']`));
+                const tile = document.querySelector(`[pos-x='${x + i}'][pos-y='${y + j}']`)
+
+                if (tile !== null) {
+                    tiles.push(tile);
+                }
             }
         }
     }

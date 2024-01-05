@@ -1,6 +1,10 @@
-const dayDuration = 1 * 30; // minutes
+const nightOverlay = document.getElementById('night-overlay')
+
+const dayDuration = 1 * 600; // minutes
+
 let currentTime = 0;
 let lastDay = dayDuration;
+let isNight = false;
 
 setInterval(() => {
     currentTime += 1;
@@ -10,7 +14,7 @@ setInterval(() => {
 }, 1000);
 
 function updateGame() {
-    if (lastDay > dayDuration) {
+    if (lastDay >= dayDuration) {
         console.log('new day')
 
         lastDay = 0
@@ -20,6 +24,14 @@ function updateGame() {
 
             building.function.onDayStart(building);
         });
+
+        isNight = false
+
+        nightOverlay.classList.remove('active')
+    } else if (lastDay >= dayDuration / 2 && !isNight) {
+        console.log('night')
+
+        nightOverlay.classList.remove('add')
     }
 }
 

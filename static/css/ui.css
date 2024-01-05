@@ -13,6 +13,21 @@ span.title {
     background-image: url('/static/images/tiles/icons.png');
 }
 
+/* NIGHT OVERLAY */
+.night-overlay {
+    position: fixed;
+    z-index: 12;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: .3s;
+    pointer-events: none;
+}
+.night-overlay.active {
+    opacity: .2;
+}
+
 /* ALERTS */
 .alert {
     position: fixed;

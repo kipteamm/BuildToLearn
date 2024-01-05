@@ -151,6 +151,7 @@ function getBuildingData(type, id, x, y) {
                 add_citizen: true,
                 function: {
                     radius: 1,
+                    status: "working",
                     onDayStart: (building) => {
                         startLumberCamp(building)
                     },
