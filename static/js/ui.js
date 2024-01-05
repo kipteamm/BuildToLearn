@@ -190,7 +190,7 @@ function addStatus(statusId) {
 }
 
 function addBuildingData(buildingId) {
-    const buildingData = userBuildings[buildingId]
+    const buildingData = buildingsArray.find(building => building.id === buildingId);
 
     let citizenHTML = ''
 

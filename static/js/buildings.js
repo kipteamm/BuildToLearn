@@ -1,16 +1,6 @@
 // building
 function startBuilding() {
-    let buildersHut
-
-    for (var i = 0; i < buildersHuts.length; i++) {
-        const availableBuildersHut = userBuildings[buildersHuts[i]]
-
-        if (availableBuildersHut.function.status === "busy") continue;
-
-        buildersHut = availableBuildersHut
-
-        break;
-    }
+    const buildersHut = buildingsArray.find(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
 }
 
 // lumber 

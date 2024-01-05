@@ -143,7 +143,7 @@ function build(type) {
         tile.setAttribute('status', 'built')
         tile.id = id
 
-        userBuildings[id] = getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')))
+        userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
         
         if (type === 'buildersHut') {
             buildersHuts.push(id)
@@ -200,7 +200,7 @@ function getBuildingData(type, id, x, y) {
 }
 
 function addCitizen(buildingId) {
-    const buildingData = userBuildings[buildingId]
+    const buildingData = userBuildings.find(building => building.id === buildingId)
     
     if (buildingData.citizens.length > buildingData.max_citizens || !buildingData.add_citizen) {
         sendAlert('error', "You cannot add any citizens to this building.")

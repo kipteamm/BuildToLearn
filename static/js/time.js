@@ -19,9 +19,7 @@ function updateGame() {
 
         lastDay = 0
         
-        Object.keys(userBuildings).forEach(buildingId => {
-            const building = userBuildings[buildingId]
-
+        userBuildings.forEach(building=> {
             building.function.onDayStart(building);
         });
 
