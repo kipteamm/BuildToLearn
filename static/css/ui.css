@@ -1,3 +1,9 @@
+
+/* 
+ui  = 11
+weather = 10
+*/
+
 /* BASICS */
 span.title {
     color: var(--primary-font-clr);
@@ -16,7 +22,7 @@ span.title {
 /* NIGHT OVERLAY */
 .night-overlay {
     position: fixed;
-    z-index: 12;
+    z-index: 10;
     background-color: black;
     width: 100vw;
     height: 100vh;
@@ -171,7 +177,7 @@ span.title {
 /* ITEM-MENU */
 .item-menu {
     position: fixed;
-    z-index: 9;
+    z-index: 11;
     padding: 12.5px;
     border-radius: 12.5px;
     background-color: rgb(0, 0, 0, 0.8);

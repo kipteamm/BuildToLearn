@@ -21,8 +21,6 @@ function buildBuilding(tile, type, time) {
     tile.setAttribute('status-start', new Date().getTime())
     tile.setAttribute('status-duration', time)
 
-    console.log(tile, type, time)
-
     updateActionsMenu()
 
     setTimeout(() => {
@@ -69,8 +67,6 @@ function startLumberCamp(building) {
         const tile = tiles[i]
 
         if (tile.getAttribute('type') !== 'wood') continue;
-
-        console.log(tile)
 
         const citizen = userCitizens.find(citizen => citizen.id === availableCitizens[0])
 

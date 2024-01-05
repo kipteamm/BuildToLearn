@@ -29,6 +29,10 @@ function logData() {
     console.log('buildings', userBuildings)
 }
 
+function newDay() {
+    lastDay = dayDuration
+}
+
 function getBuildingData(type, id, x, y) {
     switch(type) {
         case "buildersHut":

@@ -2,12 +2,12 @@ const nightOverlay = document.getElementById('night-overlay')
 
 const dayDuration = 5 * 60; // minutes
 
-let currentTime = 0;
+//let currentTime = 0;
 let lastDay = dayDuration;
 let isNight = false;
 
 setInterval(() => {
-    currentTime += 1;
+    //currentTime += 1;
     lastDay += 1;
     
     updateGame()

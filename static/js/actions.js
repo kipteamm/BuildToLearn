@@ -7,12 +7,6 @@ function action(actionId) {
         return
     }
 
-    if (userResources.unemployed - 1 < 0) {
-        sendAlert('error', `You don't have an available villager.`)
-        
-        return
-    }
-
     switch (actionId) {
         case "collect":
             collect()
@@ -60,6 +54,12 @@ function getSkill(skill=null) {
 }
 
 function collect() {
+    if (userResources.unemployed - 1 < 0) {
+        sendAlert('error', `You don't have an available villager.`)
+        
+        return
+    }
+
     const tile = activeTile
     const type = tile.getAttribute('type')
     
