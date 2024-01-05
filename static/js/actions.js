@@ -7,7 +7,7 @@ function action(actionId) {
         return
     }
 
-    if (userResources.idle - 1 < 0) {
+    if (userResources.unemployed - 1 < 0) {
         sendAlert('error', `You don't have an available villager.`)
         
         return
@@ -67,7 +67,7 @@ function collect() {
         return
     }
 
-    updateResource('idle', -1)
+    updateResource('unemployed', -1)
 
     tile.setAttribute('status', 'collecting')
     tile.setAttribute('status-start', new Date().getTime())
@@ -83,7 +83,7 @@ function collect() {
         updateActionsMenu()
 
         updateResource(type, 1)
-        updateResource('idle', 1)
+        updateResource('unemployed', 1)
     }, 15000)
 }
 
@@ -95,14 +95,18 @@ function build(type) {
     switch (type) {
         case "lumberCamp":
             requirements.wood = 5
+            time = 15
 
             break;
 
         case "house":
             requirements.wood = 20
+            time = 30
 
             break;
     }
+
+    toggleBuildMenu()
 
     if (type !== "buildersHut") {
         if (!hasIdleBuilder()) {
@@ -115,10 +119,12 @@ function build(type) {
             return
         }
 
-        startBuilding(tile)
-    }
+        useResources(requirements)
 
-    toggleBuildMenu()
+        buildBuilding(tile, type, time)
+
+        return
+    }
 
     const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`
 
@@ -132,54 +138,6 @@ function build(type) {
     updateActionsMenu()
 }
 
-function getBuildingData(type, id, x, y) {
-    switch(type) {
-        case "buildersHut":
-            return {
-                id: id,
-                x: x,
-                y: y,
-                citizens: [],
-                max_citizens: 3,
-                add_citizen: true,
-                function: {
-                    status: "unstaffed",
-                    onDayStart: (building) => {},
-                }
-            }
-
-        case "lumberCamp":
-            return {
-                id: id,
-                x: x,
-                y: y,
-                citizens: [],
-                max_citizens: 3,
-                add_citizen: true,
-                function: {
-                    radius: 1,
-                    status: "unstaffed",
-                    onDayStart: (building) => {
-                        startLumberCamp(building)
-                    },
-                }
-            }
-
-        case "house":
-            return {
-                id: id,
-                x: x,
-                y: y,
-                citizens: [],
-                max_citizens: 8,
-                add_citizen: false,
-                function: {
-                    onDayStart: (building) => {},
-                }
-            }
-    }
-}
-
 function addCitizen(buildingId) {
     const buildingData = userBuildings.find(building => building.id === buildingId)
     
@@ -189,19 +147,19 @@ function addCitizen(buildingId) {
         return
     }
 
-    if (userCitizens.find(citizen => citizen.employment === null) === 'undefined') {
+    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null));
+
+    if (citizen === undefined) {
         sendAlert('error', "You have no more unemployed citizens.")
 
         return
     }
 
-    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null));
-
-    buildingData.citizens.push(citizen);
+    buildingData.citizens.push(citizen.id);
     buildingData.function.status = 'idle'
 
     citizen.employment = buildingId;
 
-    updateResource('idle', -1)
+    updateResource('unemployed', -1)
     updateActionsMenu();
 } 

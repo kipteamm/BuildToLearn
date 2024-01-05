@@ -9,10 +9,72 @@ function hasResources(resources) {
         if (userResources[resource] < amount) {
             sendAlert('error', `You don't have enough ${resource}.`)
 
-            return
+            return false
         }
+    }
+
+    return true
+}
+
+function useResources(resources) {
+    for (const [resource, amount] of Object.entries(resources)) {
+        if (userResources[resource] < amount) continue
 
         updateResource(resource, -amount)
+    }
+}
+
+function logData() {
+    console.log('citizens', userCitizens)
+    console.log('buildings', userBuildings)
+}
+
+function getBuildingData(type, id, x, y) {
+    switch(type) {
+        case "buildersHut":
+            return {
+                id: id,
+                x: x,
+                y: y,
+                citizens: [],
+                max_citizens: 3,
+                add_citizen: true,
+                function: {
+                    status: "unstaffed",
+                    unavailable_citizens: [],
+                    onDayStart: (building) => {},
+                }
+            }
+
+        case "lumberCamp":
+            return {
+                id: id,
+                x: x,
+                y: y,
+                citizens: [],
+                max_citizens: 3,
+                add_citizen: true,
+                function: {
+                    radius: 1,
+                    status: "unstaffed",
+                    onDayStart: (building) => {
+                        startLumberCamp(building)
+                    },
+                }
+            }
+
+        case "house":
+            return {
+                id: id,
+                x: x,
+                y: y,
+                citizens: [],
+                max_citizens: 8,
+                add_citizen: false,
+                function: {
+                    onDayStart: (building) => {},
+                }
+            }
     }
 }
 
@@ -25,7 +87,7 @@ let userResources = {
     skillPoints: 99,
     gold: 0,
     citizens: 2,
-    idle: 2,
+    unemployed: 2,
     wood: 100,
     planks: 0,
     berry: 0,

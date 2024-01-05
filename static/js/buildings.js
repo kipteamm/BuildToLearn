@@ -1,16 +1,45 @@
 // building
 function hasIdleBuilder() {
-    return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
+    return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
 }
 
-function startBuilding() {
-    const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.status === "idle");
+function buildBuilding(tile, type, time) {
+    const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
 
     if (buildersHut === undefined) {
         sendAlert('error', "You have no builders available.")
 
         return
     }
+
+    const citizenId = buildersHut.citizens[0]
+
+    buildersHut.citizens.shift()
+    buildersHut.function.unavailable_citizens.push(citizenId)
+
+    tile.setAttribute('status', 'building')
+    tile.setAttribute('status-start', new Date().getTime())
+    tile.setAttribute('status-duration', time)
+
+    console.log(tile, type, time)
+
+    updateActionsMenu()
+
+    setTimeout(() => {
+        const id = `${type}-${new Date().getTime().toString().replace('.', '')}`.replace('-', '_')
+
+        tile.setAttribute('class', `tile ${type}-tile`)
+        tile.setAttribute('type', type)
+        tile.setAttribute('status', 'built')
+        tile.id = id
+
+        userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
+
+        updateActionsMenu()
+
+        buildersHut.citizens.push(citizenId)
+        buildersHut.function.unavailable_citizens.splice(buildersHut.function.unavailable_citizens.indexOf(citizenId), 1)
+    }, time * 1000)
 }
 
 // lumber 

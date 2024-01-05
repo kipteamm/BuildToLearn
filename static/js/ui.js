@@ -20,7 +20,7 @@ const resourceIndicators = {
     skillPoints: document.getElementById('skill-points'),
     gold: document.getElementById('gold'),
     citizens: document.getElementById('citizens'),
-    idle: document.getElementById('idle'),
+    unemployed: document.getElementById('unemployed'),
     wood: document.getElementById('wood'),
     planks: document.getElementById('planks'),
     berry: document.getElementById('berry'),
@@ -195,7 +195,7 @@ function addBuildingData(buildingId) {
     let citizenHTML = ''
 
     buildingData.citizens.forEach(citizenId => {
-        citizen = userCitizens.find(citizen => citizen.id = citizenId)
+        citizen = userCitizens.find(citizen => citizen.id === citizenId)
 
         citizenHTML += `<li>${citizen.name} ${citizen.surname}`
     })
