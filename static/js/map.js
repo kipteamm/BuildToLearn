@@ -62,7 +62,11 @@ document.addEventListener('mouseup', function(e) {
     isDragging = false;
 
     if (!isMoving) {
-        openActionMenu(e.target)
+        if (e.target === activeTile) {
+            closeActionMenu()
+        } else {
+            openActionMenu(e.target)
+        }
 
         if (e.target.closest('.menu-item') === null) {
             toggleMenu(activeMenu)
