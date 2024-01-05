@@ -45,7 +45,7 @@ function getBuildingData(type, id, x, y) {
                 add_citizen: true,
                 function: {
                     status: "unstaffed",
-                    unavailable_citizens: [],
+                    available_citizens: [],
                     onDayStart: (building) => {},
                 }
             }

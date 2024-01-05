@@ -1,12 +1,10 @@
 // building
 function hasIdleBuilder() {
-    return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
+    return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 }
 
-// fix 2 build projects at once
-
 function buildBuilding(tile, type, time) {
-    const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.unavailable_citizens.length < building.citizens.length);
+    const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 
     if (buildersHut === undefined) {
         sendAlert('error', "You have no builders available.")
@@ -14,10 +12,9 @@ function buildBuilding(tile, type, time) {
         return
     }
 
-    const citizenId = buildersHut.citizens[0]
+    const citizenId = buildersHut.function.available_citizens[0]
 
-    buildersHut.citizens.shift()
-    buildersHut.function.unavailable_citizens.push(citizenId)
+    buildersHut.function.available_citizens.shift()
 
     tile.setAttribute('status', 'building')
     tile.setAttribute('status-start', new Date().getTime())
@@ -37,8 +34,7 @@ function buildBuilding(tile, type, time) {
 
         updateActionsMenu()
 
-        buildersHut.citizens.push(citizenId)
-        buildersHut.function.unavailable_citizens.splice(buildersHut.function.unavailable_citizens.indexOf(citizenId), 1)
+        buildersHut.function.available_citizens.push(citizenId)
     }, time * 1000)
 }
 

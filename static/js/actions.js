@@ -155,6 +155,10 @@ function addCitizen(buildingId) {
         return
     }
 
+    if (buildingId.includes('buildersHut_')) {
+        buildingData.function.available_citizens.push(citizen.id)
+    }
+
     buildingData.citizens.push(citizen.id);
     buildingData.function.status = 'idle'
 
