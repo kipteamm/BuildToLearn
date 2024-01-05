@@ -208,19 +208,17 @@ function addCitizen(buildingId) {
         return
     }
 
-    if (userUnemployedCitizens.length === 0) {
+    if (userCitizens.find(citizen => citizen.employment === null) === 'undefined') {
         sendAlert('error', "You have no more unemployed citizens.")
 
         return
     }
- 
-    const citizen = getRandomElement(userUnemployedCitizens);
 
-    userUnemployedCitizens.splice(userUnemployedCitizens.indexOf(citizen), 1);
+    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null));
 
     buildingData.citizens.push(citizen);
 
-    userCitizens[citizen].employment = buildingId;
+    citizen.employment = buildingId;
 
     updateResource('idle', -1)
     updateActionsMenu();

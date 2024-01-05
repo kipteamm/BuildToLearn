@@ -33,7 +33,7 @@ function startLumberCamp(building) {
 
         console.log(tile)
 
-        const citizen = userCitizens[availableCitizens[0]]
+        const citizen = userCitizens.find(citizen => citizen.id === availableCitizens[0])
 
         availableCitizens.shift()
 

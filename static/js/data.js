@@ -18,12 +18,10 @@ let userResources = {
     lumberCamp: 0,
 };
 
-let userCitizens = {
-    'citizen-1' : {name: "George", surname: "Dorchester", gender: "male", employment: null, status: "idle"}, 
-    'citizen-2' : {name: "Patricia", surname: "Hamilton", gender: "female", employment: null, status: "idle"}
-}
-
-let userUnemployedCitizens = ['citizen-1', 'citizen-2']
+let userCitizens = [
+    {id: 'citizen_1', name: "George", surname: "Dorchester", gender: "male", employment: null, status: "idle"}, 
+    {id: 'citizen_2', name: "Patricia", surname: "Hamilton", gender: "female", employment: null, status: "idle"}
+]
 
 let userBuildings = [];
 

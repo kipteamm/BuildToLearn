@@ -195,7 +195,7 @@ function addBuildingData(buildingId) {
     let citizenHTML = ''
 
     buildingData.citizens.forEach(citizenId => {
-        citizen = userCitizens[citizenId]
+        citizen = userCitizens.find(citizen => citizen.id = citizenId)
 
         citizenHTML += `<li>${citizen.name} ${citizen.surname}`
     })
