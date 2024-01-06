@@ -33,6 +33,7 @@ function newDay() {
     lastDay = dayDuration
 }
 
+// BUILDINGS
 function getBuildingData(type, id, x, y) {
     switch(type) {
         case "buildersHut":
@@ -113,10 +114,10 @@ let userResources = {
 
 // CITIZENS
 let userCitizens = [
-    {id: 'citizen_1', name: "George", surname: "Dorchester", gender: "male", employment: null, house: null, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
-    {id: 'citizen_2', name: "Patricia", surname: "Hamilton", gender: "female", employment: null, house: null, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
-    {id: 'citizen_3', name: "Tobias", surname: "Cantor", gender: "male", employment: null, house: null, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
-    {id: 'citizen_4', name: "Eliza", surname: "Goldstein", gender: "female", employment: null, house: null, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
+    {id: 'citizen_1', name: "George", surname: "Dorchester", gender: "male", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
+    {id: 'citizen_2', name: "Patricia", surname: "Hamilton", gender: "female", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
+    {id: 'citizen_3', name: "Tobias", surname: "Cantor", gender: "male", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
+    {id: 'citizen_4', name: "Eliza", surname: "Goldstein", gender: "female", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
 ]
 
 let citizenComplaints = []

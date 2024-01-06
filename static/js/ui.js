@@ -1,19 +1,36 @@
 /* ALERTS */
 const alertElement = document.getElementById('alert')
 
+let alertActive = false;
+
 function sendAlert(type, text) {
+    const wordsPerMinute = text.split(/\s+/).length;
+    const delay = (wordsPerMinute / 100) * 60 * 1000;
+
+    if (alertActive) {
+        setTimeout(() => {
+            sendAlert(type, text);
+        }, delay + 350);
+
+        return
+    }
+
     alertElement.innerHTML = `
         <div class="alert-${type}">
             ${text}
         </div>
-    `
+    `;
 
-    alertElement.classList.add('show')
+    alertElement.classList.add('show');
+
+    alertActive = true;
 
     setTimeout(() => {
         alertElement.classList.remove('show');
-    }, 5000)
+        alertActive = false;
+    }, delay);
 }
+
 
 /* RESOURCES */
 const resourceIndicators = {
