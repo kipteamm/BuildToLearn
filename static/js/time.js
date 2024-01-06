@@ -1,23 +1,34 @@
-const nightOverlay = document.getElementById('night-overlay')
+const nightOverlay = document.getElementById('night-overlay');
+const dayDuration = 3 * 60; // minutes
+const hourDuration = dayDuration / 24;
 
-const dayDuration = 4 * 60; // minutes
-
-//let currentTime = 0;
+let lastHour = 8;
 let lastDay = dayDuration;
 let isNight = false;
 
 setInterval(() => {
-    //currentTime += 1;
     lastDay += 1;
-    
-    updateGame()
+
+    if (lastDay >= hourDuration) {
+        lastHour += 1;
+
+        if (lastHour === 24) {
+            lastHour = 0;
+        }
+     
+        updateResource('clock', lastHour, true);
+        
+        lastDay = 0;
+    }
+
+    updateGame();
 }, 1000);
 
 function updateGame() {
     if (lastDay >= dayDuration) {
-        console.log('new day')
+        console.log('New day');
 
-        lastDay = 0
+        lastDay = 0;
         
         userBuildings.forEach(building => {
             building.function.onDayStart(building);
@@ -25,18 +36,18 @@ function updateGame() {
 
         userCitizens.forEach(citizen => {
             citizen.onDayStart(citizen);
-        })
+        });
 
-        calculateHappiness()
+        calculateHappiness();
 
-        isNight = false
+        isNight = false;
 
-        nightOverlay.classList.remove('active')
+        nightOverlay.classList.remove('active');
     } else if (lastDay >= dayDuration / 2 && !isNight) {
-        isNight = true
+        isNight = true;
 
-        nightOverlay.classList.add('active')
+        nightOverlay.classList.add('active');
     }
 }
 
-updateGame()
+updateGame();

@@ -35,6 +35,8 @@ function buildBuilding(tile, type, time) {
         updateActionsMenu()
 
         buildersHut.function.available_citizens.push(citizenId)
+
+        sendAlert('success', `Finished building ${type}`)
     }, time * 1000)
 }
 

@@ -34,6 +34,7 @@ function sendAlert(type, text) {
 
 /* RESOURCES */
 const resourceIndicators = {
+    clock: document.getElementById('clock'),
     skillPoints: document.getElementById('skill-points'),
     gold: document.getElementById('gold'),
     citizens: document.getElementById('citizens'),

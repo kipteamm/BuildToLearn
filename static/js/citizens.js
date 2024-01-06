@@ -4,7 +4,7 @@ function calculateCitizenHappiness(citizen) {
     let happiness = citizen.happiness;
 
     if (citizen.house === null) {
-        const emptyHouse = userBuildings.find(building => building.id.startswith('house_') && building.citizens.length < building.max_citizens)
+        const emptyHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length < building.max_citizens)
 
         if (emptyHouse === undefined) {
             happiness -= 5

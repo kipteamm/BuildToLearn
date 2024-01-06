@@ -97,6 +97,7 @@ let userFarming = [];
 let userMining = [];
 
 let userResources = {
+    clock: 8,
     skillPoints: 99,
     gold: 0,
     citizens: 4,
