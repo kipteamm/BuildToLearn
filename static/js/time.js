@@ -14,8 +14,6 @@ setInterval(() => {
     if (currentHour === 24) {
         currentHour = 0;
         currentDay += 1;
-
-        console.log(`New day: ${currentDay}`);
     }
 
     if (currentHour === nightTime) {
@@ -23,15 +21,17 @@ setInterval(() => {
     } else if (currentHour === dayTime) {
         nightOverlay.classList.remove('active');
     }
-    
+
     if (currentHour === dayTime) {
-        newDay();
+        console.log(`New work day`);
+
+        newWorkDay();
     }
     
     updateResource('clock', currentHour, true);
 }, hourDuration);
 
-function newDay() {
+function newWorkDay() {
     userBuildings.forEach(building => {
         building.function.onDayStart(building);
     });
@@ -42,6 +42,8 @@ function newDay() {
 
     calculateHappiness();
 }
+
+newWorkDay()
 
 function forceNewDay() {
     currentHour = 8

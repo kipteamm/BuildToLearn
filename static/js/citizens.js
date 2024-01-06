@@ -10,7 +10,7 @@ function calculateCitizenHappiness(citizen) {
             if (emptyHouse === undefined) {
                 happiness -= 5
 
-                if (!citizenComplaints.includes('No housing for a fresh couple.')) citizenComplaints.push('No housing for a fresh couple.');
+                if (!citizenComplaints.includes('No housing for a fresh couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a fresh couple.');
             } else {
                 emptyHouse.private = true
 
@@ -58,8 +58,8 @@ function calculateHappiness() {
 }
 
 function findPartner(citizen) {
-    const partner = userCitizens.find(citizen => citizen.id !== citizen.id && citizen.partner === null)
-
+    const partner = userCitizens.find(potentialPartner => potentialPartner.id !== citizen.id && potentialPartner.partner === null)
+    
     if (partner === undefined) return
 
     citizen.partner = partner.id
@@ -71,10 +71,21 @@ function findPartner(citizen) {
 
     sendAlert('success', "Some of your citizens fell in love!")
 
-    if (house.id === partnerHouse.id) {
-        if (house.citizens.length === 2) {
-            house.private = true
+    if (house === undefined && partnerHouse === undefined) {
+        const newHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length === 0 && !building.private)
+
+        if (newHouse === undefined) {
+            citizen.house = null
+            partner.house = null
+
+            return
         }
+
+        newHouse.private = true
+        newHouse.citizens.push(citizen)
+        newHouse.citizens.push(partner)
+    } else if (house.id === partnerHouse.id && house.citizens.length === 2) {
+        house.private = true
     } else if (house.citizens.length === 1) {
         house.private = true
         house.citizens.push(partner.id)
@@ -89,19 +100,6 @@ function findPartner(citizen) {
         citizen.house = partnerHouse.id
 
         house.citizens.splice(house.citizens.indexOf(citizen.id), 1)
-    } else {
-        const newHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length === 0 && !building.private)
-
-        if (newHouse === undefined) {
-            citizen.house = null
-            partner.house = null
-
-            return
-        }
-
-        newHouse.private = true
-        newHouse.citizens.push(citizen)
-        newHouse.citizens.push(partner)
     }
 
     return
