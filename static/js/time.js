@@ -1,53 +1,48 @@
 const nightOverlay = document.getElementById('night-overlay');
 const dayDuration = 3 * 60; // minutes
-const hourDuration = dayDuration / 24;
+const hourDuration = (dayDuration / 24) * 1000;
 
-let lastHour = 8;
-let lastDay = dayDuration;
-let isNight = false;
+let nightTime = 20;
+let dayTime = 8
+
+let currentHour = dayTime;
+let currentDay = 0;
 
 setInterval(() => {
-    lastDay += 1;
+    currentHour += 1;
 
-    if (lastDay >= hourDuration) {
-        lastHour += 1;
+    if (currentHour === 24) {
+        currentHour = 0;
+        currentDay += 1;
 
-        if (lastHour === 24) {
-            lastHour = 0;
-        }
-     
-        updateResource('clock', lastHour, true);
-        
-        lastDay = 0;
+        console.log(`New day: ${currentDay}`);
     }
 
-    updateGame();
-}, 1000);
-
-function updateGame() {
-    if (lastDay >= dayDuration) {
-        console.log('New day');
-
-        lastDay = 0;
-        
-        userBuildings.forEach(building => {
-            building.function.onDayStart(building);
-        });
-
-        userCitizens.forEach(citizen => {
-            citizen.onDayStart(citizen);
-        });
-
-        calculateHappiness();
-
-        isNight = false;
-
-        nightOverlay.classList.remove('active');
-    } else if (lastDay >= dayDuration / 2 && !isNight) {
-        isNight = true;
-
+    if (currentHour === nightTime) {
         nightOverlay.classList.add('active');
+    } else if (currentHour === dayTime) {
+        nightOverlay.classList.remove('active');
     }
+    
+    if (currentHour === dayTime) {
+        newDay();
+    }
+    
+    updateResource('clock', currentHour, true);
+}, hourDuration);
+
+function newDay() {
+    userBuildings.forEach(building => {
+        building.function.onDayStart(building);
+    });
+
+    userCitizens.forEach(citizen => {
+        citizen.onDayStart(citizen);
+    });
+
+    calculateHappiness();
 }
 
-updateGame();
+function forceNewDay() {
+    currentHour = 8
+}
