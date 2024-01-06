@@ -1,6 +1,6 @@
 const nightOverlay = document.getElementById('night-overlay')
 
-const dayDuration = 5 * 60; // minutes
+const dayDuration = 4 * 60; // minutes
 
 //let currentTime = 0;
 let lastDay = dayDuration;
@@ -19,9 +19,15 @@ function updateGame() {
 
         lastDay = 0
         
-        userBuildings.forEach(building=> {
+        userBuildings.forEach(building => {
             building.function.onDayStart(building);
         });
+
+        userCitizens.forEach(citizen => {
+            citizen.onDayStart(citizen);
+        })
+
+        calculateHappiness()
 
         isNight = false
 

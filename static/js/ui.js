@@ -21,6 +21,7 @@ const resourceIndicators = {
     gold: document.getElementById('gold'),
     citizens: document.getElementById('citizens'),
     unemployed: document.getElementById('unemployed'),
+    happiness: document.getElementById('happiness'),
     wood: document.getElementById('wood'),
     planks: document.getElementById('planks'),
     berry: document.getElementById('berry'),
@@ -29,11 +30,16 @@ const resourceIndicators = {
     iron: document.getElementById('iron'),
 }
 
-function updateResource(type, amount) {
+function updateResource(type, amount, overwrite=false) {
     const indicator = resourceIndicators[type];
 
     if (indicator) {
-        userResources[type] += amount;
+        if (overwrite) {
+            userResources[type] = amount;
+        } else {
+            userResources[type] += amount;
+        }
+        
         indicator.innerText = userResources[type];
     }
 }

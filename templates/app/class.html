@@ -5,13 +5,16 @@
     <link rel="stylesheet" type="text/css" href="/static/css/map.css">
     <link rel="stylesheet" type="text/css" href="/static/css/ui.css">
     
+    <!-- IMPROTANT -->
+    <script src="/static/js/ui.js" defer></script>
+
     <script src="/static/js/buildings.js" defer></script>
+    <script src="/static/js/citizens.js" defer></script>
     <script src="/static/js/actions.js" defer></script>
     <script src="/static/js/class.js" defer></script>
     <script src="/static/js/data.js" defer></script>
     <script src="/static/js/time.js" defer></script>
     <script src="/static/js/map.js" defer></script>
-    <script src="/static/js/ui.js" defer></script>
 </head>
 <body>
     <div class="night-overlay" id="night-overlay"></div>
@@ -75,7 +78,10 @@
                 <span class="title">Calendar</span>
 
                 <div class="section-content">
-                    01/01/1212
+                    <div class="resource">
+                        <div class="icon wood-icon"></div>
+                        <span id="clock">00:00</span>
+                    </div>
                 </div>
             </div>
 
@@ -107,6 +113,11 @@
                     <div class="resource">
                         <div class="icon wood-icon"></div>
                         <span id="unemployed">0</span>
+                    </div>
+
+                    <div class="resource">
+                        <div class="icon wood-icon"></div>
+                        <span id="happiness">100</span>%
                     </div>
                 </div>
             </div>
