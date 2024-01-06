@@ -16,9 +16,9 @@ setInterval(() => {
         currentDay += 1;
     }
 
-    if (currentHour === nightTime) {
+    if (currentHour >= nightTime) {
         nightOverlay.classList.add('active');
-    } else if (currentHour === dayTime) {
+    } else if (currentHour >= dayTime) {
         nightOverlay.classList.remove('active');
     }
 

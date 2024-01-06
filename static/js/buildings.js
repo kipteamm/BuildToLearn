@@ -37,6 +37,12 @@ function buildBuilding(tile, type, time) {
         buildersHut.function.available_citizens.push(citizenId)
 
         sendAlert('success', `Finished building ${type}`)
+
+        if (type === "house") {
+            userCitizens.filter(citizen => citizen.house === null).forEach(citizen => {
+                findHouse(citizen)
+            })
+        }
     }, time * 1000)
 }
 
