@@ -5,7 +5,7 @@ let alertActive = false;
 
 function sendAlert(type, text) {
     const wordsPerMinute = text.split(/\s+/).length;
-    const delay = (wordsPerMinute / 100) * 60 * 1000;
+    const delay = (wordsPerMinute / 150) * 60 * 1000;
 
     if (alertActive) {
         setTimeout(() => {

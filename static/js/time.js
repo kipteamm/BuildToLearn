@@ -2,7 +2,7 @@ const nightOverlay = document.getElementById('night-overlay');
 const dayDuration = 3 * 60; // minutes
 const hourDuration = (dayDuration / 24) * 1000;
 
-let nightTime = 20;
+let nightTime = 19;
 let dayTime = 8
 
 let currentHour = dayTime;
@@ -46,5 +46,5 @@ function newWorkDay() {
 newWorkDay()
 
 function forceNewDay() {
-    currentHour = 8
+    currentHour = 7
 }
