@@ -84,14 +84,15 @@ let userBuildings = [];
 
 const buildingDescriptions = {
     buildersHut : "Employ citizens to build complex buildings for you.",
+    house: "A place where your citizens can live.",
     lumberCamp: "Employ citizens to harvest trees for you.",
-    house: "A place where your citizens can live."
 }
 
 // let userForaging = []; // default
 let userForaging = ['collect', 'lumberCamp']
-let userFarming = [];
+let userFarming = ['collect', 'GatherersHut'];
 let userMining = [];
+let userTrading = ['foodMarket']
 
 let userResources = {
     clock: 8,

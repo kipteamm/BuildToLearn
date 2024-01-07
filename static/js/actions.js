@@ -93,15 +93,17 @@ function build(type) {
     let requirements = {};
 
     switch (type) {
-        case "lumberCamp":
-            requirements.wood = 5
-            time = 15
+        case "house":
+            skill = null
+            requirements.wood = 20
+            time = 30
 
             break;
 
-        case "house":
-            requirements.wood = 20
-            time = 30
+        case "lumberCamp":
+            skill = 'foraging'
+            requirements.wood = 5
+            time = 15
 
             break;
     }
@@ -109,13 +111,19 @@ function build(type) {
     toggleBuildMenu()
 
     if (type !== "buildersHut") {
-        if (!hasIdleBuilder()) {
-            sendAlert('error', "You have no builders available.")
+        if (skill !== null && !getSkill(skill).includes(type)) {
+            sendAlert('error', "You don't know how to build that.")
 
             return
         }
 
         if (!hasResources(requirements)) {
+            return
+        }
+
+        if (!hasIdleBuilder()) {
+            sendAlert('error', "You have no builders available.")
+
             return
         }
 

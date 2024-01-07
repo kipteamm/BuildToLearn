@@ -1,7 +1,7 @@
 let citizenHappinessLevels = []
 
 function calculateCitizenHappiness(citizen) {
-    let happiness = citizen.happiness;
+    let happiness = 100;
 
     if (citizen.house === null) {
         findHouse(citizen)
@@ -15,24 +15,18 @@ function calculateCitizenHappiness(citizen) {
         }
 
         happiness -= 5
-    } else {
-        happiness += 5
     }
 
     if (citizen.employment === null) {
         happiness -= 5
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
-    } else {
-        happiness += 5
     }
 
     if (citizen.partner === null && currentDay > 1) {
         happiness -= 5
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
-    } else {
-        happiness += 5
     }
 
     if (happiness > 75 && citizen.partner === null) {
