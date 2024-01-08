@@ -1,4 +1,5 @@
 let activeTab = "loading"
+let loaded = false;
 
 window.onload = function() {
     let tab = new URLSearchParams(location.search).get('t');
@@ -26,13 +27,22 @@ function loadTab(tabId) {
     activeTab = tabId;
 }
 
-function loadTabContents(tabId) {
+async function loadTabContents(tabId) {
     if (tabId === 'city') {
+        await fetchNames()
+
+        spawnCitizen()
+        spawnCitizen()
+        spawnCitizen()
+        spawnCitizen()
+
         generateMap(1)
 
         for (const [key, val] of Object.entries(userResources)) {
             updateResource(key, 0)
         }
+
+        newWorkDay()
     }
     
     return

@@ -1,4 +1,47 @@
+let surnames;
+let names;
+
+async function fetchNames() {
+    const surnamesResponse = await fetch('/static/data/surnames.json');
+
+    surnames = await surnamesResponse.json()
+
+    const namesResponse = await fetch('/static/data/names.json');
+
+    names = await namesResponse.json()
+}
+
 let citizenHappinessLevels = []
+
+function spawnCitizen(parent=null) {
+    const name = names[Math.floor(Math.random() * names.length)]
+
+    if (parent) {
+        surname = mainParent.surname
+        parent = parent.id
+    } else {
+        surname = surnames[Math.floor(Math.random() * surnames.length)]
+    }
+
+    const citizen = {
+        id: `citizen_${new Date().getTime().toString().replace('.', '')}${userResources.citizens}`,
+        name: name,
+        surname: surname,
+        employment: null,
+        house: null, 
+        partner: null,
+        parent: parent,
+        status: "idle",
+        onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}
+    }
+
+    userCitizens.push(citizen)
+
+    updateResource('citizens', 1)
+    updateResource('unemployed', 1)
+
+    return citizen
+}
 
 function calculateCitizenHappiness(citizen) {
     let happiness = 100;
@@ -23,14 +66,14 @@ function calculateCitizenHappiness(citizen) {
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
     }
 
+    if (happiness > 75 && citizen.partner === null) {
+        findPartner(citizen)
+    }
+
     if (citizen.partner === null && currentDay > 1) {
         happiness -= 5
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
-    }
-
-    if (happiness > 75 && citizen.partner === null) {
-        findPartner(citizen)
     }
     
     citizen.happiness = happiness
@@ -51,7 +94,7 @@ function calculateHappiness() {
 }
 
 function findPartner(citizen) {
-    const partner = userCitizens.find(potentialPartner => potentialPartner.id !== citizen.id && potentialPartner.partner === null)
+    const partner = userCitizens.find(potentialPartner => potentialPartner.id !== citizen.id && potentialPartner.partner === null && potentialPartner.surname !== citizen.surname)
     
     if (partner === undefined) return
 

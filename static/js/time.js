@@ -43,8 +43,6 @@ function newWorkDay() {
     calculateHappiness();
 }
 
-newWorkDay()
-
 function forceNewDay() {
     currentHour = 7
 }

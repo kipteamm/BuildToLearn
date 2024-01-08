@@ -58,7 +58,13 @@ function updateResource(type, amount, overwrite=false) {
             userResources[type] += amount;
         }
         
-        indicator.innerText = userResources[type];
+        if (type === "clock") {
+            text = userResources[type] > 9 ? userResources[type] : `0${userResources[type]}`
+
+            indicator.innerText = text;
+        } else {
+            indicator.innerText = userResources[type];
+        }
     }
 }
 

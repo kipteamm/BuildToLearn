@@ -98,8 +98,8 @@ let userResources = {
     clock: 8,
     skillPoints: 99,
     gold: 0,
-    citizens: 4,
-    unemployed: 4,
+    citizens: 0,
+    unemployed: 0,
     happiness: 100,
     wood: 100,
     planks: 0,
@@ -107,16 +107,9 @@ let userResources = {
     parchment: 0,
     stone: 0,
     iron: 0,
-    house: 0,
-    lumberCamp: 0,
 };
 
 // CITIZENS
-let userCitizens = [
-    {id: 'citizen_1', name: "George", surname: "Dorchester", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
-    {id: 'citizen_2', name: "Patricia", surname: "Hamilton", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
-    {id: 'citizen_3', name: "Tobias", surname: "Cantor", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}}, 
-    {id: 'citizen_4', name: "Eliza", surname: "Goldstein", employment: null, house: null, partner: null, parent: null, happiness: 100, status: "idle", onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}},
-]
+let userCitizens = []
 
 let citizenComplaints = []
