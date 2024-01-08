@@ -116,3 +116,9 @@ body, html {
 .house-tile {
     background-position: -384px -128px;
 }
+.gatherersHut-tile {
+    background-position: -448px -0px;
+}
+.foodMarket-tile {
+    background-position: -448px -64px;
+}

@@ -1,4 +1,12 @@
-// building
+function getBuildingData(type, id, x, y) {
+    const building = Object.create(buildingTypes[type]);
+
+    building.init(id, x, y);
+    
+    return building;
+}
+
+// builder
 function hasIdleBuilder() {
     return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 }

@@ -51,21 +51,17 @@ const resourceIndicators = {
 function updateResource(type, amount, overwrite=false) {
     const indicator = resourceIndicators[type];
 
-    if (indicator) {
-        if (overwrite) {
-            userResources[type] = amount;
-        } else {
-            userResources[type] += amount;
-        }
-        
-        if (type === "clock") {
-            text = userResources[type] > 9 ? userResources[type] : `0${userResources[type]}`
+    userResources[type] = overwrite ? amount : userResources[type] + amount;
 
-            indicator.innerText = text;
-        } else {
-            indicator.innerText = userResources[type];
-        }
+    let displayText;
+
+    if (type === "clock") {
+        displayText = userResources[type].toString().padStart(2, '0');
+    } else {
+        displayText = userResources[type];
     }
+
+    indicator.innerText = displayText;
 }
 
 /* MENU */
@@ -111,8 +107,6 @@ let activeTile = null
 function openActionMenu(tile) {
     if (activeTile === tile) {
         itemMenu.style.display = 'none';
-
-        activeTile = null
 
         return
     }

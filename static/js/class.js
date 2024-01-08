@@ -35,6 +35,8 @@ async function loadTabContents(tabId) {
         spawnCitizen()
         spawnCitizen()
         spawnCitizen()
+        spawnCitizen()
+        spawnCitizen()
 
         generateMap(1)
 

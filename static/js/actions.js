@@ -31,6 +31,9 @@ function getSkill(skill=null) {
 
             case "mining":
                 return userMining
+
+            case "trading":
+                return userTrading
         }
     }
 
@@ -54,6 +57,8 @@ function getSkill(skill=null) {
 }
 
 function collect() {
+    // make villager work
+
     if (userResources.unemployed - 1 < 0) {
         sendAlert('error', `You don't have an available villager.`)
         
@@ -90,60 +95,41 @@ function collect() {
 function build(type) {
     const tile = activeTile;
 
-    let requirements = {};
-
-    switch (type) {
-        case "house":
-            skill = null
-            requirements.wood = 20
-            time = 30
-
-            break;
-
-        case "lumberCamp":
-            skill = 'foraging'
-            requirements.wood = 5
-            time = 15
-
-            break;
-    }
-
-    toggleBuildMenu()
+    toggleBuildMenu();
 
     if (type !== "buildersHut") {
-        if (skill !== null && !getSkill(skill).includes(type)) {
-            sendAlert('error', "You don't know how to build that.")
+        const { skill, resources, time } = buildingRequirements[type];
 
-            return
+        if (skill !== null && !getSkill(skill).includes(type)) {
+            sendAlert('error', "You don't know how to build that.");
+            return;
         }
 
-        if (!hasResources(requirements)) {
-            return
+        if (!hasResources(resources)) {
+            return;
         }
 
         if (!hasIdleBuilder()) {
-            sendAlert('error', "You have no builders available.")
-
-            return
+            sendAlert('error', "You have no builders available.");
+            return;
         }
 
-        useResources(requirements)
+        useResources(resources);
+        buildBuilding(tile, type, time);
 
-        buildBuilding(tile, type, time)
-
-        return
+        return;
     }
 
-    const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`
+    const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`;
 
-    tile.setAttribute('class', `tile buildersHut-tile`)
-    tile.setAttribute('type', 'buildersHut')
-    tile.setAttribute('status', 'built')
-    tile.id = id
+    tile.setAttribute('class', `tile buildersHut-tile`);
+    tile.setAttribute('type', 'buildersHut');
+    tile.setAttribute('status', 'built');
+    tile.id = id;
 
-    userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
+    userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))));
 
-    updateActionsMenu()
+    updateActionsMenu();
 }
 
 function addCitizen(buildingId) {
