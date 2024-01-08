@@ -27,6 +27,15 @@ function buildBuilding(tile, type, time) {
     tile.setAttribute('status', 'building')
     tile.setAttribute('status-start', new Date().getTime())
     tile.setAttribute('status-duration', time)
+    tile.setAttribute('growable', 'no')
+
+    const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)
+
+    neighbouringTiles.forEach(neighbouringTile => {
+        if (neighbouringTile.getAttribute('growable') === "yes") {
+            neighbouringTile.setAttribute('growable', 'no')
+        }
+    })
 
     updateActionsMenu()
 
@@ -97,7 +106,7 @@ function startLumberCamp(building) {
             
             tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
             tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'buildable')
+            tile.setAttribute('status', 'empty')
 
             updateResource('wood', 3)
         }, duration * 1000)
@@ -151,7 +160,7 @@ function startGatherersHut(building) {
             
             tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
             tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'buildable')
+            tile.setAttribute('status', 'empty')
 
             updateResource('berry', 4)
         }, duration * 1000)

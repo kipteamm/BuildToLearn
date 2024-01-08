@@ -191,6 +191,7 @@ function createTile(type, posX, posY) {
     }
 
     tile.setAttribute("status", status)
+    tile.setAttribute("growable", "yes")
 
     return tile
 }

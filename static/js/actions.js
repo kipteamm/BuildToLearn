@@ -129,7 +129,16 @@ function build(type) {
     tile.setAttribute('class', `tile buildersHut-tile`);
     tile.setAttribute('type', 'buildersHut');
     tile.setAttribute('status', 'built');
+    tile.setAttribute('growable', 'no')
     tile.id = id;
+
+    const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)
+
+    neighbouringTiles.forEach(neighbouringTile => {
+        if (neighbouringTile.getAttribute('growable') === "yes") {
+            neighbouringTile.setAttribute('growable', 'no')
+        }
+    })
 
     userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))));
 
