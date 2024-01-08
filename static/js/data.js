@@ -72,7 +72,7 @@ const buildingTypes = {
         function: {
             radius: 1,
             status: "unstaffed",
-            onDayStart: (building) => foodMarket(building)
+            onDayStart: (building) => {}
         }
     },
     house: {

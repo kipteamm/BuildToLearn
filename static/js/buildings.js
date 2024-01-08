@@ -107,3 +107,68 @@ function startLumberCamp(building) {
         building.function.radius += 1
     }
 }
+
+// gatherers hut
+function startGatherersHut(building) {
+    if (building.citizens.length < 1) {
+        return
+    }
+
+    if (building.function.status === "out_of_range") {
+        sendAlert('error', "Bushes are too far away.")
+
+        return
+    }
+
+    const availableCitizens = Array.from(building.citizens)
+    const tiles = getTilesInRadius(building.x, building.y, building.function.radius).sort(() => Math.random() - 0.5)
+
+    const duration = (dayDuration / 4) + (Math.floor(building.function.radius / 2))
+
+    if (duration >= (dayDuration / 2)) {
+        building.function.status = "out_of_range"
+    }
+
+    for (var i = 0; i < tiles.length; i ++) {
+        if (availableCitizens.length === 0) break;
+        
+        const tile = tiles[i]
+
+        if (tile.getAttribute('type') !== 'berry') continue;
+
+        const citizen = userCitizens.find(citizen => citizen.id === availableCitizens[0])
+
+        availableCitizens.shift()
+
+        citizen.status = "working"
+
+        tile.setAttribute('status', 'collecting')
+        tile.setAttribute('status-start', new Date().getTime())
+        tile.setAttribute('status-duration', duration)
+
+        setTimeout(() => {
+            citizen.status = "idle"
+            
+            tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
+            tile.setAttribute('type', 'grass')
+            tile.setAttribute('status', 'buildable')
+
+            updateResource('berry', 4)
+        }, duration * 1000)
+    }
+
+    if (availableCitizens.length > 0) {
+        building.function.radius += 1
+    }
+}
+
+// market
+function hasEaten(citizen) {
+    if (!userBuildings.some(building => building.id.includes('foodMarket_') && building.citizens.length === 1)) return false
+
+    if (userResources.berry === 0) return false
+
+    updateResource('berry', -1)
+
+    return true
+}

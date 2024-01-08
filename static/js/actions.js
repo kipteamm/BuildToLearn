@@ -57,9 +57,9 @@ function getSkill(skill=null) {
 }
 
 function collect() {
-    // make villager work
+    const availableCitizen = userCitizens.find(citizen => citizen.employment === null && citizen.status === "idle")
 
-    if (userResources.unemployed - 1 < 0) {
+    if (availableCitizen === undefined) {
         sendAlert('error', `You don't have an available villager.`)
         
         return
@@ -71,6 +71,8 @@ function collect() {
     if (type === 'grass') {
         return
     }
+
+    availableCitizen.status = "collecting"
 
     updateResource('unemployed', -1)
 
@@ -89,6 +91,8 @@ function collect() {
 
         updateResource(type, 1)
         updateResource('unemployed', 1)
+
+        availableCitizen.status = "idle"
     }, 15000)
 }
 
@@ -141,10 +145,10 @@ function addCitizen(buildingId) {
         return
     }
 
-    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null));
+    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null && citizen.status === "idle"));
 
     if (citizen === undefined) {
-        sendAlert('error', "You have no more unemployed citizens.")
+        sendAlert('error', "There is no one available right now.")
 
         return
     }
