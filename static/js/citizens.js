@@ -51,6 +51,8 @@ function calculateCitizenHappiness(citizen) {
         findHouse(citizen)
     }
 
+    const complaintBonus = citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0;
+
     if (citizen.house === null) {
         if (citizen.partner === null) {
             if (!citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing.');
@@ -58,11 +60,11 @@ function calculateCitizenHappiness(citizen) {
             if (!citizenComplaints.includes('No housing for a fresh couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a fresh couple.');
         }
 
-        happiness -= 5 + citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0
+        happiness -= 5 + complaintBonus
     }
 
     if (citizen.employment === null) {
-        happiness -= 5 + citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0
+        happiness -= 5 + complaintBonus
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
     }
@@ -72,13 +74,13 @@ function calculateCitizenHappiness(citizen) {
     }
 
     if (citizen.partner === null && currentDay > 1) {
-        happiness -= 5 + citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0
+        happiness -= 5 + complaintBonus
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
     }
 
     if (!hasEaten(citizen)) {
-        happiness -= 5 + citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0
+        happiness -= 5 + complaintBonus
 
         if (!citizenComplaints.includes('Hungry citizens.')) citizenComplaints.push('Hungry citizens.');
     }

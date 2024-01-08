@@ -36,14 +36,14 @@ const baseBuildingTemplate = {
         this.x = x;
         this.y = y;
         this.citizens = [];
-        this.max_citizens = 3;
-        this.add_citizen = true;
     }
 };
 
 const buildingTypes = {
     buildersHut: {
         ...baseBuildingTemplate,
+        max_citizens: 3,
+        add_citizen: true,
         function: {
             status: "unstaffed",
             available_citizens: [],
@@ -52,6 +52,8 @@ const buildingTypes = {
     },
     lumberCamp: {
         ...baseBuildingTemplate,
+        max_citizens: 3,
+        add_citizen: true,
         function: {
             radius: 1,
             status: "unstaffed",
@@ -60,6 +62,8 @@ const buildingTypes = {
     },
     gatherersHut: {
         ...baseBuildingTemplate,
+        max_citizens: 3,
+        add_citizen: true,
         function: {
             radius: 1,
             status: "unstaffed",
@@ -69,6 +73,7 @@ const buildingTypes = {
     foodMarket: {
         ...baseBuildingTemplate,
         max_citizens: 1,
+        add_citizen: true,
         function: {
             radius: 1,
             status: "unstaffed",
