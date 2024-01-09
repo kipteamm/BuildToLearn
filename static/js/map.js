@@ -9,6 +9,8 @@ let accumulatedTranslateY = 0;
 let accumulatedScale = 1; // Initial scale
 let disableMovement = false;
 
+let berries = []
+
 mapContent.addEventListener('mousedown', function(e) {
     if (disableMovement) return;
 
@@ -139,9 +141,9 @@ function customRandom(seed) {
 function generateMap(seed) {
     const random = customRandom(seed);
     const selections = ['grass', 'wood', 'stone', 'berry', 'iron', 'papyrus'];
-    const probabilities = [0.375, 0.375, 0.1, 0.1, 0.025, 0.025];
+    const probabilities = [0.380, 0.450, 0.1, 0.020, 0.025, 0.025];
 
-    //console.log(probabilities.reduce((a, b) => a + b, 0))
+    console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -154,7 +156,7 @@ function generateMap(seed) {
                 cumulativeProbability += probabilities[j];
 
                 if (randomValue <= cumulativeProbability) {
-                    row.appendChild(createTile(selections[j], columnIndex, rowIndex));
+                    row.appendChild(createTile(random, selections[j], columnIndex, rowIndex));
                     break;
                 }
             }
@@ -172,11 +174,15 @@ function createTileRow() {
     return row
 }
 
-function createTile(type, posX, posY) {
+function createTile(random, type, posX, posY) {
     const tile = document.createElement('div')
 
+    if (type === "berry" && random() > 0.75) {
+        berries.push({pos_x: posX, pos_y: posY})
+    }
+
     tile.classList.add('tile')
-    tile.classList.add(`${type}-tile-${Math.floor(Math.random() * 3) + 1}`)
+    tile.classList.add(`${type}-tile-${Math.floor(random() * 3) + 1}`)
 
     tile.setAttribute("pos-x", posX)
     tile.setAttribute("pos-y", posY)
@@ -194,6 +200,22 @@ function createTile(type, posX, posY) {
     tile.setAttribute("growable", "yes")
 
     return tile
+}
+
+function generateBerries(seed) {
+    const random = customRandom(seed);
+    
+    berries.forEach(coordinates => {
+        getTilesInRadius(coordinates.pos_x, coordinates.pos_y, 1).forEach(tile => {
+            const randomValue = random();
+
+            if (randomValue < 0.5) {
+                tile.setAttribute("class", `tile berry-tile-${Math.floor(random() * 3) + 1}`)
+                tile.setAttribute("type", "bush")
+                tile.setAttribute('status', "collectable")
+            }
+        })
+    })
 }
 
 /* ITEMS */
