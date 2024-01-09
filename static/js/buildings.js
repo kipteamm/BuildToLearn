@@ -106,7 +106,7 @@ function startLumberCamp(building) {
             
             tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
             tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'empty')
+            tile.setAttribute('status', 'buildable')
 
             updateResource('wood', 3)
         }, duration * 1000)
@@ -160,7 +160,7 @@ function startGatherersHut(building) {
             
             tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
             tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'empty')
+            tile.setAttribute('status', 'buildable')
 
             updateResource('berry', 4)
         }, duration * 1000)
