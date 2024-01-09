@@ -79,7 +79,7 @@ function calculateCitizenHappiness(citizen) {
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
     }
 
-    if (!hasEaten(citizen)) {
+    if (!hasEaten()) {
         happiness -= 5 + complaintBonus
 
         if (!citizenComplaints.includes('Hungry citizens.')) citizenComplaints.push('Hungry citizens.');

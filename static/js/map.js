@@ -184,10 +184,6 @@ function createTile(random, type, posX, posY) {
     tile.classList.add('tile')
     tile.classList.add(`${type}-tile-${Math.floor(random() * 3) + 1}`)
 
-    tile.setAttribute("pos-x", posX)
-    tile.setAttribute("pos-y", posY)
-    tile.setAttribute("type", type)
-
     let status = 'idle'
 
     if (collectables.includes(type)) {
@@ -196,8 +192,7 @@ function createTile(random, type, posX, posY) {
         status = 'buildable'
     }
 
-    tile.setAttribute("status", status)
-    tile.setAttribute("growable", "yes")
+    updateTile(tile, type, false, status, null, null, 'yes')
 
     return tile
 }
@@ -210,12 +205,23 @@ function generateBerries(seed) {
             const randomValue = random();
 
             if (randomValue < 0.5) {
-                tile.setAttribute("class", `tile berry-tile-${Math.floor(random() * 3) + 1}`)
-                tile.setAttribute("type", "bush")
-                tile.setAttribute('status', "collectable")
+                updateTile(tile, 'berry', false, 'collectable', null, null, 'yes')
             }
         })
     })
+}
+
+function updateTile(tile, type=null, building=false, status=null, statusStart=null, statusDuration=null, growable=null, posX, posY) {
+    if (type !== null) {
+        tile.setAttribute('class', building ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(Math.random() * 3) + 1}`);
+        tile.setAttribute('type', type);
+    }
+    if (status !== null) tile.setAttribute('status', status);
+    if (statusStart !== null) tile.setAttribute('status-start', statusStart);
+    if (statusDuration !== null) tile.setAttribute('status-duration', statusDuration);
+    if (growable !== null) tile.setAttribute('growable', growable);
+    if (posX !== null) tile.setAttribute('pos-x', posX);
+    if (posY !== null) tile.setAttribute('pos-y', posY)
 }
 
 /* ITEMS */

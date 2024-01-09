@@ -76,16 +76,16 @@ function collect() {
 
     updateResource('unemployed', -1)
 
-    tile.setAttribute('status', 'collecting')
-    tile.setAttribute('status-start', new Date().getTime())
-    tile.setAttribute('status-duration', 15)
+    updateTile(tile, null, false, 'collecting', new Date().getTime(), 15, null)
 
     updateActionsMenu()
 
     setTimeout(() => {
-        tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
-        tile.setAttribute('type', 'grass')
-        tile.setAttribute('status', 'buildable')
+        if (type === 'berry') {
+            updateTile(tile, 'berrySeeds', false, 'growing', null, null, null)
+        } else {
+            updateTile(tile, 'grass', false, 'buildable', null, null, null)
+        }
 
         updateActionsMenu()
 
@@ -126,10 +126,8 @@ function build(type) {
 
     const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`;
 
-    tile.setAttribute('class', `tile buildersHut-tile`);
-    tile.setAttribute('type', 'buildersHut');
-    tile.setAttribute('status', 'built');
-    tile.setAttribute('growable', 'no')
+    updateTile(tile, 'buildersHut', true, 'built', null, null, 'no')
+
     tile.id = id;
 
     const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)

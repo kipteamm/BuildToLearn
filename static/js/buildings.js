@@ -11,7 +11,7 @@ function hasIdleBuilder() {
     return userBuildings.some(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 }
 
-function buildBuilding(tile, type, time) {
+function buildBuilding(tile, type, duration) {
     const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 
     if (buildersHut === undefined) {
@@ -24,10 +24,7 @@ function buildBuilding(tile, type, time) {
 
     buildersHut.function.available_citizens.shift()
 
-    tile.setAttribute('status', 'building')
-    tile.setAttribute('status-start', new Date().getTime())
-    tile.setAttribute('status-duration', time)
-    tile.setAttribute('growable', 'no')
+    updateTile(tile, null, true, 'building', new Date().getTime(), duration, 'no')
 
     const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)
 
@@ -42,9 +39,8 @@ function buildBuilding(tile, type, time) {
     setTimeout(() => {
         const id = `${type}-${new Date().getTime().toString().replace('.', '')}`.replace('-', '_')
 
-        tile.setAttribute('class', `tile ${type}-tile`)
-        tile.setAttribute('type', type)
-        tile.setAttribute('status', 'built')
+        updateTile(tile, type, true, 'built')
+
         tile.id = id
 
         userBuildings.push(getBuildingData(type, id, parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y'))))
@@ -60,7 +56,7 @@ function buildBuilding(tile, type, time) {
                 findHouse(citizen)
             })
         }
-    }, time * 1000)
+    }, duration * 1000)
 }
 
 // lumber 
@@ -97,16 +93,12 @@ function startLumberCamp(building) {
 
         citizen.status = "working"
 
-        tile.setAttribute('status', 'collecting')
-        tile.setAttribute('status-start', new Date().getTime())
-        tile.setAttribute('status-duration', duration)
+        updateTile(tile, null, false, 'collecting', new Date().getTime(), duration)
 
         setTimeout(() => {
             citizen.status = "idle"
-            
-            tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
-            tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'buildable')
+
+            updateTile(tile, 'grass', false, 'buildable')
 
             updateResource('wood', 3)
         }, duration * 1000)
@@ -151,17 +143,13 @@ function startGatherersHut(building) {
 
         citizen.status = "working"
 
-        tile.setAttribute('status', 'collecting')
-        tile.setAttribute('status-start', new Date().getTime())
-        tile.setAttribute('status-duration', duration)
+        updateTile(tile, null, false, 'collecting', new Date().getTime(), duration)
 
         setTimeout(() => {
             citizen.status = "idle"
-            
-            tile.setAttribute('class', `tile grass-tile-${Math.floor(Math.random() * 3) + 1}`)
-            tile.setAttribute('type', 'grass')
-            tile.setAttribute('status', 'buildable')
 
+            updateTile(tile, 'berrySeeds', false, 'growing')
+            
             updateResource('berry', 4)
         }, duration * 1000)
     }
@@ -172,7 +160,7 @@ function startGatherersHut(building) {
 }
 
 // market
-function hasEaten(citizen) {
+function hasEaten() {
     if (!userBuildings.some(building => building.id.includes('foodMarket_') && building.citizens.length === 1)) return false
 
     if (userResources.berry === 0) return false
