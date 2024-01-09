@@ -1,6 +1,8 @@
 let activeTab = "loading"
 let loaded = false;
 
+let seedData;
+
 window.onload = function() {
     let tab = new URLSearchParams(location.search).get('t');
 
@@ -31,6 +33,8 @@ async function loadTabContents(tabId) {
     if (tabId === 'city') {
         await fetchNames()
 
+        seedData = customRandom(1)
+
         spawnCitizen()
         spawnCitizen()
         spawnCitizen()
@@ -38,9 +42,8 @@ async function loadTabContents(tabId) {
         spawnCitizen()
         spawnCitizen()
 
-        generateMap(1)
-
-        generateBerries(1)
+        generateMap()
+        generateBerries()
 
         for (const [key, val] of Object.entries(userResources)) {
             updateResource(key, 0)

@@ -138,25 +138,24 @@ function customRandom(seed) {
     };
 }
 
-function generateMap(seed) {
-    const random = customRandom(seed);
+function generateMap() {
     const selections = ['grass', 'wood', 'stone', 'berry', 'iron', 'papyrus'];
-    const probabilities = [0.380, 0.450, 0.1, 0.020, 0.025, 0.025];
+    const probabilities = [0.430, 0.400, 0.1, 0.020, 0.025, 0.025];
 
-    console.log(probabilities.reduce((a, b) => a + b, 0));
+    //console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
 
         for (let columnIndex = 0; columnIndex < 50; columnIndex ++) {
-            const randomValue = random();
+            const randomValue = seedData();
             let cumulativeProbability = 0;
 
             for (let j = 0; j < selections.length; j++) {
                 cumulativeProbability += probabilities[j];
 
                 if (randomValue <= cumulativeProbability) {
-                    row.appendChild(createTile(random, selections[j], columnIndex, rowIndex));
+                    row.appendChild(createTile(selections[j], columnIndex, rowIndex));
                     break;
                 }
             }
@@ -174,15 +173,12 @@ function createTileRow() {
     return row
 }
 
-function createTile(random, type, posX, posY) {
+function createTile(type, posX, posY) {
     const tile = document.createElement('div')
 
-    if (type === "berry" && random() > 0.75) {
+    if (type === "berry" && seedData() > 0.75) {
         berries.push({pos_x: posX, pos_y: posY})
     }
-
-    tile.classList.add('tile')
-    tile.classList.add(`${type}-tile-${Math.floor(random() * 3) + 1}`)
 
     let status = 'idle'
 
@@ -192,19 +188,15 @@ function createTile(random, type, posX, posY) {
         status = 'buildable'
     }
 
-    updateTile(tile, type, false, status, null, null, 'yes')
+    updateTile(tile, type, false, status, null, null, 'yes', posX, posY)
 
     return tile
 }
 
-function generateBerries(seed) {
-    const random = customRandom(seed);
-    
+function generateBerries() {
     berries.forEach(coordinates => {
         getTilesInRadius(coordinates.pos_x, coordinates.pos_y, 1).forEach(tile => {
-            const randomValue = random();
-
-            if (randomValue < 0.5) {
+            if (seedData() < 0.75) {
                 updateTile(tile, 'berry', false, 'collectable', null, null, 'yes')
             }
         })
@@ -213,7 +205,7 @@ function generateBerries(seed) {
 
 function updateTile(tile, type=null, building=false, status=null, statusStart=null, statusDuration=null, growable=null, posX, posY) {
     if (type !== null) {
-        tile.setAttribute('class', building ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(Math.random() * 3) + 1}`);
+        tile.setAttribute('class', building ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}`);
         tile.setAttribute('type', type);
     }
     if (status !== null) tile.setAttribute('status', status);
