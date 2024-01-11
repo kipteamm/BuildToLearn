@@ -31,8 +31,10 @@ function spawnCitizen(parent=null) {
         house: null, 
         partner: null,
         parent: parent,
+        children: [],
         lastComplaint: 0,
         status: "idle",
+        pregnant: false,
         onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}
     }
 
@@ -89,6 +91,10 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint += 1
     } else {
         citizen.lastComplaint = 0
+    }
+
+    if (happiness > 85 && currentDay > 5 && citizen.children.length < 6 && !citizen.pregnant) {
+        getPregnant(citizen)
     }
 
     citizenHappinessLevels.push(happiness)
@@ -186,4 +192,8 @@ function findHouse(citizen) {
     emptyHouse.citizens.push(citizen.id)
 
     citizen.house = emptyHouse.id
+}
+
+function getPregnant(citizen) {
+    const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
 }

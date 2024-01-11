@@ -45,4 +45,5 @@ function newWorkDay() {
 
 function forceNewDay() {
     currentHour = 7
+    currentDay += 1
 }
