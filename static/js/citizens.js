@@ -31,7 +31,7 @@ function spawnCitizen(parent=null) {
         house: null, 
         partner: null,
         parent: parent,
-        lastComplaint: null,
+        lastComplaint: 0,
         status: "idle",
         onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}
     }
@@ -51,8 +51,6 @@ function calculateCitizenHappiness(citizen) {
         findHouse(citizen)
     }
 
-    const complaintBonus = citizen.lastComplaint !== null ? (currentDay - citizen.lastComplaint) : 0;
-
     if (citizen.house === null) {
         if (citizen.partner === null) {
             if (!citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing.');
@@ -60,11 +58,11 @@ function calculateCitizenHappiness(citizen) {
             if (!citizenComplaints.includes('No housing for a fresh couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a fresh couple.');
         }
 
-        happiness -= 5 + complaintBonus
+        happiness -= 5 + citizen.lastComplaint
     }
 
     if (citizen.employment === null) {
-        happiness -= 5 + complaintBonus
+        happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
     }
@@ -74,13 +72,13 @@ function calculateCitizenHappiness(citizen) {
     }
 
     if (citizen.partner === null && currentDay > 1) {
-        happiness -= 5 + complaintBonus
+        happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
     }
 
     if (!hasEaten()) {
-        happiness -= 5 + complaintBonus
+        happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('Hungry citizens.')) citizenComplaints.push('Hungry citizens.');
     }
@@ -88,9 +86,9 @@ function calculateCitizenHappiness(citizen) {
     citizen.happiness = happiness
 
     if (happiness < 100) {
-        citizen.lastComplaint = currentDay
+        citizen.lastComplaint += 1
     } else {
-        citizen.lastComplaint = null
+        citizen.lastComplaint = 0
     }
 
     citizenHappinessLevels.push(happiness)
