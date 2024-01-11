@@ -120,6 +120,11 @@ function findPartner(citizen) {
 
     sendAlert('success', "Some of your citizens fell in love!")
 
+    const surname = [citizen.surname, partner.surname][Math.floor(Math.random() * 2)]
+
+    citizen.surname = surname
+    partner.surname = surname
+
     if (house === undefined && partnerHouse === undefined) {
         const newHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length === 0 && !building.private)
 
