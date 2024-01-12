@@ -242,6 +242,8 @@ function getPregnant(citizen) {
 
     citizen.pregnant = currentDay
     partner.pregnant = currentDay
+
+    sendAlert('success', "Someone got pregnant.")
 }
 
 function startLabour(citizen) {

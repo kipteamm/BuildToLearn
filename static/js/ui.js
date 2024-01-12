@@ -35,6 +35,7 @@ function sendAlert(type, text) {
 /* RESOURCES */
 const resourceIndicators = {
     clock: document.getElementById('clock'),
+    day: document.getElementById('day'),
     skillPoints: document.getElementById('skill-points'),
     gold: document.getElementById('gold'),
     citizens: document.getElementById('citizens'),
@@ -49,19 +50,19 @@ const resourceIndicators = {
 }
 
 function updateResource(type, amount, overwrite=false) {
-    const indicator = resourceIndicators[type];
-
     userResources[type] = overwrite ? amount : userResources[type] + amount;
 
-    let displayText;
+    updateIndicator(type, userResources[type])
+}
 
-    if (type === "clock") {
-        displayText = userResources[type].toString().padStart(2, '0');
-    } else {
-        displayText = userResources[type];
+function updateIndicator(id, value) {
+    if (id === "clock") {
+        value = value.toString().padStart(2, '0');
     }
 
-    indicator.innerText = displayText;
+    const indicator = resourceIndicators[id];
+
+    indicator.innerText = value
 }
 
 /* MENU */

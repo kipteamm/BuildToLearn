@@ -14,6 +14,8 @@ setInterval(() => {
     if (currentHour === 24) {
         currentHour = 0;
         currentDay += 1;
+
+        updateIndicator('day', currentDay);
     }
 
     if (currentHour >= nightTime) {
@@ -28,7 +30,7 @@ setInterval(() => {
         newWorkDay();
     }
     
-    updateResource('clock', currentHour, true);
+    updateIndicator('clock', currentHour);
 }, hourDuration);
 
 function newWorkDay() {
