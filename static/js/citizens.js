@@ -16,8 +16,11 @@ let citizenHappinessLevels = []
 function spawnCitizen(parent_1=null, parent_2=null) {
     const name = names[Math.floor(Math.random() * names.length)]
 
-    if (parent) {
+    if (parent_1 !== null && parent_2 !== null) {
         surname = parent_1.surname
+
+        parent_1 = parent_1.id
+        parent_2 = parent_2.id
     } else {
         surname = surnames[Math.floor(Math.random() * surnames.length)]
     }
@@ -29,8 +32,8 @@ function spawnCitizen(parent_1=null, parent_2=null) {
         employment: null,
         house: null, 
         partner: null,
-        parent_1: parent_1.id,
-        parent_2: parent_2.id,
+        parent_1: parent_1,
+        parent_2: parent_2,
         children: [],
         lastComplaint: 0,
         status: "idle",
@@ -44,6 +47,40 @@ function spawnCitizen(parent_1=null, parent_2=null) {
     updateResource('unemployed', 1)
 
     return citizen
+}
+
+function removeCitizen(citizen) {
+    if (citizen.house !== null) {
+        const house = userBuildings.find(building => building.id === citizen.house)
+
+        house.citizens.splice(house.citizens.indexOf(citizen), 1)
+    }
+    
+    if (citizen.employment !== null) {
+        const employment = userBuildings.find(building => building.id === citizen.employment)
+
+        employment.citizens.splice(employment.citizens.indexOf(citizen), 1)
+    }
+    
+    if (citizen.partner !== null) {
+        const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
+
+        partner.partner = null
+    }
+
+    if (citizen.children.length > 0) {
+        citizen.children.forEach(childId => {
+            const child = userCitizens(_citizen => _citizen.id === childId)
+
+            if (child.parent_1 === citizen.id) {
+                child.parent_1 = null
+            } else {
+                child.parent_2 = null
+            }
+        })
+    }
+
+    userCitizens.splice(indexOf(citizen), 1)
 }
 
 function calculateCitizenHappiness(citizen) {
