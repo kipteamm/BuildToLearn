@@ -236,7 +236,7 @@ function findHouse(citizen) {
 }
 
 function getPregnant(citizen) {
-    if (Math.floor(Math.random() * (1 + citizen.children.length)) !== 0) return
+    if (Math.floor(Math.random() * (2 + citizen.children.length)) !== 0) return
 
     const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
 

@@ -203,7 +203,7 @@ function generateBerries() {
     })
 }
 
-function updateTile(tile, type=null, building=false, status=null, statusStart=null, statusDuration=null, growable=null, posX, posY) {
+function updateTile(tile, type=null, building=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null) {
     if (type !== null) {
         tile.setAttribute('class', building ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}`);
         tile.setAttribute('type', type);
