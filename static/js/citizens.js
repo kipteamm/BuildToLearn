@@ -13,12 +13,11 @@ async function fetchNames() {
 
 let citizenHappinessLevels = []
 
-function spawnCitizen(parent=null) {
+function spawnCitizen(parent_1=null, parent_2=null) {
     const name = names[Math.floor(Math.random() * names.length)]
 
     if (parent) {
-        surname = mainParent.surname
-        parent = parent.id
+        surname = parent_1.surname
     } else {
         surname = surnames[Math.floor(Math.random() * surnames.length)]
     }
@@ -30,11 +29,12 @@ function spawnCitizen(parent=null) {
         employment: null,
         house: null, 
         partner: null,
-        parent: parent,
+        parent_1: parent_1.id,
+        parent_2: parent_2.id,
         children: [],
         lastComplaint: 0,
         status: "idle",
-        pregnant: false,
+        pregnant: null,
         onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}
     }
 
@@ -93,8 +93,12 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint = 0
     }
 
-    if (happiness > 85 && currentDay > 5 && citizen.children.length < 6 && !citizen.pregnant) {
+    if (happiness > 85 && currentDay > 1 && citizen.children.length < 6 && citizen.pregnant === null) {
         getPregnant(citizen)
+    } 
+
+    if (citizen.pregnant && citizen.pregnant > currentDay - 5) {
+        startLabour(citizen)
     }
 
     citizenHappinessLevels.push(happiness)
@@ -195,5 +199,37 @@ function findHouse(citizen) {
 }
 
 function getPregnant(citizen) {
+    if (Math.floor(Math.random() * (1 + citizen.children.length)) !== 0) return
+
     const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
+
+    citizen.pregnant = currentDay
+    partner.pregnant = currentDay
+}
+
+function startLabour(citizen) {
+    const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
+
+    if (Math.floor(Math.random() * 20) + 1 === 1) {
+        sendAlert('error', "A citizen died in labour.")
+
+        const deadCitizen = [citizen, partner][Math.floor(Math.random() * 2)];
+
+        citizen.pregnant = null;
+        partner.pregnant = null;
+
+        removeCitizen(deadCitizen)
+    }
+
+    citizen.pregnant = null
+    partner.pregnant = null
+
+    const child = spawnCitizen(citizen, partner)
+
+    citizen.children.push(child.id)
+    partner.children.push(child.id)
+
+    child.house = citizen.house
+
+    sendAlert('success', "A new child was born!")
 }
