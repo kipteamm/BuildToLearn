@@ -1,3 +1,5 @@
+const adultHood = 20;
+
 let surnames;
 let names;
 
@@ -21,14 +23,19 @@ function spawnCitizen(parent_1=null, parent_2=null) {
 
         parent_1 = parent_1.id
         parent_2 = parent_2.id
+
+        age = 0
     } else {
         surname = surnames[Math.floor(Math.random() * surnames.length)]
+
+        age = adultHood
     }
 
     const citizen = {
         id: `citizen_${new Date().getTime().toString().replace('.', '')}${userResources.citizens}`,
         name: name,
         surname: surname,
+        age: age,
         employment: null,
         house: null, 
         partner: null,
@@ -44,8 +51,11 @@ function spawnCitizen(parent_1=null, parent_2=null) {
     userCitizens.push(citizen)
 
     updateResource('citizens', 1)
-    updateResource('unemployed', 1)
 
+    if (citizen.age === adultHood) {
+        updateResource('unemployed', 1)
+    }
+    
     return citizen
 }
 
@@ -100,17 +110,17 @@ function calculateCitizenHappiness(citizen) {
         happiness -= 5 + citizen.lastComplaint
     }
 
-    if (citizen.employment === null) {
+    if (citizen.employment === null && citizen.age > adultHood) {
         happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
     }
 
-    if (happiness > 75 && citizen.partner === null) {
+    if (happiness > 75 && citizen.partner === null && citizen.age > adultHood) {
         findPartner(citizen)
     }
 
-    if (citizen.partner === null && currentDay > 1) {
+    if (citizen.partner === null && currentDay > 1 && citizen.age > adultHood) {
         happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
@@ -130,11 +140,11 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint = 0
     }
 
-    if (happiness > 85 && currentDay > 1 && citizen.children.length < 6 && citizen.pregnant === null) {
+    if (happiness > 85 && currentDay > 1 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age > adultHood) {
         getPregnant(citizen)
     } 
 
-    if (citizen.pregnant && citizen.pregnant > currentDay - 5) {
+    if (citizen.pregnant && citizen.pregnant + 5 === currentDay) {
         startLabour(citizen)
     }
 
@@ -224,7 +234,17 @@ function findHouse(citizen) {
         emptyHouse.citizens.push(citizenPartner.id)
 
         return
-    } 
+    } else if (citizen.parent_1 !== null) {
+        const parent = userCitizens.find(_citizen => _citizen.id === citizen.parent_1)
+
+        if (parent.house === null) return 
+
+        const emptyHouse = userBuildings.find(building => building.id === parent.house)
+
+        emptyHouse.citizens.push(citizen.id)
+        
+        citizen.house = emptyHouse.id
+    }
 
     const emptyHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length < building.max_citizens && !building.private)
 

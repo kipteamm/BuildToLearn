@@ -39,6 +39,7 @@ function newWorkDay() {
     });
 
     userCitizens.forEach(citizen => {
+        citizen.age += 1
         citizen.onDayStart(citizen);
     });
 
