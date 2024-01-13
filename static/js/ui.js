@@ -174,6 +174,13 @@ function updateActionsMenu() {
             addBuildingData(activeTile.id)
 
             break;
+
+        case "stage-1":
+        case "stage-2":
+        case "stage-3":
+            addDescription("A new plant is growing here.")
+
+            break;
     }
 }
 

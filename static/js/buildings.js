@@ -112,51 +112,57 @@ function startLumberCamp(building) {
 // gatherers hut
 function startGatherersHut(building) {
     if (building.citizens.length < 1) {
-        return
+        return;
     }
 
     if (building.function.status === "out_of_range") {
-        sendAlert('error', "Bushes are too far away.")
-
-        return
+        sendAlert('error', "Bushes are too far away.");
+        return;
     }
 
-    const availableCitizens = Array.from(building.citizens)
-    const tiles = getTilesInRadius(building.x, building.y, building.function.radius).sort(() => Math.random() - 0.5)
+    let tiles = [];
+    let radius = 1;
 
-    const duration = (dayDuration / 4) + (Math.floor(building.function.radius / 2))
+    while (true) {
+        duration = (dayDuration / 4) + Math.floor(radius / 2);
 
-    if (duration >= (dayDuration / 2)) {
-        building.function.status = "out_of_range"
+        if (duration >= dayDuration / 2) {
+            building.function.status = "out_of_range";
+            return;
+        }
+
+        tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
+
+        if (tiles.some(tile => tile.getAttribute('type') === 'berry')) {
+            break;
+        }
+
+        radius += 1;
     }
 
-    for (var i = 0; i < tiles.length; i ++) {
-        if (availableCitizens.length === 0) break;
-        
-        const tile = tiles[i]
+    console.log(radius, tiles)
 
-        if (tile.getAttribute('type') !== 'berry') continue;
+    const availableCitizens = Array.from(building.citizens);
 
-        const citizen = userCitizens.find(citizen => citizen.id === availableCitizens[0])
+    tiles.forEach(tile => collectBerries(tile, availableCitizens, duration));
+}
 
-        availableCitizens.shift()
-
-        citizen.status = "working"
-
-        updateTile(tile, null, false, 'collecting', new Date().getTime(), duration)
-
-        setTimeout(() => {
-            citizen.status = "idle"
-
-            updateTile(tile, 'berrySeeds', true, 'stage-1')
-            
-            updateResource('berry', 4)
-        }, duration * 1000)
+function collectBerries(tile, availableCitizens, duration) {
+    if (availableCitizens.length === 0 || tile.getAttribute('type') !== 'berry') {
+        return;
     }
 
-    if (availableCitizens.length > 0) {
-        building.function.radius += 1
-    }
+    const citizenId = availableCitizens.shift();
+    const citizen = userCitizens.find(c => c.id === citizenId);
+
+    citizen.status = "working";
+    updateTile(tile, null, false, 'collecting', new Date().getTime(), duration);
+
+    setTimeout(() => {
+        citizen.status = "idle";
+        updateTile(tile, 'berrySeeds', true, 'stage-1');
+        updateResource('berry', 4);
+    }, duration * 1000);
 }
 
 // market

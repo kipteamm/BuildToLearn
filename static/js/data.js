@@ -130,12 +130,12 @@ let userMining = [];
 let userTrading = ['foodMarket']
 
 let userResources = {
-    skillPoints: 99,
+    skillPoints: 0,
     gold: 0,
     citizens: 0,
     unemployed: 0,
     happiness: 100,
-    wood: 100,
+    wood: 0,
     planks: 0,
     berry: 0,
     papyrus: 0,
