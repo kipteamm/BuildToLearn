@@ -90,7 +90,7 @@ function removeCitizen(citizen) {
         })
     }
 
-    userCitizens.splice(indexOf(citizen), 1)
+    userCitizens.splice(userCitizens.indexOf(citizen), 1)
 }
 
 function calculateCitizenHappiness(citizen) {
