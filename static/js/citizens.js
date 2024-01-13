@@ -81,7 +81,7 @@ function removeCitizen(citizen) {
 
     if (citizen.children.length > 0) {
         citizen.children.forEach(childId => {
-            const child = userCitizens(_citizen => _citizen.id === childId)
+            const child = userCitizens.find(_citizen => _citizen.id === childId)
 
             if (child.parent_1 === citizen.id) {
                 child.parent_1 = null
