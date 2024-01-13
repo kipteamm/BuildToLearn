@@ -34,6 +34,8 @@ setInterval(() => {
 }, hourDuration);
 
 function newWorkDay() {
+    updateResource('unemployed', 0, true)
+
     userBuildings.forEach(building => {
         building.function.onDayStart(building);
     });

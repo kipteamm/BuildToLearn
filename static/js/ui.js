@@ -230,6 +230,12 @@ function addBuildingData(buildingId) {
         citizen = userCitizens.find(citizen => citizen.id === citizenId)
 
         citizenHTML += `<li>${citizen.name} ${citizen.surname}`
+
+        if (buildingId.includes('house')) {
+            citizenHTML += ` (${citizen.age})`
+        }
+
+        citizenHTML += '</li>'
     })
 
     let addCitizen = ''

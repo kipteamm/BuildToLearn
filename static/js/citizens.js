@@ -1,5 +1,6 @@
 let citizenHappinessLevels = []
 
+const employmentAge = 10;
 const adultHood = 20;
 
 let surnames;
@@ -104,16 +105,18 @@ function calculateCitizenHappiness(citizen) {
         if (citizen.partner === null) {
             if (!citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing.');
         } else {
-            if (!citizenComplaints.includes('No housing for a fresh couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a fresh couple.');
+            if (!citizenComplaints.includes('No housing for a couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a couple.');
         }
 
         happiness -= 5 + citizen.lastComplaint
     }
 
-    if (citizen.employment === null && citizen.age > adultHood) {
+    if (citizen.employment === null && citizen.age > employmentAge) {
         happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
+
+        updateResource('unemployed', 1)
     }
 
     if (happiness > 75 && citizen.partner === null && citizen.age > adultHood) {
@@ -140,7 +143,7 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint = 0
     }
 
-    if (happiness > 85 && currentDay > 1 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age > adultHood) {
+    if (happiness > 85 && currentDay > 0 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age > adultHood) {
         getPregnant(citizen)
     } 
 
