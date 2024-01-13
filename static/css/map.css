@@ -73,13 +73,13 @@ body, html {
 }
 
 /* BERRY SEEDS */
-.berrySeeds-1 {
+.berrySeeds-tile[status="stage-1"] {
     background-position: -512px -0px;
 }
-.berrySeeds-2 {
+.berrySeeds-tile[status="stage-2"]{
     background-position: -512px -64px;
 }
-.berrySeeds-3 {
+.berrySeeds-tile[status="stage-3"] {
     background-position: -512px -128px;
 }
 

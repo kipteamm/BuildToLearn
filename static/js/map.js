@@ -245,14 +245,16 @@ function growSeeds() {
         const stage = element.getAttribute('status').split('-')[1]
 
         let newStatus = `stage-${parseInt(stage) + 1}`
-        let type = `berrySeeds-${parseInt(stage) + 1}`
+        let type = "berrySeeds"
+        let randomStyle = true
 
         if (stage === "3") {
             newStatus = "collectable"
 
             type = 'berry'
+            randomStyle = false
         }
 
-        updateTile(element, type, true, newStatus)
+        updateTile(element, type, randomStyle, newStatus)
     })
 }
