@@ -35,12 +35,9 @@ async function loadTabContents(tabId) {
 
         seedData = customRandom(1)
 
-        spawnCitizen()
-        spawnCitizen()
-        spawnCitizen()
-        spawnCitizen()
-        spawnCitizen()
-        spawnCitizen()
+        for (var i = 0; i < 10; i++) {
+            spawnCitizen()
+        }
 
         generateMap()
         generateBerries()

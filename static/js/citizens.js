@@ -237,16 +237,18 @@ function findHouse(citizen) {
         emptyHouse.citizens.push(citizenPartner.id)
 
         return
-    } else if (citizen.parent_1 !== null) {
+    } else if (citizen.parent_1 !== null || citizen.parent_2 !== null) {
         const parent = userCitizens.find(_citizen => _citizen.id === citizen.parent_1)
 
         if (parent.house === null) return 
 
-        const emptyHouse = userBuildings.find(building => building.id === parent.house)
+        const parentHouse = userBuildings.find(building => building.id === parent.house)
 
-        emptyHouse.citizens.push(citizen.id)
+        parentHouse.citizens.push(citizen.id)
         
-        citizen.house = emptyHouse.id
+        citizen.house = parentHouse.id
+
+        return
     }
 
     const emptyHouse = userBuildings.find(building => building.id.includes('house_') && building.citizens.length < building.max_citizens && !building.private)

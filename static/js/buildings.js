@@ -139,9 +139,7 @@ function startGatherersHut(building) {
 
         radius += 1;
     }
-
-    console.log(radius, tiles)
-
+    
     const availableCitizens = Array.from(building.citizens);
 
     tiles.forEach(tile => collectBerries(tile, availableCitizens, duration));
