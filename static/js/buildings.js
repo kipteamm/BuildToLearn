@@ -148,7 +148,7 @@ function startGatherersHut(building) {
         setTimeout(() => {
             citizen.status = "idle"
 
-            updateTile(tile, 'berrySeeds', false, 'growing')
+            updateTile(tile, 'berrySeeds', true, 'stage-1')
             
             updateResource('berry', 4)
         }, duration * 1000)

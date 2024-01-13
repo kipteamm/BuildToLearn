@@ -72,6 +72,17 @@ body, html {
     background-position: -192px -128px;
 }
 
+/* BERRY SEEDS */
+.berrySeeds-1 {
+    background-position: -512px -0px;
+}
+.berrySeeds-2 {
+    background-position: -512px -64px;
+}
+.berrySeeds-3 {
+    background-position: -512px -128px;
+}
+
 /* PAPYRUS */
 .papyrus-tile-1 {
     background-position: -128px 0;

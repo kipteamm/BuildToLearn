@@ -1,3 +1,5 @@
+let citizenHappinessLevels = []
+
 const adultHood = 20;
 
 let surnames;
@@ -12,8 +14,6 @@ async function fetchNames() {
 
     names = await namesResponse.json()
 }
-
-let citizenHappinessLevels = []
 
 function spawnCitizen(parent_1=null, parent_2=null) {
     const name = names[Math.floor(Math.random() * names.length)]

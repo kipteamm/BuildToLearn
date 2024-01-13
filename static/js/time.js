@@ -44,6 +44,8 @@ function newWorkDay() {
     });
 
     calculateHappiness();
+
+    growSeeds()
 }
 
 function forceNewDay() {

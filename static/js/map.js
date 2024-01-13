@@ -203,9 +203,9 @@ function generateBerries() {
     })
 }
 
-function updateTile(tile, type=null, building=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null) {
+function updateTile(tile, type=null, randomStyle=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null) {
     if (type !== null) {
-        tile.setAttribute('class', building ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}`);
+        tile.setAttribute('class', randomStyle ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}`);
         tile.setAttribute('type', type);
     }
     if (status !== null) tile.setAttribute('status', status);
@@ -237,4 +237,22 @@ function getTilesInRadius(x, y, radius) {
     }
 
     return tiles;
+}
+
+// seeds
+function growSeeds() {
+    document.querySelectorAll('[type="berrySeeds"]').forEach(element => {
+        const stage = element.getAttribute('status').split('-')[1]
+
+        let newStatus = `stage-${parseInt(stage) + 1}`
+        let type = `berrySeeds-${parseInt(stage) + 1}`
+
+        if (stage === "3") {
+            newStatus = "collectable"
+
+            type = 'berry'
+        }
+
+        updateTile(element, type, true, newStatus)
+    })
 }
