@@ -139,10 +139,10 @@ function customRandom(seed) {
 }
 
 function generateMap() {
-    const selections = ['grass', 'wood', 'stone', 'berry', 'iron', 'papyrus'];
-    const probabilities = [0.430, 0.400, 0.1, 0.020, 0.025, 0.025];
+    const selections = ['grass', 'wood', 'stone', 'berry', 'iron'];
+    const probabilities = [0.440, 0.410, 0.1, 0.025, 0.025];
 
-    //console.log(probabilities.reduce((a, b) => a + b, 0));
+    console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -217,7 +217,7 @@ function updateTile(tile, type=null, randomStyle=false, status=null, statusStart
 }
 
 /* ITEMS */
-const collectables = ['wood', 'berry', 'papyrus', 'stone', 'iron']
+const collectables = ['wood', 'berry', 'stone', 'iron']
 
 function getTilesInRadius(x, y, radius) {
     let tiles = [];

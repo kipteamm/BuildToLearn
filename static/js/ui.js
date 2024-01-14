@@ -42,9 +42,7 @@ const resourceIndicators = {
     unemployed: document.getElementById('unemployed'),
     happiness: document.getElementById('happiness'),
     wood: document.getElementById('wood'),
-    planks: document.getElementById('planks'),
     berry: document.getElementById('berry'),
-    papyrus: document.getElementById('papyrus'),
     stone: document.getElementById('stone'),
     iron: document.getElementById('iron'),
 }

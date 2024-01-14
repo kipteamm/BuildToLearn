@@ -42,7 +42,6 @@ function getSkill(skill=null) {
             return userForaging
 
         case "berry":
-        case "papyrus":
             return userFarming
 
         case "stone":

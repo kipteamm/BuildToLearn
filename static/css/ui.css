@@ -31,7 +31,7 @@ span.title {
     pointer-events: none;
 }
 .night-overlay.active {
-    opacity: .5;
+    opacity: .6;
 }
 
 /* ALERTS */
@@ -61,17 +61,11 @@ span.title {
 .stone-icon {
     background-position: -32px -96px;
 }
-.papyrus-icon {
-    background-position: -64px -96px;
-}
 .berry-icon {
     background-position: -96px -96px;
 }
 .wood-icon {
     background-position: -128px -96px;
-}
-.planks-icon {
-    background-position: -160px -96px;
 }
 
 /* TOOLS */

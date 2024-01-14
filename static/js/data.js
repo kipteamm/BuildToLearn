@@ -136,9 +136,7 @@ let userResources = {
     unemployed: 0,
     happiness: 100,
     wood: 0,
-    planks: 0,
     berry: 0,
-    papyrus: 0,
     stone: 0,
     iron: 0,
 };
