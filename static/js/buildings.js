@@ -12,6 +12,13 @@ function hasIdleBuilder() {
 }
 
 function buildBuilding(tile, type, duration) {
+    if (currentHour >= nightTime) {
+        sendAlert('error', "Your builders are asleep.");
+
+        return
+    }
+
+
     const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 
     if (buildersHut === undefined) {
@@ -21,6 +28,9 @@ function buildBuilding(tile, type, duration) {
     }
 
     const citizenId = buildersHut.function.available_citizens[0]
+    const citizen = userCitizens.find(citizen => citizen.id === citizenId)
+
+    citizen.status = 'working'
 
     buildersHut.function.available_citizens.shift()
 
@@ -48,6 +58,7 @@ function buildBuilding(tile, type, duration) {
         updateActionsMenu()
 
         buildersHut.function.available_citizens.push(citizenId)
+        citizen.status = 'idle'
 
         sendAlert('success', `Finished building ${type}`)
 

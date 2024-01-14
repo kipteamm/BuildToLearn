@@ -172,3 +172,24 @@ function addCitizen(buildingId) {
     updateResource('unemployed', -1)
     updateActionsMenu();
 } 
+
+function removeCitizen(citizenId) {
+    const citizen = userCitizens.find(citizen => citizen.id === citizenId)
+
+    if (citizen.employment === null) return
+
+    if (citizen.status !== 'idle') {
+        sendAlert('error', "Wait for this citizen to finish.")
+
+        return
+    }
+
+    const buildingData = userBuildings.find(building => building.id === citizen.employment)
+
+    buildingData.citizens = buildingData.citizens.filter(_citizenId => _citizenId !== citizenId);
+
+    citizen.employment = null;
+
+    updateResource('unemployed', 1)
+    updateActionsMenu();
+}
