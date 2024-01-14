@@ -56,6 +56,12 @@ function getSkill(skill=null) {
 }
 
 function collect() {
+    if (currentHour > nightTime || currentHour < dayTime) {
+        sendAlert('error', "Your citizens are currently asleep.")
+
+        return
+    }
+
     const availableCitizen = userCitizens.find(citizen => citizen.employment === null && citizen.status === "idle")
 
     if (availableCitizen === undefined) {

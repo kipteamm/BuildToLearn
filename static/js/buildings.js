@@ -12,7 +12,7 @@ function hasIdleBuilder() {
 }
 
 function buildBuilding(tile, type, duration) {
-    if (currentHour >= nightTime) {
+    if (currentHour > nightTime || currentHour < dayTime) {
         sendAlert('error', "Your builders are asleep.");
 
         return

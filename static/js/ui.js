@@ -107,6 +107,8 @@ function openActionMenu(tile) {
     if (activeTile === tile) {
         itemMenu.style.display = 'none';
 
+        activeTile = null // might break stuff
+
         return
     }
 
