@@ -168,7 +168,7 @@ function startReforestationCamp(building) {
             setTimeout(() => {
                 citizen.status = "idle"
 
-                updateTile(tile, 'sapling', true, 'stage-1');
+                updateTile(tile, 'treeSapling', true, 'stage-1');
             }, duration * 1000)
         }
     }

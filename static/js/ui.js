@@ -174,6 +174,11 @@ function updateActionsMenu() {
             addBuildingData(activeTile.id)
 
             break;
+        case "planting":
+            addDescription("A tree is being planted here.")
+            addStatus("planting")
+
+            break;
 
         case "stage-1":
         case "stage-2":
