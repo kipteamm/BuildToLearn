@@ -12,13 +12,6 @@ function hasIdleBuilder() {
 }
 
 function buildBuilding(tile, type, duration) {
-    if (currentHour > nightTime || currentHour < dayTime) {
-        sendAlert('error', "Your builders are asleep.");
-
-        return
-    }
-
-
     const buildersHut = userBuildings.find(building => building.id.startsWith("buildersHut") && building.function.available_citizens.length > 0);
 
     if (buildersHut === undefined) {
@@ -180,7 +173,7 @@ function hasEaten() {
 
     if (userResources.berry === 0) return false
 
-    updateResource('berry', -1)
+    updateResource('berry', -2)
 
     return true
 }

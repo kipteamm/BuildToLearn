@@ -102,6 +102,12 @@ function collect() {
 }
 
 function build(type) {
+    if (currentHour > nightTime || currentHour < dayTime) {
+        sendAlert('error', "Your builders are asleep.");
+
+        return
+    }
+    
     const tile = activeTile;
 
     toggleBuildMenu();
