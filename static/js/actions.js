@@ -87,9 +87,9 @@ function collect() {
 
     setTimeout(() => {
         if (type === 'berry') {
-            updateTile(tile, 'berrySeeds', true, 'stage-1', null, null, null)
+            updateTile(tile, 'berrySeeds', false, 'stage-1', null, null, null)
         } else {
-            updateTile(tile, 'grass', false, 'buildable', null, null, null)
+            updateTile(tile, 'grass', true, 'buildable', null, null, null)
         }
 
         updateActionsMenu()

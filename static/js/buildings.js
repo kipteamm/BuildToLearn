@@ -27,7 +27,7 @@ function buildBuilding(tile, type, duration) {
 
     buildersHut.function.available_citizens.shift()
 
-    updateTile(tile, null, false, 'building', new Date().getTime(), duration, 'no')
+    updateTile(tile, null, true, 'building', new Date().getTime(), duration, 'no')
 
     const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)
 
@@ -168,7 +168,7 @@ function startReforestationCamp(building) {
             setTimeout(() => {
                 citizen.status = "idle"
 
-                updateTile(tile, 'treeSapling', true, 'stage-1');
+                updateTile(tile, 'treeSapling', false, 'stage-1');
             }, duration * 1000)
         }
     }

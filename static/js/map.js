@@ -276,9 +276,9 @@ function collectResource(tile, availableCitizens, duration, type) {
         citizen.status = "idle";
 
         if (type === "berry") {
-            updateTile(tile, 'berrySeeds', true, 'stage-1');
+            updateTile(tile, 'berrySeeds', false, 'stage-1');
         } else {
-            updateTile(tile, 'grass', false, 'buildable')
+            updateTile(tile, 'grass', true, 'buildable')
         }
 
         
