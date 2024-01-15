@@ -145,9 +145,9 @@ function startReforestationCamp(building) {
                 break;
             }
 
-            tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
+            tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5).filter(tile => tile.getAttribute('type') === 'grass');
 
-            if (tiles.filter(tile => tile.getAttribute('type') === 'grass').length > 1) {
+            if (tiles.length > 1) {
                 break;
             }
 
@@ -161,6 +161,8 @@ function startReforestationCamp(building) {
         citizen.status = 'working'
 
         for (let i = 0; i < 2; i++) {
+            const tile = tiles[i]
+
             updateTile(tile, null, false, 'planting', new Date().getTime(), duration)
 
             setTimeout(() => {

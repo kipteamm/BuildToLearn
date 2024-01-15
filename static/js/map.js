@@ -254,7 +254,7 @@ function findTiles(building, type) {
         tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
 
         if (tiles.some(tile => tile.getAttribute('type') === type)) {
-            return [tiles, 0];
+            return [tiles, duration];
         }
 
         radius += 1;

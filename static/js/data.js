@@ -131,7 +131,8 @@ const buildingDescriptions = {
     house: "A place where your citizens can live.",
     lumberCamp: "Employ citizens to harvest trees for you.",
     gatherersHut: "Employ citizens to gather berries for you.",
-    foodMarket: "Provide your citizens with food."
+    foodMarket: "Provide your citizens with food.",
+    reforestationCamp: "Employ citizens to plant trees for you."
 }
 
 // let userForaging = []; // default
