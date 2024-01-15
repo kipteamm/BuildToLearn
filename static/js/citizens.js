@@ -1,7 +1,7 @@
 let citizenHappinessLevels = []
 
 const employmentAge = 7;
-const adultHood = 20;
+const adultHood = 16;
 
 let surnames;
 let names;
@@ -275,7 +275,7 @@ function startLabour(citizen) {
     const partner = userCitizens.find(_citizen => _citizen.id === citizen.partner)
 
     if (Math.floor(Math.random() * 20) + 1 === 1) {
-        sendAlert('error', "A citizen died in labour.")
+        sendAlert('error', "A citizen died while giving birth.")
 
         const deadCitizen = [citizen, partner][Math.floor(Math.random() * 2)];
 
