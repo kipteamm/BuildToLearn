@@ -46,7 +46,7 @@ function spawnCitizen(parent_1=null, parent_2=null) {
         lastComplaint: 0,
         status: "idle",
         pregnant: null,
-        onDayStart: (citizen) => {calculateCitizenHappiness(citizen)}
+        onDayStart: (citizen) => calculateCitizenHappiness(citizen)
     }
 
     userCitizens.push(citizen)

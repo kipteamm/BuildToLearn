@@ -55,7 +55,6 @@ const buildingTypes = {
         max_citizens: 3,
         add_citizen: true,
         function: {
-            radius: 1,
             status: "unstaffed",
             onDayStart: (building) => startLumberCamp(building)
         }
@@ -65,7 +64,6 @@ const buildingTypes = {
         max_citizens: 3,
         add_citizen: true,
         function: {
-            radius: 1,
             status: "unstaffed",
             onDayStart: (building) => startGatherersHut(building)
         }
@@ -75,7 +73,6 @@ const buildingTypes = {
         max_citizens: 1,
         add_citizen: true,
         function: {
-            radius: 1,
             status: "unstaffed",
             onDayStart: (building) => {}
         }
@@ -86,6 +83,15 @@ const buildingTypes = {
         add_citizen: false,
         function: {
             onDayStart: (building) => {}
+        }
+    },
+    reforestationCamp: {
+        ...baseBuildingTemplate,
+        max_citizens: 3,
+        add_citizen: true,
+        function: {
+            status: "unstaffed",
+            onDayStart: (building) => startReforestationCamp(building)
         }
     }
 };

@@ -239,6 +239,54 @@ function getTilesInRadius(x, y, radius) {
     return tiles;
 }
 
+function findTiles(building, type) {
+    let tiles = [];
+    let radius = 1;
+
+    while (true) {
+        duration = (dayDuration / 4) + Math.floor(radius / 2);
+
+        if (duration >= dayDuration / 2) {
+            building.function.status = "out_of_range";
+            return [], 0;
+        }
+
+        tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
+
+        if (tiles.some(tile => tile.getAttribute('type') === type)) {
+            return tiles, 0;
+        }
+
+        radius += 1;
+    }
+}
+
+function collectResource(tile, availableCitizens, duration, type) {
+    if (availableCitizens.length === 0 || tile.getAttribute('type') !== type) {
+        return;
+    }
+
+    const citizenId = availableCitizens.shift();
+    const citizen = userCitizens.find(citizen => citizen.id === citizenId);
+
+    citizen.status = "working";
+    updateTile(tile, null, false, 'collecting', new Date().getTime(), duration);
+
+    setTimeout(() => {
+        citizen.status = "idle";
+
+        if (type === "berry") {
+            updateTile(tile, 'berrySeeds', true, 'stage-1');
+        } else {
+            updateTile(tile, 'grass', false, 'buildable')
+        }
+
+        
+        updateResource(type, 4);
+    }, duration * 1000);
+}
+
+
 // seeds
 function growSeeds() {
     document.querySelectorAll('[type="berrySeeds"]').forEach(element => {
