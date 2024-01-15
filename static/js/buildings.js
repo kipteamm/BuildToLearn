@@ -27,7 +27,7 @@ function buildBuilding(tile, type, duration) {
 
     buildersHut.function.available_citizens.shift()
 
-    updateTile(tile, null, true, 'building', new Date().getTime(), duration, 'no')
+    updateTile(tile, null, false, 'building', new Date().getTime(), duration, 'no')
 
     const neighbouringTiles = getTilesInRadius(parseInt(tile.getAttribute('pos-x')), parseInt(tile.getAttribute('pos-y')), 1)
 
@@ -42,7 +42,7 @@ function buildBuilding(tile, type, duration) {
     setTimeout(() => {
         const id = `${type}-${new Date().getTime().toString().replace('.', '')}`.replace('-', '_')
 
-        updateTile(tile, type, true, 'built')
+        updateTile(tile, type, false, 'built')
 
         tile.id = id
 

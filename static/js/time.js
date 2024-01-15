@@ -16,6 +16,8 @@ setInterval(() => {
         currentDay += 1;
 
         updateIndicator('day', currentDay);
+
+        growPlants()
     }
 
     if (currentHour >= nightTime) {
@@ -46,8 +48,6 @@ function newWorkDay() {
     });
 
     calculateHappiness();
-
-    growSeeds()
 }
 
 function forceNewDay() {

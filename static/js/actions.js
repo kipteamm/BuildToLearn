@@ -137,7 +137,7 @@ function build(type) {
 
     const id = `buildersHut_${new Date().getTime().toString().replace('.', '')}`;
 
-    updateTile(tile, 'buildersHut', true, 'built', null, null, 'no')
+    updateTile(tile, 'buildersHut', false, 'built', null, null, 'no')
 
     tile.id = id;
 

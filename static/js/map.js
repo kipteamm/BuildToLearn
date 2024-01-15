@@ -188,7 +188,7 @@ function createTile(type, posX, posY) {
         status = 'buildable'
     }
 
-    updateTile(tile, type, false, status, null, null, 'yes', posX, posY)
+    updateTile(tile, type, true, status, null, null, 'yes', posX, posY)
 
     return tile
 }
@@ -197,7 +197,7 @@ function generateBerries() {
     berries.forEach(coordinates => {
         getTilesInRadius(coordinates.pos_x, coordinates.pos_y, 1).forEach(tile => {
             if (seedData() < 0.75) {
-                updateTile(tile, 'berry', false, 'collectable', null, null, 'yes')
+                updateTile(tile, 'berry', true, 'collectable', null, null, 'yes')
             }
         })
     })
@@ -205,7 +205,7 @@ function generateBerries() {
 
 function updateTile(tile, type=null, randomStyle=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null) {
     if (type !== null) {
-        tile.setAttribute('class', randomStyle ? `tile ${type}-tile` : `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}`);
+        tile.setAttribute('class', randomStyle ? `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}` : `tile ${type}-tile`);
         tile.setAttribute('type', type);
     }
     if (status !== null) tile.setAttribute('status', status);
@@ -288,19 +288,34 @@ function collectResource(tile, availableCitizens, duration, type) {
 
 
 // seeds
-function growSeeds() {
+function growPlants() {
     document.querySelectorAll('[type="berrySeeds"]').forEach(element => {
         const stage = element.getAttribute('status').split('-')[1]
 
         let newStatus = `stage-${parseInt(stage) + 1}`
         let type = "berrySeeds"
-        let randomStyle = true
 
         if (stage === "3") {
             newStatus = "collectable"
 
             type = 'berry'
-            randomStyle = false
+        }
+
+        updateTile(element, type, false, newStatus)
+    })
+
+    document.querySelectorAll('[type="treeSapling"]').forEach(element => {
+        const stage = element.getAttribute('status').split('-')[1]
+
+        let newStatus = `stage-${parseInt(stage) + 1}`
+        let type = "treeSapling"
+        let randomStyle = false
+
+        if (stage === "3") {
+            newStatus = "collectable"
+
+            type = 'wood'
+            randomStyle = true
         }
 
         updateTile(element, type, randomStyle, newStatus)
