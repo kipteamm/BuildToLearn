@@ -295,5 +295,9 @@ function startLabour(citizen) {
 
     child.house = citizen.house
 
+    const house = userBuildings.find(building => building.id === citizen.house)
+
+    house.citizens.push(child.id)
+
     sendAlert('success', "A new child was born!")
 }
