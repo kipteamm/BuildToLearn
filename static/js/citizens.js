@@ -1,6 +1,6 @@
 let citizenHappinessLevels = []
 
-const employmentAge = 10;
+const employmentAge = 7;
 const adultHood = 20;
 
 let surnames;
@@ -108,10 +108,10 @@ function calculateCitizenHappiness(citizen) {
             if (!citizenComplaints.includes('No housing for a couple.') && !citizenComplaints.includes('No housing.')) citizenComplaints.push('No housing for a couple.');
         }
 
-        happiness -= 5 + citizen.lastComplaint
+        happiness -= 10 + citizen.lastComplaint
     }
 
-    if (citizen.employment === null && citizen.age > employmentAge) {
+    if (citizen.employment === null && citizen.age >= employmentAge) {
         happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('No employment.')) citizenComplaints.push('No employment.');
@@ -119,18 +119,18 @@ function calculateCitizenHappiness(citizen) {
         updateResource('unemployed', 1)
     }
 
-    if (happiness > 75 && citizen.partner === null && citizen.age > adultHood) {
+    if (happiness > 75 && citizen.partner === null && citizen.age >= adultHood) {
         findPartner(citizen)
     }
 
-    if (citizen.partner === null && currentDay > 1 && citizen.age > adultHood) {
+    if (citizen.partner === null && currentDay > 1 && citizen.age >= adultHood) {
         happiness -= 5 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('Lonely citizens.')) citizenComplaints.push('Lonely citizens.');
     }
 
     if (!hasEaten()) {
-        happiness -= 5 + citizen.lastComplaint
+        happiness -= 15 + citizen.lastComplaint
 
         if (!citizenComplaints.includes('Hungry citizens.')) citizenComplaints.push('Hungry citizens.');
     }
@@ -143,7 +143,7 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint = 0
     }
 
-    if (happiness > 85 && currentDay > 0 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age > adultHood) {
+    if (happiness > 85 && currentDay > 0 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age >= adultHood) {
         getPregnant(citizen)
     } 
 
