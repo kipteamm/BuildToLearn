@@ -117,6 +117,11 @@ const buildingRequirements = {
         resources: { wood: 5 },
         time: 15,
     },
+    reforestationCamp: {
+        skill: 'foraging',
+        resources: { wood: 5 },
+        time: 15,
+    }
 };
 
 let userBuildings = [];
@@ -130,7 +135,7 @@ const buildingDescriptions = {
 }
 
 // let userForaging = []; // default
-let userForaging = ['collect', 'lumberCamp']
+let userForaging = ['collect', 'lumberCamp', 'reforestationCamp', 'sawmill']
 let userFarming = ['collect', 'gatherersHut'];
 let userMining = [];
 let userTrading = ['foodMarket']

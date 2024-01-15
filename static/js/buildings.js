@@ -75,7 +75,7 @@ function startLumberCamp(building) {
         return
     }
 
-    const { tiles, duration } = findTiles(building, 'wood')
+    const [tiles, duration] = findTiles(building, 'wood')
 
     if (tiles.length < 1) {
         building.function.status = "out_of_range";
@@ -101,7 +101,7 @@ function startGatherersHut(building) {
         return;
     }
 
-    const { tiles, duration } = findTiles(building, 'berry')
+    const [tiles, duration] = findTiles(building, 'berry')
 
     if (tiles.length < 1) {
         building.function.status = "out_of_range";

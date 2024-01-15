@@ -142,7 +142,7 @@ function generateMap() {
     const selections = ['grass', 'wood', 'stone', 'berry', 'iron'];
     const probabilities = [0.440, 0.410, 0.1, 0.025, 0.025];
 
-    console.log(probabilities.reduce((a, b) => a + b, 0));
+    //console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -248,13 +248,13 @@ function findTiles(building, type) {
 
         if (duration >= dayDuration / 2) {
             building.function.status = "out_of_range";
-            return [], 0;
+            return [[], 0];
         }
 
         tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
 
         if (tiles.some(tile => tile.getAttribute('type') === type)) {
-            return tiles, 0;
+            return [tiles, 0];
         }
 
         radius += 1;

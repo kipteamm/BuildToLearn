@@ -105,6 +105,17 @@ body, html {
     background-position: 0 -128px;
 }
 
+/* BERRY SEEDS */
+.treeSapling-tile[status="stage-1"] {
+    background-position: -512px 0;
+}
+.treeSapling-tile[status="stage-2"] {
+    background-position: -512px -64px;
+}
+.treeSapling-tile[status="stage-3"]  {
+    background-position: -512px -128px;
+}
+
 
 /* BUILDINGS */
 .buildersHut-tile {
@@ -121,4 +132,7 @@ body, html {
 }
 .foodMarket-tile {
     background-position: -448px -64px;
+}
+.reforestationCamp-tile {
+    background-position: -448px -128px;
 }
