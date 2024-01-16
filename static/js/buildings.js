@@ -124,22 +124,18 @@ function startReforestationCamp(building) {
 
     if (building.function.status === "out_of_range") {
         sendAlert('error', "There is no empty space left.")
-        
+
         return;
     }
 
     const availableCitizens = Array.from(building.citizens)
 
     availableCitizens.forEach(citizen => {
-        let [tiles, duration, radius] = findTiles(building, 'grass')
+        let [tiles, duration, radius] = findTiles(building, 'grass', 1, 'buildable')
 
-        tiles = tiles.filter(tile => tile.getAttribute('type') === 'grass');
+        tiles = tiles.filter(tile => tile.getAttribute('type') === 'grass' && tile.getAttribute('status') === 'buildable');
 
-        if (tiles.length < 2 && (dayDuration / 4) + Math.floor(radius / 2) < dayDuration / 2) {
-            tiles.concat(findTiles(building, 'grass', radius).filter(tile => tile.getAttribute('type') === 'grass'));
-        } else if (tiles.length > 1) {
-            tiles.length = 2
-        } else {
+        if ((dayDuration / 4) + Math.floor(radius / 2) > dayDuration / 2) {
             building.function.status = "out_of_range";
 
             sendAlert('error', "There is no empty space left.")

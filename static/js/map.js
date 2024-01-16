@@ -239,7 +239,7 @@ function getTilesInRadius(x, y, radius) {
     return tiles;
 }
 
-function findTiles(building, type, radius=1) {
+function findTiles(building, type, radius=1, status=null) {
     let tiles = [];
 
     while (true) {
@@ -252,8 +252,14 @@ function findTiles(building, type, radius=1) {
 
         tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
 
-        if (tiles.some(tile => tile.getAttribute('type') === type)) {
-            return [tiles, duration, radius];
+        if (status === null) {
+            if (tiles.some(tile => tile.getAttribute('type') === type)) {
+                return [tiles, duration, radius];
+            }
+        } else {
+            if (tiles.some(tile => tile.getAttribute('type') === type && tile.getAttribute('status') === status)) {
+                return [tiles, duration, radius];
+            }
         }
 
         radius += 1;
