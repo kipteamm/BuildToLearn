@@ -143,6 +143,10 @@ function startReforestationCamp(building) {
             return
         }
 
+        if (tiles.length > 1) {
+            tiles.length = 1
+        }
+
         citizen.status = 'working'
 
         tiles.forEach(tile => {

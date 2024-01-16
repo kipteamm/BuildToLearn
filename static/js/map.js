@@ -299,11 +299,13 @@ function growPlants() {
 
         let newStatus = `stage-${parseInt(stage) + 1}`
         let type = "berrySeeds"
+        let randomStyle = false
 
         if (stage === "3") {
             newStatus = "collectable"
 
             type = 'berry'
+            randomStyle = true
         }
 
         updateTile(element, type, false, newStatus)

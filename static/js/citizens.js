@@ -293,11 +293,13 @@ function startLabour(citizen) {
     citizen.children.push(child.id)
     partner.children.push(child.id)
 
-    child.house = citizen.house
+    if (citizen.house || partner.house) {
+        child.house = citizen.house
 
-    const house = userBuildings.find(building => building.id === citizen.house)
+        const house = userBuildings.find(building => building.id === citizen.house)
 
-    house.citizens.push(child.id)
+        house.citizens.push(child.id)
+    }
 
     sendAlert('success', "A new child was born!")
 }
