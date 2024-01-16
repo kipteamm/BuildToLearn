@@ -239,22 +239,21 @@ function getTilesInRadius(x, y, radius) {
     return tiles;
 }
 
-function findTiles(building, type) {
+function findTiles(building, type, radius=1) {
     let tiles = [];
-    let radius = 1;
 
     while (true) {
         duration = (dayDuration / 4) + Math.floor(radius / 2);
 
         if (duration >= dayDuration / 2) {
             building.function.status = "out_of_range";
-            return [[], 0];
+            return [[], 0, radius];
         }
 
         tiles = getTilesInRadius(building.x, building.y, radius).sort(() => Math.random() - 0.5);
 
         if (tiles.some(tile => tile.getAttribute('type') === type)) {
-            return [tiles, duration];
+            return [tiles, duration, radius];
         }
 
         radius += 1;

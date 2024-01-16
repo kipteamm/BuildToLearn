@@ -130,7 +130,7 @@ function calculateCitizenHappiness(citizen) {
     }
 
     if (!hasEaten()) {
-        happiness -= 15 + citizen.lastComplaint
+        happiness -= 15 + citizen.lastComplaint * 5
 
         if (!citizenComplaints.includes('Hungry citizens.')) citizenComplaints.push('Hungry citizens.');
     }
