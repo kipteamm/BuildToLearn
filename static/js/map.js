@@ -308,7 +308,7 @@ function growPlants() {
             randomStyle = true
         }
 
-        updateTile(element, type, false, newStatus)
+        updateTile(element, type, randomStyle, newStatus)
     })
 
     document.querySelectorAll('[type="treeSapling"]').forEach(element => {
