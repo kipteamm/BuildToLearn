@@ -143,11 +143,11 @@ function calculateCitizenHappiness(citizen) {
         citizen.lastComplaint = 0
     }
 
-    if (happiness > 85 && currentDay > 0 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age >= adultHood) {
+    if (happiness > 50 && currentDay > 0 && citizen.children.length < 6 && citizen.pregnant === null && citizen.age >= adultHood) {
         getPregnant(citizen)
     } 
 
-    if (citizen.pregnant && citizen.pregnant + 5 === currentDay) {
+    if (citizen.pregnant && citizen.pregnant + 3 >= currentDay) {
         startLabour(citizen)
     }
 

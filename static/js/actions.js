@@ -163,7 +163,7 @@ function addCitizen(buildingId) {
         return
     }
 
-    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null && citizen.status === "idle" && citizen.age > employmentAge));
+    const citizen = getRandomElement(userCitizens.filter(citizen => citizen.employment === null && citizen.status === "idle" && citizen.age >= employmentAge));
 
     if (citizen === undefined) {
         sendAlert('error', "There is no one available right now.")
