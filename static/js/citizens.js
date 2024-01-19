@@ -147,7 +147,7 @@ function calculateCitizenHappiness(citizen) {
         getPregnant(citizen)
     } 
 
-    if (citizen.pregnant && citizen.pregnant + 3 >= currentDay) {
+    if (citizen.pregnant && citizen.pregnant + 3 <= currentDay) {
         startLabour(citizen)
     }
 
