@@ -75,6 +75,7 @@ function startLumberCamp(building) {
         return
     }
 
+    // rewrite
     const [tiles, duration, radius] = findTiles(building, 'wood')
 
     if (tiles.length < 1) {
@@ -87,6 +88,7 @@ function startLumberCamp(building) {
     
     const availableCitizens = Array.from(building.citizens);
 
+    // rewrite
     tiles.forEach(tile => collectResource(tile, availableCitizens, duration, 'wood'));
 }
 

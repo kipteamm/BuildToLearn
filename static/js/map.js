@@ -139,10 +139,10 @@ function customRandom(seed) {
 }
 
 function generateMap() {
-    const selections = ['grass', 'wood', 'stone', 'berry', 'iron'];
-    const probabilities = [0.440, 0.410, 0.1, 0.025, 0.025];
+    const tileTypes = ['grass', 'oak', 'spruce', 'berry'];
+    const probabilities = [0.425, 0.275, 0.275, 0.025];
 
-    //console.log(probabilities.reduce((a, b) => a + b, 0));
+    console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -151,11 +151,11 @@ function generateMap() {
             const randomValue = seedData();
             let cumulativeProbability = 0;
 
-            for (let j = 0; j < selections.length; j++) {
+            for (let j = 0; j < tileTypes.length; j++) {
                 cumulativeProbability += probabilities[j];
 
                 if (randomValue <= cumulativeProbability) {
-                    row.appendChild(createTile(selections[j], columnIndex, rowIndex));
+                    row.appendChild(createTile(tileTypes[j], columnIndex, rowIndex));
                     break;
                 }
             }

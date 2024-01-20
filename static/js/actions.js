@@ -38,15 +38,12 @@ function getSkill(skill=null) {
     }
 
     switch (activeTile.getAttribute('type')) {
-        case "wood":
+        case "oak":
+        case "spruce":
             return userForaging
 
         case "berry":
             return userFarming
-
-        case "stone":
-        case "iron":
-            return userMining
 
         case "grass":
             return ['build']

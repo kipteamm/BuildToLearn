@@ -51,13 +51,13 @@ body, html {
 }
 
 /* TREES */
-.wood-tile-1 {
+.oak-tile-1 {
     background-position: -256px 0px;
 }
-.wood-tile-2 {
+.oak-tile-2 {
     background-position: -256px -64px;
 }
-.wood-tile-3 {
+.oak-tile-3 {
     background-position: -256px -128px;
 }
 
