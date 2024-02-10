@@ -39,40 +39,28 @@ body, html {
     filter: brightness(75%);
 }
 
-/* GRASSES */
-.grass-tile-1 {
-    background-position: -320px 0px;
+/* TREES */
+.oakSapling-tile[status="stage-1"] {
+    background-position: 0px 0;
 }
-.grass-tile-2 {
-    background-position: -320px -64px;
+.oakSapling-tile[status="stage-2"] {
+    background-position: 0px -64px;
 }
-.grass-tile-3 {
-    background-position: -320px -128px;
+.oakSapling-tile[status="stage-3"]  {
+    background-position: 0px -128px;
 }
 
-/* TREES */
 .oak-tile-1 {
-    background-position: -256px 0px;
+    background-position: -64px 0px;
 }
 .oak-tile-2 {
-    background-position: -256px -64px;
+    background-position: -64px -64px;
 }
 .oak-tile-3 {
-    background-position: -256px -128px;
+    background-position: -64px -128px;
 }
 
-/* BERRY */
-.berry-tile-1 {
-    background-position: -192px 0px;
-}
-.berry-tile-2 {
-    background-position: -192px -64px;
-}
-.berry-tile-3 {
-    background-position: -192px -128px;
-}
-
-/* BERRY SEEDS */
+/* BERRIES */
 .berrySeeds-tile[status="stage-1"] {
     background-position: -128px 0;
 }
@@ -83,56 +71,64 @@ body, html {
     background-position: -128px -128px;
 }
 
-/* STONES */
-.stone-tile-1 {
-    background-position: -64px 0px;
+.berry-tile-1 {
+    background-position: -192px 0px;
 }
-.stone-tile-2 {
-    background-position: -64px -64px;
+.berry-tile-2 {
+    background-position: -192px -64px;
 }
-.stone-tile-3 {
-    background-position: -64px -128px;
-}
-
-/* IRONS */
-.iron-tile-1 {
-    background-position: 0 0;
-}
-.iron-tile-2 {
-    background-position: 0 -64px;
-}
-.iron-tile-3 {
-    background-position: 0 -128px;
+.berry-tile-3 {
+    background-position: -192px -128px;
 }
 
-/* BERRY SEEDS */
-.treeSapling-tile[status="stage-1"] {
-    background-position: -512px 0;
+/* SPRUCE */
+.spruceSapling-tile[status="stage-1"] {
+    background-position: -256px 0;
 }
-.treeSapling-tile[status="stage-2"] {
-    background-position: -512px -64px;
+.spruceSapling-tile[status="stage-2"] {
+    background-position: -256px -64px;
 }
-.treeSapling-tile[status="stage-3"]  {
-    background-position: -512px -128px;
+.spruceSapling-tile[status="stage-3"]  {
+    background-position: -256px -128px;
 }
 
+.spruce-tile-1 {
+    background-position: -320px 0px;
+}
+.spruce-tile-2 {
+    background-position: -320px -64px;
+}
+.spruce-tile-3 {
+    background-position: -320px -128px;
+}
+
+/* GRASSES */
+.grass-tile-1 {
+    background-position: -384px 0px;
+}
+.grass-tile-2 {
+    background-position: -384px -64px;
+}
+.grass-tile-3 {
+    background-position: -384px -128px;
+}
 
 /* BUILDINGS */
 .buildersHut-tile {
-    background-position: -384px 0px;
+    background-position: -488px 0px;
 }
 .lumberCamp-tile {
-    background-position: -384px -64px;
+    background-position: -488px -64px;
 }
 .house-tile {
-    background-position: -384px -128px;
+    background-position: -488px -128px;
 }
 .gatherersHut-tile {
-    background-position: -448px -0px;
+    background-position: -512px -0px;
 }
 .foodMarket-tile {
-    background-position: -448px -64px;
+    background-position: -512px -64px;
 }
 .reforestationCamp-tile {
-    background-position: -448px -128px;
+    background-position: -512px -128px;
 }

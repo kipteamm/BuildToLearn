@@ -311,17 +311,17 @@ function growPlants() {
         updateTile(element, type, randomStyle, newStatus)
     })
 
-    document.querySelectorAll('[type="treeSapling"]').forEach(element => {
+    document.querySelectorAll('[type="oakSapling"]').forEach(element => {
         const stage = element.getAttribute('status').split('-')[1]
 
         let newStatus = `stage-${parseInt(stage) + 1}`
-        let type = "treeSapling"
+        let type = "oakSapling"
         let randomStyle = false
 
         if (stage === "3") {
             newStatus = "collectable"
 
-            type = 'wood'
+            type = 'oak'
             randomStyle = true
         }
 
