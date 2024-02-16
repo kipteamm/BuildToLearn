@@ -38,8 +38,7 @@ function getSkill(skill=null) {
     }
 
     switch (activeTile.getAttribute('type')) {
-        case "oak":
-        case "spruce":
+        case "wood":
             return userForaging
 
         case "berry":
@@ -72,9 +71,6 @@ function collect() {
     
     if (type === 'grass') {
         return
-    }
-    if (type === "oak" || type === "spruce") {
-        type = "wood"
     }
 
     availableCitizen.status = "collecting"
@@ -184,7 +180,7 @@ function addCitizen(buildingId) {
     updateActionsMenu();
 } 
 
-function removeCitizen(citizenId) {
+function unemployCitizen(citizenId) {
     const citizen = userCitizens.find(citizen => citizen.id === citizenId)
 
     if (citizen.employment === null) return

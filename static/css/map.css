@@ -126,20 +126,20 @@ body, html {
 
 /* BUILDINGS */
 .buildersHut-tile {
-    background-position: -488px 0px;
+    background-position: -512px 0px;
 }
 .lumberCamp-tile {
-    background-position: -488px -64px;
-}
-.house-tile {
-    background-position: -488px -128px;
-}
-.gatherersHut-tile {
-    background-position: -512px -0px;
-}
-.foodMarket-tile {
     background-position: -512px -64px;
 }
-.reforestationCamp-tile {
+.house-tile {
     background-position: -512px -128px;
+}
+.gatherersHut-tile {
+    background-position: -576px -0px;
+}
+.foodMarket-tile {
+    background-position: -576px -64px;
+}
+.reforestationCamp-tile {
+    background-position: -576px -128px;
 }

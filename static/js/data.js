@@ -56,7 +56,7 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
-            onDayStart: (building) => startLumberCamp(building)
+            onDayStart: (building) => collectResources(building, 'wood')
         }
     },
     gatherersHut: {
@@ -65,7 +65,7 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
-            onDayStart: (building) => startGatherersHut(building)
+            onDayStart: (building) => collectResources(building, 'berry')
         }
     },
     foodMarket: {
@@ -91,6 +91,7 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
+            tree_type: "spruce",
             onDayStart: (building) => startReforestationCamp(building)
         }
     }
@@ -147,10 +148,8 @@ let userResources = {
     citizens: 0,
     unemployed: 0,
     happiness: 100,
-    wood: 0,
+    wood: 100,
     berry: 0,
-    stone: 0,
-    iron: 0,
 };
 
 // CITIZENS

@@ -239,7 +239,7 @@ function addBuildingData(buildingId) {
         if (buildingId.includes('house')) {
             citizenHTML += ` (${citizen.age})`
         } else {
-            citizenHTML += ` (${citizen.status}) <button onclick="removeCitizen('${citizenId}')">Remove</button>`
+            citizenHTML += ` (${citizen.status}) <button onclick="unemployCitizen('${citizenId}')">Remove</button>`
         }
 
         citizenHTML += '</li>'

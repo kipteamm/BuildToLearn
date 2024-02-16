@@ -194,7 +194,13 @@ function createTile(type, posX, posY) {
         status = 'buildable'
     }
 
-    updateTile(tile, type, true, status, null, null, 'yes', posX, posY)
+    explicitType = type
+
+    if (type === "oak" || type === "spruce") {
+        explicitType = "wood"
+    }
+
+    updateTile(tile, type, true, status, null, null, 'yes', posX, posY, explicitType)
 
     return tile
 }
@@ -225,7 +231,7 @@ function generateRiver() {
             y += seedData() < 0.5 ? -1 : 1;
         }
 
-        if ((x !== prevX || y !== prevY) && Math.abs(x - prevX) <= 1 && Math.abs(y - prevY) <= 1) {
+        if ((x !== prevX || y !== prevY) && Math.abs(x - prevX) <= 1 && Math.abs(y - prevY) <= 1 && y > 0 && y < 29) {
             if (y !== prevY) {
                 flowTile = document.querySelector(`[pos-x="${x}"][pos-y="${prevY}"]`);
 
@@ -252,10 +258,10 @@ function generateBerries() {
     })
 }
 
-function updateTile(tile, type=null, randomStyle=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null) {
+function updateTile(tile, type=null, randomStyle=false, status=null, statusStart=null, statusDuration=null, growable=null, posX=null, posY=null, explicitType=null) {
     if (type !== null) {
         tile.setAttribute('class', randomStyle ? `tile ${type}-tile-${Math.floor(seedData() * 3) + 1}` : `tile ${type}-tile`);
-        tile.setAttribute('type', type);
+        tile.setAttribute('type', (explicitType !== null) ? explicitType : type);
     }
     if (status !== null) tile.setAttribute('status', status);
     if (statusStart !== null) tile.setAttribute('status-start', statusStart);
@@ -315,15 +321,9 @@ function findTiles(building, type, radius=1, status=null) {
     }
 }
 
-function collectResource(tile, availableCitizens, duration, type) {
-    if (availableCitizens.length === 0 || tile.getAttribute('type') !== type) {
-        return;
-    }
-
-    const citizenId = availableCitizens.shift();
-    const citizen = userCitizens.find(citizen => citizen.id === citizenId);
-
+function collectResource(tile, citizen, duration, type) {
     citizen.status = "working";
+
     updateTile(tile, null, false, 'collecting', new Date().getTime(), duration);
 
     setTimeout(() => {
@@ -334,12 +334,10 @@ function collectResource(tile, availableCitizens, duration, type) {
         } else {
             updateTile(tile, 'grass', true, 'buildable')
         }
-
         
         updateResource(type, 4);
     }, duration * 1000);
 }
-
 
 // seeds
 function growPlants() {

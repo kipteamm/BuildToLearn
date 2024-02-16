@@ -33,17 +33,15 @@ async function loadTabContents(tabId) {
     if (tabId === 'city') {
         await fetchNames()
 
-        seedData = customRandom(1)
+        const randomSeedThing = Math.floor(Math.random() * 100000000000000)
+
+        seedData = customRandom(randomSeedThing)
 
         for (var i = 0; i < 10; i++) {
             spawnCitizen()
         }
 
         generateMap()
-
-        for (const [key, val] of Object.entries(userResources)) {
-            updateResource(key, 0)
-        }
 
         newWorkDay()
     }
