@@ -40,7 +40,6 @@ async function loadTabContents(tabId) {
         }
 
         generateMap()
-        generateBerries()
 
         for (const [key, val] of Object.entries(userResources)) {
             updateResource(key, 0)

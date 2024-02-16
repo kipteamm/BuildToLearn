@@ -139,10 +139,16 @@ function customRandom(seed) {
 }
 
 function generateMap() {
+    generateTiles()
+    generateBerries()
+    generateRiver()
+}
+
+function generateTiles() {
     const tileTypes = ['grass', 'oak', 'spruce', 'berry'];
     const probabilities = [0.425, 0.275, 0.275, 0.025];
 
-    console.log(probabilities.reduce((a, b) => a + b, 0));
+    //console.log(probabilities.reduce((a, b) => a + b, 0));
 
     for (let rowIndex = 0; rowIndex < 30; rowIndex ++) {
         const row = createTileRow();
@@ -193,10 +199,53 @@ function createTile(type, posX, posY) {
     return tile
 }
 
+function generateRiver() {
+    const leftSide = document.querySelectorAll('[pos-x="0"]');
+
+    let currentTile = leftSide[Math.floor(seedData() * leftSide.length)];
+
+    updateTile(currentTile, 'water', true, 'water', null, null, 'no');
+
+    let prevX = parseInt(currentTile.getAttribute('pos-x'));
+    let prevY = parseInt(currentTile.getAttribute('pos-y'));
+
+    while (parseInt(currentTile.getAttribute('pos-x')) < 49) {
+        let x = parseInt(currentTile.getAttribute('pos-x'));
+        let y = parseInt(currentTile.getAttribute('pos-y'));
+
+        x += 1
+
+        const yProb = Math.max(0.1, Math.min(0.9, seedData()));
+        if (y > 0 && y < 29 && seedData() < yProb) {
+            y += seedData() < 0.5 ? -1 : 1;
+        }
+
+        const straightProb = seedData();
+        if (seedData() < straightProb) {
+            y += seedData() < 0.5 ? -1 : 1;
+        }
+
+        if ((x !== prevX || y !== prevY) && Math.abs(x - prevX) <= 1 && Math.abs(y - prevY) <= 1) {
+            if (y !== prevY) {
+                flowTile = document.querySelector(`[pos-x="${x}"][pos-y="${prevY}"]`);
+
+                updateTile(flowTile, 'water', true, 'water', null, null, 'no');
+            }
+
+            currentTile = document.querySelector(`[pos-x="${x}"][pos-y="${y}"]`);
+        
+            updateTile(currentTile, 'water', true, 'water', null, null, 'no');
+
+            prevX = x;
+            prevY = y;
+        }
+    }
+}
+
 function generateBerries() {
     berries.forEach(coordinates => {
         getTilesInRadius(coordinates.pos_x, coordinates.pos_y, 1).forEach(tile => {
-            if (seedData() < 0.75) {
+            if (seedData() < 0.35) {
                 updateTile(tile, 'berry', true, 'collectable', null, null, 'yes')
             }
         })

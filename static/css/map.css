@@ -113,6 +113,17 @@ body, html {
     background-position: -384px -128px;
 }
 
+/* WATER */
+.water-tile-1 {
+    background-position: -448px 0px;
+}
+.water-tile-2 {
+    background-position: -448px -64px;
+}
+.water-tile-3 {
+    background-position: -448px -128px;
+}
+
 /* BUILDINGS */
 .buildersHut-tile {
     background-position: -488px 0px;
