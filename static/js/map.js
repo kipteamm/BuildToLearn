@@ -266,7 +266,7 @@ function updateTile(tile, type=null, randomStyle=false, status=null, statusStart
 }
 
 /* ITEMS */
-const collectables = ['wood', 'berry', 'stone', 'iron']
+const collectables = ['oak', 'spruce', 'berry']
 
 function getTilesInRadius(x, y, radius) {
     let tiles = [];

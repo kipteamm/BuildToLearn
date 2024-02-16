@@ -68,10 +68,13 @@ function collect() {
     }
 
     const tile = activeTile
-    const type = tile.getAttribute('type')
+    let type = tile.getAttribute('type')
     
     if (type === 'grass') {
         return
+    }
+    if (type === "oak" || type === "spruce") {
+        type = "wood"
     }
 
     availableCitizen.status = "collecting"
