@@ -56,6 +56,8 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
+            storage: 0,
+            max_storage: 25,
             onDayStart: (building) => collectResources(building, 'wood')
         }
     },
@@ -65,6 +67,8 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
+            storage: 0,
+            max_storage: 25,
             onDayStart: (building) => collectResources(building, 'berry')
         }
     },
@@ -74,6 +78,8 @@ const buildingTypes = {
         add_citizen: true,
         function: {
             status: "unstaffed",
+            storage: 0,
+            max_storage: 25,
             onDayStart: (building) => {}
         }
     },

@@ -65,12 +65,18 @@ function buildBuilding(tile, type, duration) {
 
 // resource collectors
 function collectResources(building, type) {
-    if (building.citizens.length < 1) {
-        return
-    }
+    if (building.citizens.length < 1) return;
+
+    if (currentHour > nightTime || currentHour < dayTime) return;
 
     if (building.function.status === "out_of_range") {
         sendAlert('error', "Trees are too far away.")
+
+        return
+    }
+
+    if (building.function.storage >= building.function.max_storage) {
+        sendAlert('error', `${building} ran out of storage space.`)
 
         return
     }
@@ -110,9 +116,13 @@ function collectResources(building, type) {
         const citizen = userCitizens.find(citizen => citizen.id === citizenId);
 
         collectResource(tile, citizen, duration, type);
+
+        building.function.storage += 1;
     }
 
     console.log('finished', building);
+
+    collectResources();
 }
 
 // reforestation camp

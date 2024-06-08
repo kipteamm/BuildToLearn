@@ -251,7 +251,14 @@ function addBuildingData(buildingId) {
         addCitizen = `<button onclick="addCitizen('${buildingId}')">Add citizen</button>`
     }
 
+    let storage = ''
+
+    if (buildingData.function.max_storage) {
+        storage = `Storage: ${buildingData.function.storage} / ${buildingData.function.max_storage}`
+    }
+
     itemMenu.querySelector('.status').innerHTML += `
+        ${storage}
         <ul>
             ${citizenHTML}
         </ul>

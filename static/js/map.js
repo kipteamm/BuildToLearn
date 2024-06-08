@@ -335,7 +335,7 @@ function collectResource(tile, citizen, duration, type) {
             updateTile(tile, 'grass', true, 'buildable')
         }
         
-        updateResource(type, 4);
+        updateResource(type, 1);
     }, duration * 1000);
 }
 
