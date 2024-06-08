@@ -186,12 +186,34 @@ function startReforestationCamp(building) {
 }
 
 // market
-function hasEaten() {
-    if (!userBuildings.some(building => building.id.includes('foodMarket_') && building.citizens.length === 1)) return false
+function stockBuilding(building, type) {
+    if (building.citizens.length < 1) return;
 
-    if (userResources.berry === 0) return false
+    if (currentHour > nightTime || currentHour < dayTime) return;
+
+    if (building.function.storage > building.function.max_storage) {
+        sendAlert('error', `${building.id} ran out of storage space.`)
+
+        return
+    }
+
+    const supplier = userBuildings.filter(building => building.id.includes(type === "wood"? 'lumberCamp_' : 'gatherersHut') && building.function.storage > 0).sort((a, b) => a.function.storage - b.function.storage)[0];
+    const max_capacity = Math.min(building.function.max_storage - building.function.storage, supplier.function.storage);
+
+    supplier.function.storage -= max_capacity;
+    building.function.storage += max_capacity;
+
+    console.log('finished', building);
+}
+
+function hasEaten() {
+    const building = userBuildings.find(building => building.id.includes('foodMarket_') && building.citizens.length === 1 && building.function.storage > 1);
+
+    if (building === undefined) return false
 
     updateResource('berry', -2)
+
+    building.function.storage -= 2
 
     return true
 }

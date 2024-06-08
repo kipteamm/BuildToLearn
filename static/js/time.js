@@ -1,9 +1,9 @@
 const nightOverlay = document.getElementById('night-overlay');
-const dayDuration = 3 * 60; // minutes
+const dayDuration = 6 * 60; // minutes
 const hourDuration = (dayDuration / 24) * 1000;
 
 let nightTime = 20;
-let dayTime = 8
+let dayTime = 7;
 
 let currentHour = dayTime;
 let currentDay = 0;

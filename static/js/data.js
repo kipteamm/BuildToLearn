@@ -80,7 +80,7 @@ const buildingTypes = {
             status: "unstaffed",
             storage: 0,
             max_storage: 25,
-            onDayStart: (building) => {}
+            onDayStart: (building) => stockBuilding(building, 'berry')
         }
     },
     house: {
